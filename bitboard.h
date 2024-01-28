@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <cassert>
+#include <vector>
 
 #include "types.h"
 
@@ -34,11 +35,28 @@ constexpr Bitboard square_to_bb(Square sq) {
 
 extern uint8_t PopCnt16[1 << 16];
 extern uint8_t SquareDistance[64][64];
+extern uint8_t CenterDistance[64];
 
-extern Bitboard between_bb[64][64];
-extern Bitboard line_bb[64][64];
+extern Bitboard BetweenBB[64][64];
+extern Bitboard LineBB[64][64];
 extern Bitboard PseudoAttacks[6][64];
 extern Bitboard PawnAttacks[2][64];
+
+
+struct Magic {
+	Bitboard mask;
+	Bitboard magic;
+	Bitboard* attacks;
+	unsigned shift;
+
+	// Compute the attack's index
+	unsigned index(Bitboard occupied) const {
+		return (unsigned)(((occupied & mask) * magic) >> shift);
+	}
+};
+
+extern Magic RookMagics[64];
+extern Magic BishopMagics[64];
 
 
 // Overload bitwise operators between a Bitboard and a Square
@@ -84,12 +102,13 @@ inline int popcount(Bitboard b) {
 	#endif
 }
 
+
 template<PieceType Pt>
 inline Bitboard attacks_bb(Square s, Bitboard occupied) {
 	
-	assert((pt != PAWN) && is_ok(s));
+	assert((Pt != PAWN) && is_ok(s));
 
-	switch (pt) {
+	switch (Pt) {
 		case BISHOP:
 			return BishopMagics[s].attacks[BishopMagics[s].index(occupied)];
 		case ROOK:
@@ -113,9 +132,13 @@ inline Bitboard attacks_bb(PieceType pt, Square s, Bitboard occupied) {
 		case QUEEN:
 			return attacks_bb<ROOK>(s, occupied) | attacks_bb<BISHOP>(s, occupied);
 		default:
-			return PseudoAttacks[Pt][s];
+			return PseudoAttacks[pt][s];
 	}
 }
+
+
+Bitboard sliding_attack(PieceType pt, Square sq, Bitboard occupied);
+
 
 
 template<Direction d>
@@ -164,22 +187,64 @@ namespace Bitboards {
 }
 
 
-struct Magic {
-	Bitboard mask;
-	Bitboard magic;
-	Bitboard* attacks;
-	unsigned shift;
+inline Square lsb(Bitboard bb) {
+	assert(bb);
 
-	// Compute the attack's index
-	unsigned index(Bitboard occupied) const {
-		return 0;
+	#if defined(__GNUC__)
+	return Square(__builtin_ctzll(bb));
+
+	#elif defined(_MSC_VER)
+		#ifdef _WIN64
+		unsigned long idx;
+		_BitScanForward(&idx, bb);
+		return Square(idx);
+
+		#else
+		unsigned long idx;
+
+		if (bb & 0xffffffff)
+		{
+			_BitScanForward(&idx, int32_t(bb));
+			return Square(idx);
+		}
+		else
+		{
+			_BitScanForward(&idx, int32_t(bb >> 32));
+			return Square(idx + 32);
+		}
+		#endif
+	
+	#endif
+}
+
+inline Square pop_lsb(Bitboard& bb) {
+	assert(bb);
+
+	const Square s = lsb(bb);
+	bb &= bb - 1;
+	return s;
+}
+
+
+inline std::vector<Square> get_one_bits(Bitboard bb) {
+	std::vector<Square> bits(popcount(bb));
+
+	for (int i = 0; bb; ++i)
+	{
+		bits[i] = pop_lsb(bb);
 	}
-};
 
-extern Magic RookMagics[64];
-extern Magic BishopMagics[64];
+	return bits;
+}
 
-void init_magics(PieceType pt, Bitboard table[], Magic magics[]);
+
+inline void inc_same_bit_cnt(Bitboard& bb) {
+	assert(bb);
+
+	const Bitboard lsb_bb = bb & -bb;
+	const Bitboard ripple_bb = bb + lsb_bb;
+	bb = ripple_bb | ((bb ^ ripple_bb) >> 2) / lsb_bb;
+}
 
 
 #endif // #ifndef BITBOARD_H_INCLUDED

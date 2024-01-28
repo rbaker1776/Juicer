@@ -84,4 +84,18 @@ inline Square& operator-=(Square& sq, Direction d) { return sq = sq - d; }
 constexpr bool is_ok(Square s) { return s >= SQ_a1 && s <= SQ_h8; }
 
 
+#if defined(USE_PEXT)
+	#include <immintrin.h>  // Header for _pext_u64() intrinsic
+	#define pext(b, m) _pext_u64(b, m)
+#else
+	#define pext(b, m) 0
+#endif
+
+    #ifdef USE_PEXT
+constexpr bool HasPext = true;
+    #else
+constexpr bool HasPext = false;
+    #endif
+
+
 #endif // #ifndef TYPES_H_INCLUDED

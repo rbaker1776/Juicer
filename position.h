@@ -20,8 +20,8 @@ class Position {
 	public:
 	 static void init();
 
-	 Position() = default;
-	 Position(const Position&) = delete;
+	 Position() 						  = default;
+	 Position(const Position&)            = delete;
 	 Position& operator=(const Position&) = delete;
 
 	 Position& seed(const std::string& fen);
