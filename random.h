@@ -1,44 +1,31 @@
-#ifndef RANDOM_H_INCLUDED
-#define RANDOM_H_INCLUDED
+#ifndef RANDOM_H_CD03DDF5000E
+#define RANDOM_H_CD03DDF5000E
 
 
-#include <algorithm>
-#include <cassert>
-#include <chrono>
-#include <cstddef>
-#include <cstdint>
-#include <iosfwd>
-#include <string>
-#include <vector>
 
+class PRNG
+{
+	private: uint64_t s;
+	private: static constexpr int64_t mult = 2685821657736338717ll;
 
-class PRNG {
+	private: uint64_t rand64()
+	{
+		s ^= s >> 12;
+		s ^= s << 25;
+		s ^= s >> 27;
+		return s * mult;
+	}
 
-    uint64_t s;
+	public: PRNG(uint64_t seed): s(seed)
+	{ assert(seed != 0); }
 
-    uint64_t rand64() {
+	public: template<typename T>
+	T rand() { return T(rand64()); }
 
-        s ^= s >> 12, s ^= s << 25, s ^= s >> 27;
-        return s * 2685821657736338717LL;
-    }
-
-   public:
-    PRNG(uint64_t seed) :
-        s(seed) {
-        assert(seed);
-    }
-
-    template<typename T>
-    T rand() {
-        return T(rand64());
-    }
-
-    // Special generator used to fast init magic numbers.
-    // Output values only have 1/8th of their bits set on average.
-    template<typename T>
-    T sparse_rand() {
-        return T(rand64() & rand64() & rand64());
-    }
+	public: template<typename T>
+	T sparse_rand() { return T(rand64() & rand64() & rand64()); }
 };
 
-#endif // #ifndef RANDOM_H_INCLUDED
+
+
+#endif // RANDOM_H_CD03DDF5000E

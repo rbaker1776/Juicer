@@ -6,12 +6,14 @@
 #include "random.h"
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
 	PRNG rng(42);
 
 	auto start = std::chrono::high_resolution_clock::now();
 
 	Bitboards::init();
+	Bitboards::print(PseudoAttacks[PAWN][SQ_a3]);
 
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);

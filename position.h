@@ -3,7 +3,8 @@
 
 
 
-struct StateInfo {
+struct StateInfo 
+{{{
 	 
 	 Key 	material_key;
 	 Key 	pawn_key;
@@ -13,10 +14,11 @@ struct StateInfo {
 	 int 	plies_from_null;
 	 Square ep_square;
 
-}
+}}}
 
 
-class Position {
+class Position 
+{{{
 	public:
 	 static void init();
 
