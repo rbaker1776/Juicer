@@ -2,6 +2,7 @@
 #include "miniunit.h"
 #include "bitboard.h"
 #include "random.h"
+#include "position.h"
 
 
 
