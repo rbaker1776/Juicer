@@ -1,46 +1,71 @@
-#ifndef POSITION_H_C668DBDA2B2D
-#define POSITION_H_C668DBDA2B2D
+#ifndef POSITION_H_7A8B21A194A6
+#define POSITION_H_7A8B21A194A6
 
+#include <string>
 #include "types.h"
+#include "bitboard.h"
 
 
 
 class Position
 {
-private: 
 	struct Gamestate
 	{
-		uint32_t castling_rights;
+		int castling_rights;
+		int rule_50;
+		int full_clock;
+		int half_clock;
 		Square ep_square;
-		uint32_t half_clock;
-		uint32_t full_clock;
 	};
 
-	uint64_t pieces[6];
-	uint64_t armies[2];
-	bool white_to_move;
-	struct Gamestate gamestate;
-
-public:
-	Position& seed(const std::string& fen);
-	inline void clear_board()
+	public: Position()
 	{
-		this->pieces[0] = this->pieces[1] = this->pieces[2] = this->pieces[3] = 
-		this->pieces[4] = this->pieces[5] = this->armies[0] = this->armies[1] = 0ull;
+		gamestate = new Gamestate;
 	}
-	inline void reset_gamestate()
-	{
-		this->gamestate.castling_rights = 0;
-		this->gamestate.half_clock = this->gamestate.full_clock = 0;
-		this->gamestate.ep_square = NO_SQUARE;
-	}
-	inline void place(char piece, Square s)
-	{
-		
 
-	std::string& to_string() const;
+	public: ~Position()
+	{
+		delete this->gamestate;
+	}
+
+	private: uint64_t pieces[6];
+	private: uint64_t armies[2];
+	private: bool white_to_move;
+	private: struct Gamestate* gamestate;
+
+	private: Piece get_piece(Square s) const
+	{
+		if (this->armies[WHITE] & s)
+		{
+			if (this->pieces[PAWN] & s) { return W_PAWN; }
+			if (this->pieces[KNIGHT] & s) { return W_KNIGHT; }
+			if (this->pieces[BISHOP] & s) { return W_BISHOP; }
+			if (this->pieces[ROOK] & s) { return W_ROOK; }
+			if (this->pieces[QUEEN] & s) { return W_QUEEN; }
+			if (this->pieces[KING] & s) { return W_KING; }
+			else { return NO_PIECE; }
+		}
+		else if (this->armies[BLACK] & s)
+		{
+			if (this->pieces[PAWN] & s) { return B_PAWN; }
+			if (this->pieces[KNIGHT] & s) { return B_KNIGHT; }
+			if (this->pieces[BISHOP] & s) { return B_BISHOP; }
+			if (this->pieces[ROOK] & s) { return B_ROOK; }
+			if (this->pieces[QUEEN] & s) { return B_QUEEN; }
+			if (this->pieces[KING] & s) { return B_KING; }
+			else { return NO_PIECE; }
+		}
+		else
+		{
+			return NO_PIECE;
+		}
+	}
+
+	public: Position& seed(const std::string& fen);
+	public: std::string to_string() const;
+	public: std::string to_fen() const;
 };
+	
 
 
-
-#endif // POSITION_H_C668DBDA2B2D
+#endif // POSITION_H_7A8B21A194A6

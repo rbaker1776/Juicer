@@ -2,8 +2,8 @@ CC = g++
 STD = -std=c++20
 CFLAGS = -Wall -Wextra -Werror -pedantic -O0
 
-SRC = position.cpp
-SRC_H = types.h position.h
+SRC = bitboard.cpp position.cpp
+SRC_H = bitboard.h types.h random.h position.h
 TEST = test_juicer.cpp
 
 

@@ -161,7 +161,7 @@ std::string Bitboard::to_string(uint64_t bb)
 		{
 			s += bb & make_square(f, r) ? "| X " : "|   ";
 		}
-		s += "| " + std::to_string(1 + r) + '\n' + newline;
+		s += "| " + std::to_string(1+r) + '\n' + newline;
 	}
 
 	s += "  a   b   c   d   e   f   g   h";
