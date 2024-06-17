@@ -1,11 +1,11 @@
 CC = g++
 STD = -std=c++20
-CFLAGS = -Wall -Wextra -Werror -pedantic -O0
+CFLAGS = -O0
 
-SRC = bitboard.cpp position.cpp
-SRC_H = bitboard.h types.h random.h position.h
-TEST = test_juicer.cpp
+TEST = testjuicer
+TEST_SRC = tests/main.cpp tests/test_bitboard_utils.cpp tests/test_magic_bitboards.cpp bitboard.cpp
 
 
-test: $(SRC) $(SRC_H) $(TEST)
-	$(CC) $(STD) $(CFLAGS) $(SRC) $(TEST) -o test_juicer && ./test_juicer
+test: $(TEST_SRC)
+	$(CC) $(STD) $(CFLAGS) $(TEST_SRC) -o $(TEST) && time ./$(TEST)
+

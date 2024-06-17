@@ -1,6 +1,7 @@
 #ifndef BITBOARD_H_DE3A36A4E0B0
 #define BITBOARD_H_DE3A36A4E0B0
 
+#include <cstdint>
 #include "types.h"
 
 
@@ -41,34 +42,29 @@ constexpr int popcount(uint64_t bb)
 
 typedef struct Magic
 {
-	uint64_t magic;
 	uint64_t mask;
+	uint64_t magic;
 	uint64_t* attacks;
 	uint32_t shift;
 
-	inline uint32_t index(uint64_t occupied) const { return (occupied & mask) * magic >> shift; }
+	uint32_t index(uint64_t occupied) const { return (occupied & mask) * magic >> shift; }
 } Magic;
 
 extern Magic ROOK_MAGICS[64];
 extern Magic BISHOP_MAGICS[64];
 
-extern uint64_t ROOK_TABLE[0x15c00];
-extern uint64_t BISHOP_TABLE[0x12c0];
+extern uint64_t ROOK_TABLE[0x19000];
+extern uint64_t BISHOP_TABLE[0x1480];
 
 
 constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
-constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
 
 constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
 constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
 constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
-constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
-constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
-constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
-
-constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & square_to_bb(s2); }
-constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | square_to_bb(s2); }
-constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ square_to_bb(s2); }
+constexpr uint64_t operator&=(uint64_t bb, Square s) { return bb &= square_to_bb(s); }
+constexpr uint64_t operator|=(uint64_t bb, Square s) { return bb |= square_to_bb(s); }
+constexpr uint64_t operator^=(uint64_t bb, Square s) { return bb ^= square_to_bb(s); }
 
 constexpr File file_of(Square s) { return File(s & 7); }
 constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
@@ -87,32 +83,6 @@ extern uint8_t CENTER_DISTANCE[64];
 
 
 void init_bitboards();
-
-
-static std::string bb_to_string(uint64_t bb)
-{
-	const std::string newline = "+---+---+---+---+---+---+---+---+\n";
-	std::string s = newline;
-
-	for (Rank r = RANK_8; r >= RANK_1; --r)
-	{
-		for (File f = FILE_A; f <= FILE_H; ++f)
-		{
-			s += bb & make_square(f, r) ? "| X " : "|   ";
-		}
-		s += "| " + std::to_string(r + 1) + '\n' + newline;
-	}
-	
-	return s + "  a   b   c   d   e   f   g   h";
-}
-
-static std::string sq_to_string(Square s)
-{
-	std::string str = "A1";
-	str[0] += s & 7;
-	str[1] += s >> 3;
-	return str;
-}
 
 
 #endif // BITBOARD_H_DE3A36A4E0B0

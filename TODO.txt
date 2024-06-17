@@ -1,5 +1,0 @@
-get magic bitboards initalized
-finish sliding_attack
-...
-
-begin movegen
