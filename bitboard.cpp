@@ -1,13 +1,11 @@
 #include <bitset>
-#include <vector>
-#include <iostream>
-#include <fstream>
 #include "bitboard.h"
-#include "magics.h"
-#include "xorshiftstar64.h"
 
 
 uint8_t POPCOUNT16[65536];
+
+uint8_t SQUARE_DISTANCE[64][64];
+uint8_t CENTER_DISTANCE[64];
 
 Magic ROOK_MAGICS[64];
 Magic BISHOP_MAGICS[64];
@@ -15,16 +13,12 @@ Magic BISHOP_MAGICS[64];
 uint64_t ROOK_TABLE[0x15c00];
 uint64_t BISHOP_TABLE[0x12c0];
 
-uint8_t SQUARE_DISTANCE[64][64];
-uint8_t CENTER_DISTANCE[64];
-
 
 static uint64_t safe_step(Square s, int step)
 {
 	Square to = Square(s + step);
 	return (is_ok(to) && SQUARE_DISTANCE[s][to] <= 2) ? square_to_bb(to) : 0;
 }
-
 
 static uint64_t sliding_attack(PieceType pt, Square s, uint64_t occupied)
 {
@@ -41,6 +35,32 @@ static uint64_t sliding_attack(PieceType pt, Square s, uint64_t occupied)
 		}
 	}
 	return attacks;
+}
+
+
+std::string bb_to_string(uint64_t bb)
+{
+	const std::string newline = "+---+---+---+---+---+---+---+---+\n";
+	std::string s = newline;
+
+	for (Rank r = RANK_8; r >= RANK_1; --r)
+	{
+		for (File f = FILE_A; f <= FILE_H; ++f)
+		{
+			s += bb & make_square(f, r) ? "| X " : "|   ";
+		}
+		s += "| " + std::to_string(r + 1) + '\n' + newline;
+	}
+	
+	return s + "  a   b   c   d   e   f   g   h";
+}
+
+std::string sq_to_string(Square s)
+{
+	std::string str = "A1";
+	str[0] += s & 7;
+	str[1] += s >> 3;
+	return str;
 }
 
 
@@ -90,5 +110,5 @@ void init_bitboards()
 			bm.attacks[bm.index(blockers)] = sliding_attack(BISHOP, s, blockers);
 			blockers = (blockers - bm.mask) & bm.mask;
 		}
-	}	
+	}
 }

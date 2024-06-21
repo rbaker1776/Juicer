@@ -1,8 +1,6 @@
 #ifndef TYPES_H_E51343A1D293
 #define TYPES_H_E51343A1D293
 
-#include <iostream>
-
 
 enum Square: int
 {
@@ -69,6 +67,7 @@ enum Direction: int
 
 enum PieceType: int
 {
+	NO_PIECE_TYPE,
 	PAWN,
 	KNIGHT,
 	BISHOP,
@@ -76,8 +75,21 @@ enum PieceType: int
 	QUEEN,
 	KING,
 	ALL_PIECE_TYPES,
-	NO_PIECE_TYPE,
 };
+
+enum Piece: int
+{
+	NO_PIECE,
+	W_PAWN = PAWN, W_KNIGHT, W_BISHOP, W_ROOK, W_QUEEN, W_KING,
+	B_PAWN = PAWN + 8, B_KNIGHT, B_BISHOP, B_ROOK, B_QUEEN, B_KING,
+};
+
+enum Color: int
+{
+	WHITE,
+	BLACK,
+};
+
 
 constexpr Square operator+(Square sq, Direction d) { return Square(int(sq) + int(d)); }
 constexpr Square operator+(Square sq, int d) { return Square(int(sq) + d); }
@@ -88,6 +100,57 @@ constexpr Square& operator+=(Square& sq, Direction d) { return sq = sq + d; }
 constexpr Square& operator+=(Square& sq, int d) { return sq = sq + d; }
 constexpr Square& operator-=(Square& sq, Direction d) { return sq = sq - d; }
 constexpr Square& operator-=(Square& sq, int d) { return sq = sq - d; }
+
+constexpr Color operator~(Color c) { return Color(1 - int(c)); }
+constexpr Color& operator^=(Color& c, int n) { return c = Color(int(c) ^ n); }
+
+
+enum CastlingRights: int
+{
+	WHITE_OO  = 1,
+	WHITE_OOO = 2,
+	BLACK_OO  = 4,
+	BLACK_OOO = 8,
+};
+
+
+enum MoveType: int
+{
+	NORMAL = 0,
+	PROMOTION = 1 << 14,
+	EN_PASSANT = 2 << 14,
+	CASTLING = 3 << 14,
+};
+
+class Move
+{
+protected:
+	uint16_t data;
+
+public:
+	Move() = default;
+	constexpr explicit Move(uint16_t d): data(d) {}
+	constexpr Move(Square from, Square to): data((from << 6) + to) {}
+	
+	static constexpr Move make(Square from, Square to, MoveType mt = NORMAL, PieceType pt = KNIGHT)
+	{ return Move(mt + ((pt - KNIGHT) << 12) + (from << 6) + to); }
+
+	static constexpr Move none() { return Move(A1, A1); }
+	static constexpr Move null() { return Move(A2, A2); }
+
+	constexpr Square from() const { return Square((data >> 6) & 63); }
+	constexpr Square to() const { return Square(data & 63); }
+	constexpr int from_to() const { return data & 0xfff; }
+
+	constexpr MoveType type() const { return MoveType(data & (3 << 14)); }
+	constexpr PieceType promotion_type() const { return PieceType(((data >> 12) & 3) + KNIGHT); }
+
+	constexpr bool operator==(const Move& m) const { return this->data == m.data; }
+	constexpr bool operator!=(const Move& m) const { return this->data != m.data; }
+	
+	constexpr explicit operator bool() const { return data != 0; }
+	constexpr uint16_t get_data() const { return data; }
+};
 
 
 #endif // TYPES_H_E51343A1D293
