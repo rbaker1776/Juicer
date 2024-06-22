@@ -439,7 +439,21 @@ static void make_ep_captures()
 
 static void make_promotions()
 {{{
-	
+	Gamestate gs;
+	Position pos;
+	pos.seed("rnbqkbnr/ppppp1P1/8/8/7p/8/PPPP1PPP/RNBQKBNR w KQkq - 0 5", gs);
+
+	Gamestate gs2;
+	pos.make_move(Move::make(G7, H8, PROMOTION, QUEEN), gs2);
+	mu_assert(pos.piece_on(H8) == W_QUEEN);
+	mu_assert(pos.piece_on(G7) == NO_PIECE);
+	mu_assert(pos.pieces(WHITE, QUEEN) == (D1 | H8));
+
+	pos.seed("rnbqkbnr/pp1ppppp/8/8/8/1K6/PPP2pPP/RNBQ1BNR b kq - 1 5", gs);
+	pos.make_move(Move::make(F2, G1, PROMOTION, KNIGHT), gs2);
+	mu_assert(pos.piece_on(G1) == B_KNIGHT);
+	mu_assert(pos.piece_on(F2) == NO_PIECE);
+	mu_assert(pos.pieces(BLACK, KNIGHT) == (G1 | B8 | G8));
 }}}
 
 static void suite()
@@ -449,6 +463,7 @@ static void suite()
 	mu_run(Positions::make_captures);
 	mu_run(Positions::make_castles);
 	mu_run(Positions::make_ep_captures);
+	mu_run(Positions::make_promotions);
 }}}
 }
 
