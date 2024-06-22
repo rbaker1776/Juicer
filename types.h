@@ -113,9 +113,11 @@ enum CastlingRights: int
 	WHITE_OOO = 2,
 	BLACK_OO  = 4,
 	BLACK_OOO = 8,
+	WHITE_CASTLES = WHITE_OO | WHITE_OOO,
+	BLACK_CASTLES = BLACK_OO | BLACK_OOO,
 };
 
-constexpr int CASTLING_RIGHTS[2] = { WHITE_OO | WHITE_OOO, BLACK_OO | BLACK_OOO, };
+constexpr int CASTLING_RIGHTS[2] = { WHITE_CASTLES, BLACK_CASTLES };
 
 
 enum MoveType: int

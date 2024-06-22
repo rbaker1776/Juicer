@@ -57,7 +57,8 @@ std::string bb_to_string(uint64_t bb)
 
 std::string sq_to_string(Square s)
 {
-	std::string str = "A1";
+	if (s == NO_SQUARE) { return "-"; }
+	std::string str = "a1";
 	str[0] += s & 7;
 	str[1] += s >> 3;
 	return str;

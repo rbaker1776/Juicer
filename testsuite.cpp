@@ -318,20 +318,17 @@ static void make_simple_moves()
 	mu_assert(pos.pieces(W_PAWN) == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 	mu_assert(pos.side_to_move() == BLACK);
 	mu_assert(pos.ply() == 1);
-	mu_assert(pos.rule_50() == 1);
 
 	pos.make_move(Move::make(C7, C5), dummy_gs);
 	mu_assert(pos.pieces(W_PAWN) == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 	mu_assert(pos.pieces(B_PAWN) == (A7 | B7 | C5 | D7 | E7 | F7 | G7 | H7));
 	mu_assert(pos.side_to_move() == WHITE);
 	mu_assert(pos.ply() == 2);
-	mu_assert(pos.rule_50() == 2);
 
 	pos.make_move(Move::make(G1, F3), dummy_gs);
 	mu_assert(pos.pieces(W_KNIGHT) == (B1 | F3));
 	mu_assert(pos.side_to_move() == BLACK);
 	mu_assert(pos.ply() == 3);
-	mu_assert(pos.rule_50() == 3);
 
 	pos.seed("rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4", gs);
 	pos.make_move(Move::make(G8, F6), dummy_gs);
@@ -438,7 +435,7 @@ static void make_ep_captures()
 }}}
 
 static void make_promotions()
-{{{
+{{{ 
 	Gamestate gs;
 	Position pos;
 	pos.seed("rnbqkbnr/ppppp1P1/8/8/7p/8/PPPP1PPP/RNBQKBNR w KQkq - 0 5", gs);
@@ -456,14 +453,91 @@ static void make_promotions()
 	mu_assert(pos.pieces(BLACK, KNIGHT) == (G1 | B8 | G8));
 }}}
 
+static void fen_conversions()
+{{{
+	Gamestate gs;
+	Position pos;
+
+	for (std::string fen : {
+		"rnbqkbnr/ppppp1P1/8/8/7p/8/PPPP1PPP/RNBQKBNR w KQkq - 0 5",
+		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+		"rnbqkbnr/pppp1ppp/8/4p3/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3",
+		"rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+		"r1bqkb1r/pppp1ppp/2n2n2/1B2P3/4P3/5N2/PPP2PPP/RNBQK2R b KQkq - 4 5",
+		"rnbqkb1r/ppp2ppp/4pn2/3p4/3P4/5N2/PPP1PPPP/RNBQKB1R w KQkq - 0 5",
+		"r1bqk1nr/pppp1ppp/2n5/2b1P3/2B5/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+		"rnbqkbnr/pppp1ppp/8/4p3/2P5/8/PP1PPPPP/RNBQKBNR b KQkq - 0 2",
+		"rnbqkb1r/ppp2ppp/4pn2/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 4",
+		"rnbqkbnr/pp2pppp/8/2pp4/2B5/8/PPPP1PPP/RNBQK1NR w KQkq - 0 4",
+		"r1bqkbnr/1pp1pppp/p1n5/1B2P3/4P3/5N2/PPP2PPP/RNBQK2R w KQkq - 0 4",
+		"8/8/8/8/8/4k3/8/4K2R w - - 0 1",
+		"r3k2r/ppp1qppp/2n2n2/3p4/3P4/2N2N2/PPP1QPPP/R1B1KB1R w KQkq - 0 9",
+		"r2q1rk1/pb1n1pp1/1p2pn1p/2p1P3/2B1P3/2N2N2/PPP2PPP/R1BQ1RK1 w - - 0 10",
+		"8/8/8/8/8/8/6N1/7K w - - 0 1",
+		"8/5P2/8/8/8/8/8/7k w - - 0 1",
+	}) mu_assert(pos.seed(fen, gs).fen() == fen, fen + "\n\t" + pos.fen());
+}}}
+
+static void play_game()
+{{{
+	Position pos;
+	Gamestate gs[21];
+	Move moves[20] = 
+	{
+		Move::make(D2, D4), Move::make(A7, A5),
+		Move::make(D4, D5), Move::make(E7, E5),
+		Move::make(C1, G5), Move::make(C7, C5),
+		Move::make(D5, C6, EN_PASSANT), Move::make(A5, A4),
+		Move::make(G5, D8), Move::make(E8, D8),
+		Move::make(E2, E4), Move::make(A4, A3),
+		Move::make(F1, D3), Move::make(A3, B2),
+		Move::make(G1, E2), Move::make(B2, A1, PROMOTION, KNIGHT),
+		Move::make(E1, H1, CASTLES), Move::make(D7, D5),
+		Move::make(B1, A3), Move::make(A1, C2),
+	};
+	std::string fenstrings[21] = 
+	{
+		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+		"rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq - 0 1",
+		"rnbqkbnr/1ppppppp/8/p7/3P4/8/PPP1PPPP/RNBQKBNR w KQkq - 0 2",
+		"rnbqkbnr/1ppppppp/8/p2P4/8/8/PPP1PPPP/RNBQKBNR b KQkq - 0 2",
+		"rnbqkbnr/1ppp1ppp/8/p2Pp3/8/8/PPP1PPPP/RNBQKBNR w KQkq e6 0 3",
+		"rnbqkbnr/1ppp1ppp/8/p2Pp1B1/8/8/PPP1PPPP/RN1QKBNR b KQkq - 1 3",
+		"rnbqkbnr/1p1p1ppp/8/p1pPp1B1/8/8/PPP1PPPP/RN1QKBNR w KQkq c6 0 4",
+		"rnbqkbnr/1p1p1ppp/2P5/p3p1B1/8/8/PPP1PPPP/RN1QKBNR b KQkq - 0 4",
+		"rnbqkbnr/1p1p1ppp/2P5/4p1B1/p7/8/PPP1PPPP/RN1QKBNR w KQkq - 0 5",
+		"rnbBkbnr/1p1p1ppp/2P5/4p3/p7/8/PPP1PPPP/RN1QKBNR b KQkq - 0 5",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/p7/8/PPP1PPPP/RN1QKBNR w KQ - 0 6",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/p3P3/8/PPP2PPP/RN1QKBNR b KQ - 0 6",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/4P3/p7/PPP2PPP/RN1QKBNR w KQ - 0 7",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/4P3/p2B4/PPP2PPP/RN1QK1NR b KQ - 1 7",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/4P3/3B4/PpP2PPP/RN1QK1NR w KQ - 0 8",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/4P3/3B4/PpP1NPPP/RN1QK2R b KQ - 1 8",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/4P3/3B4/P1P1NPPP/nN1QK2R w K - 0 9",
+		"rnbk1bnr/1p1p1ppp/2P5/4p3/4P3/3B4/P1P1NPPP/nN1Q1RK1 b - - 1 9",
+		"rnbk1bnr/1p3ppp/2P5/3pp3/4P3/3B4/P1P1NPPP/nN1Q1RK1 w - - 0 10",
+		"rnbk1bnr/1p3ppp/2P5/3pp3/4P3/N2B4/P1P1NPPP/n2Q1RK1 b - - 1 10",
+		"rnbk1bnr/1p3ppp/2P5/3pp3/4P3/N2B4/P1n1NPPP/3Q1RK1 w - - 0 11",
+	};
+
+	pos.seed(fenstrings[0], gs[0]);
+	for (int i = 0; i < 20; ++i)
+	{
+		pos.make_move(moves[i], gs[i+1]);
+		mu_assert(pos.fen() == fenstrings[i+1], fenstrings[i+1] + "\n\t" + pos.fen());
+	}
+}}}
+
 static void suite()
-{{{   
+{{{ 
 	mu_run(Positions::fen_constructor);
 	mu_run(Positions::make_simple_moves);
 	mu_run(Positions::make_captures);
 	mu_run(Positions::make_castles);
 	mu_run(Positions::make_ep_captures);
 	mu_run(Positions::make_promotions);
+	mu_run(Positions::fen_conversions);
+	mu_run(Positions::play_game);
 }}}
 }
 

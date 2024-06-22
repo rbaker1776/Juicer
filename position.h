@@ -36,6 +36,7 @@ public:
 	~Position() = default;
 
 	Position& seed(const std::string& fen, Gamestate& gs);
+	std::string fen() const;
 	std::string to_string() const;
 
 	void make_move(const Move m, Gamestate& gs, bool is_check = false);

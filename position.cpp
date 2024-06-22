@@ -71,6 +71,42 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 	return *this;
 }
 
+std::string Position::fen() const
+{
+	std::ostringstream  ss;
+
+	// 1) Piece placement
+	for (Rank r = RANK_8; r >= RANK_1; --r)
+	{
+		for (File f = FILE_A; f <= FILE_H; ++f)
+		{
+			int empty_count = 0;
+			for (; f <= FILE_H && mailbox[make_square(f, r)] == NO_PIECE; ++f) { ++empty_count; }
+			if (empty_count) { ss << empty_count; }
+			if (f <= FILE_H) { ss << PIECE_TO_CHAR[mailbox[make_square(f, r)]]; }
+		}
+		if (r > RANK_1) { ss << '/'; }
+	}
+
+	// 2) Side to move
+	ss << (this->turn == WHITE ? " w " : " b ");
+
+	// 3) Castling rights
+	if (this->state->castling_rights & WHITE_OO)  { ss << 'K'; }
+	if (this->state->castling_rights & WHITE_OOO) { ss << 'Q'; }
+	if (this->state->castling_rights & BLACK_OO)  { ss << 'k'; }
+	if (this->state->castling_rights & BLACK_OOO) { ss << 'q'; }
+	if (this->state->castling_rights == 0) { ss << '-'; }
+
+	// 4) En passant target
+	ss << ' ' << sq_to_string(this->state->ep_square) << ' ';
+
+	// 5) Halfmoves and 6) Fullmoves
+	ss << state->rule_50 << ' ' << ((this->gameply - (turn == BLACK)) / 2 + 1); 
+
+	return ss.str();
+}
+
 std::string Position::to_string() const
 {
 	const std::string newline = "+---+---+---+---+---+---+---+---+\n";
@@ -134,7 +170,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 
 	if (type_of(pc) == PAWN)
 	{
-		if (SQUARE_DISTANCE[to][from] == 2 && pawn_attacks_bb(turn, to-pawn_push(turn)) % pieces(~turn, PAWN))
+		if (SQUARE_DISTANCE[to][from] == 2 && pawn_attacks_bb(turn, square_to_bb(to-pawn_push(turn))) & pieces(~turn, PAWN))
 			state->ep_square = to - pawn_push(turn);
 
 		else if (move.type() == PROMOTION)
@@ -142,6 +178,25 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 			remove_piece(to);
 			place_piece(turn, move.promotion_type(), to);
 		}
+		this->state->rule_50 = 0;
+	}
+	switch (from)
+	{
+		case E1: state->castling_rights &= ~WHITE_CASTLES; break;
+		case E8: state->castling_rights &= ~BLACK_CASTLES; break;
+		case A1: state->castling_rights &= ~WHITE_OOO; break;
+		case H1: state->castling_rights &= ~WHITE_OO; break;
+		case A8: state->castling_rights &= ~BLACK_OOO; break;
+		case H8: state->castling_rights &= ~BLACK_OO; break;
+		default: break;
+	}
+	switch (to)
+	{
+		case A1: state->castling_rights &= ~WHITE_OOO; break;
+		case H1: state->castling_rights &= ~WHITE_OO; break;
+		case A8: state->castling_rights &= ~BLACK_OOO; break;
+		case H8: state->castling_rights &= ~BLACK_OO; break;
+		default: break;
 	}
 
 	this->turn ^= 1;

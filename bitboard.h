@@ -100,7 +100,7 @@ constexpr uint64_t pawn_attacks_bb(Color c, uint64_t bb)
 				   	  : shift<SW>(bb) | shift<SE>(bb);
 }
 
-constexpr Direction pawn_push(Color c) { return c == WHITE ? N : S; }
+constexpr Direction pawn_push(Color c) { return c == WHITE ? Direction::N : Direction::S; }
 
 constexpr uint64_t PSEUDO_ATTACKS[7][64] = 
 {
