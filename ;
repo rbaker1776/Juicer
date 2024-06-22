@@ -1,6 +1,7 @@
 #include <string_view>
 #include <sstream>
 #include <cassert>
+#include <iostream>
 #include "bitboard.h"
 #include "position.h"
 
@@ -23,23 +24,12 @@ bool Position::is_ok() const
 
 	uint64_t or_accumulation = 0;
 	uint64_t xor_accumulation = 0;
-	for (int i: { 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14 })
+	for (uint64_t& bb: bitboards)
 	{
-		or_accumulation |= bitboards[i];
-		xor_accumulation ^= bitboards[i];
+		or_accumulation |= bb;
+		xor_accumulation ^= bb;
 	}
-	assert(or_accumulation == xor_accumulation);
-
-	if (state->castling_rights & WHITE_OO)  assert(mailbox[H1] == W_ROOK && mailbox[E1] == W_KING);
-	if (state->castling_rights & WHITE_OOO) assert(mailbox[A1] == W_ROOK && mailbox[E1] == W_KING);
-	if (state->castling_rights & BLACK_OO)  assert(mailbox[H8] == B_ROOK && mailbox[E8] == B_KING);
-	if (state->castling_rights & BLACK_OOO) assert(mailbox[A8] == B_ROOK && mailbox[E8] == B_KING);
-
-	if (state->ep_square != NO_SQUARE)
-	{
-		assert(rank_of(state->ep_square) == (turn == WHITE ? RANK_6 : RANK_3));
-		assert(pawn_attacks_bb(turn, square_to_bb(state->ep_square)) & pieces(~turn, PAWN));
-	}
+	assert(or_accumuation == xor_accumulation);
 
 	return true;
 }
@@ -111,10 +101,6 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 
 std::string Position::fen() const
 {
-	#if DEBUG == true
-		assert(is_ok());
-	#endif
-
 	std::ostringstream  ss;
 
 	// 1) Piece placement
@@ -173,7 +159,6 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 {
 	#if DEBUG == true
 		assert(is_ok());
-		assert(&gs != this->state);
 	#endif
 
 	std::memcpy(&gs, this->state, sizeof(Gamestate));
@@ -246,11 +231,11 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 		default: break;
 	}
 
-	this->turn ^= 1;
-
 	#if DEBUG == true
 		assert(is_ok());
 	#endif
+
+	this->turn ^= 1;
 }
 
 

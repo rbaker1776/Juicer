@@ -3,6 +3,7 @@
 
 #include <string>
 #include "types.h"
+#include "juicer.h"
 
 
 // Maximum number of legal moves in a chess position
@@ -28,8 +29,8 @@ private:
 	Color turn;
 	Gamestate* state;
 	int gameply;
-	Move legal_moves[MAX_LEGAL_MOVES];
-	uint8_t move_count;
+
+	bool is_ok() const;
 
 public:
 	Position() = default;

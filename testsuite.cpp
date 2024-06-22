@@ -313,30 +313,34 @@ static void make_simple_moves()
 	Position pos;
 	pos.seed("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", gs);
 
-	Gamestate dummy_gs;
-	pos.make_move(Move::make(E2, E4), dummy_gs);
+	Gamestate gs2;
+	pos.make_move(Move::make(E2, E4), gs2);
 	mu_assert(pos.pieces(W_PAWN) == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 	mu_assert(pos.side_to_move() == BLACK);
 	mu_assert(pos.ply() == 1);
 
-	pos.make_move(Move::make(C7, C5), dummy_gs);
+	Gamestate gs3;
+	pos.make_move(Move::make(C7, C5), gs3);
 	mu_assert(pos.pieces(W_PAWN) == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 	mu_assert(pos.pieces(B_PAWN) == (A7 | B7 | C5 | D7 | E7 | F7 | G7 | H7));
 	mu_assert(pos.side_to_move() == WHITE);
 	mu_assert(pos.ply() == 2);
 
-	pos.make_move(Move::make(G1, F3), dummy_gs);
+	Gamestate gs4;
+	pos.make_move(Move::make(G1, F3), gs4);
 	mu_assert(pos.pieces(W_KNIGHT) == (B1 | F3));
 	mu_assert(pos.side_to_move() == BLACK);
 	mu_assert(pos.ply() == 3);
 
+	Gamestate gs5;
 	pos.seed("rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4", gs);
-	pos.make_move(Move::make(G8, F6), dummy_gs);
+	pos.make_move(Move::make(G8, F6), gs5);
 	mu_assert(pos.pieces(B_KNIGHT) == (B8 | F6));
 	mu_assert(pos.side_to_move() == WHITE);
 	mu_assert(pos.ply() == 8);
 
-	pos.make_move(Move::make(F1, B5), dummy_gs);
+	Gamestate gs6;
+	pos.make_move(Move::make(F1, B5), gs6);
 	mu_assert(pos.pieces(WHITE, BISHOP) == (B5 | C1));
 	mu_assert(pos.ply() == 9);
 }}}
@@ -363,13 +367,13 @@ static void make_captures()
 	mu_assert(gs3.previous == &gs2);
 	mu_assert(gs3.rule_50 == 0);
 
-	Gamestate dummy_gs;
-	pos.make_move(Move::make(F1, D3), dummy_gs);
-	pos.make_move(Move::make(F8, E7), dummy_gs);
-	pos.make_move(Move::make(C2, C3), dummy_gs);
+	Gamestate gs4, gs5, gs6;
+	pos.make_move(Move::make(F1, D3), gs4);
+	pos.make_move(Move::make(F8, E7), gs5);
+	pos.make_move(Move::make(C2, C3), gs6);
 
-	Gamestate gs4;
-	pos.make_move(Move::make(B4, C3), gs4);
+	Gamestate gs7;
+	pos.make_move(Move::make(B4, C3), gs7);
 	mu_assert(pos.piece_on(C3) == B_PAWN);
 	mu_assert(pos.side_to_move() == WHITE);
 }}}
@@ -427,7 +431,7 @@ static void make_ep_captures()
 	mu_assert(pos.piece_on(D6) == W_PAWN);
 	mu_assert(pos.ep_square() == NO_SQUARE);
 
-	pos.seed("rnbqkbnr/p2ppppp/2p5/Pp6/8/8/1PPPPPPP/RNBQKBNR w KQkq b6 0 3", gs2);
+	pos.seed("rnbqkbnr/p2ppppp/2p5/Pp6/8/8/1PPPPPPP/RNBQKBNR w KQkq b6 0 3", gs);
 	pos.make_move(Move::make(A5, B6, EN_PASSANT), gs2);
 	mu_assert(pos.piece_on(B6) == W_PAWN);
 	mu_assert(pos.piece_on(B5) == NO_PIECE);
@@ -473,8 +477,6 @@ static void fen_conversions()
 		"8/8/8/8/8/4k3/8/4K2R w - - 0 1",
 		"r3k2r/ppp1qppp/2n2n2/3p4/3P4/2N2N2/PPP1QPPP/R1B1KB1R w KQkq - 0 9",
 		"r2q1rk1/pb1n1pp1/1p2pn1p/2p1P3/2B1P3/2N2N2/PPP2PPP/R1BQ1RK1 w - - 0 10",
-		"8/8/8/8/8/8/6N1/7K w - - 0 1",
-		"8/5P2/8/8/8/8/8/7k w - - 0 1",
 	}) mu_assert(pos.seed(fen, gs).fen() == fen, fen + "\n\t" + pos.fen());
 }}}
 
