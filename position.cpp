@@ -100,23 +100,49 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 	const Square from = move.from();
 	const Square to = move.to();
 	const Piece pc = this->mailbox[from];
-	const Piece captured_pc = this->mailbox[to];
+	const Piece captured_pc = move.type() == EN_PASSANT ? this->mailbox[to + pawn_push(~turn)] : this->mailbox[to];
 
 	++this->gameply;
 	++this->state->rule_50;
 	
-	if (move.type() == CASTLING)
+	if (move.type() == CASTLES)
 	{
+		const Direction d = from > to ? Direction::W : Direction::E;
+		remove_piece(from);
+		remove_piece(to);
+		place_piece(this->turn, ROOK, from + d);
+		place_piece(this->turn, KING, from + 2 * d);
+		this->state->castling_rights &= ~CASTLING_RIGHTS[this->turn];
 	}
 	else if (captured_pc != NO_PIECE)
 	{
-		remove_piece(to);
+		if (move.type() == EN_PASSANT)
+			remove_piece(to + pawn_push(~this->turn));
+		else
+			remove_piece(to);
 		this->state->rule_50 = 0;
 	}
 
-	this->mailbox[to] = pc;
-	this->mailbox[from] = NO_PIECE;
-	this->bitboards[pc] ^= square_to_bb(from) | to;
+	if (move.type() != CASTLES)
+	{
+		this->mailbox[to] = pc;
+		this->mailbox[from] = NO_PIECE;
+		this->bitboards[pc] ^= square_to_bb(from) | to;
+	}
+
+	this->state->ep_square = NO_SQUARE;
+
+	if (type_of(pc) == PAWN)
+	{
+		if (SQUARE_DISTANCE[to][from] == 2 && pawn_attacks_bb(turn, to-pawn_push(turn)) % pieces(~turn, PAWN))
+			state->ep_square = to - pawn_push(turn);
+
+		else if (move.type() == PROMOTION)
+		{
+			remove_piece(to);
+			place_piece(turn, move.promotion_type(), to);
+		}
+	}
 
 	this->turn ^= 1;
 }

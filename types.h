@@ -104,6 +104,8 @@ constexpr Square& operator-=(Square& sq, int d) { return sq = sq - d; }
 constexpr Color operator~(Color c) { return Color(1 - int(c)); }
 constexpr Color& operator^=(Color& c, int n) { return c = Color(int(c) ^ n); }
 
+constexpr PieceType type_of(Piece pc) { return PieceType(pc & 7); }
+
 
 enum CastlingRights: int
 {
@@ -113,13 +115,15 @@ enum CastlingRights: int
 	BLACK_OOO = 8,
 };
 
+constexpr int CASTLING_RIGHTS[2] = { WHITE_OO | WHITE_OOO, BLACK_OO | BLACK_OOO, };
+
 
 enum MoveType: int
 {
 	NORMAL = 0,
 	PROMOTION = 1 << 14,
 	EN_PASSANT = 2 << 14,
-	CASTLING = 3 << 14,
+	CASTLES = 3 << 14,
 };
 
 class Move

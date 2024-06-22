@@ -345,7 +345,7 @@ static void make_simple_moves()
 }}}
 
 static void make_captures()
-{{{
+{{{ 
 	Gamestate gs;
 	Position pos;
 	pos.seed("rnbqkb1r/5ppp/p2ppn2/3N4/Pp1NP3/7P/1PP2PP1/R1BQKB1R w KQkq - 0 9", gs);
@@ -377,11 +377,78 @@ static void make_captures()
 	mu_assert(pos.side_to_move() == WHITE);
 }}}
 
-static void suite()
+static void make_castles()
 {{{ 
+	Gamestate gs;
+	Position pos;
+	pos.seed("rnbqk2r/ppp2ppp/4pn2/3p4/2PP4/P1P2P2/4P1PP/R1BQKBNR b KQkq - 0 6", gs);
+
+	Gamestate gs2;
+	pos.make_move(Move::make(E8, H8, CASTLES), gs2);
+	mu_assert(pos.piece_on(G8) == B_KING);
+	mu_assert(pos.piece_on(F8) == B_ROOK);
+	mu_assert(pos.piece_on(H8) == NO_PIECE);
+	mu_assert(pos.piece_on(E8) == NO_PIECE);
+	mu_assert(pos.castling_rights() == 3);
+
+	pos.seed("rn1q1rk1/p4ppp/bp3n2/2pp4/3P4/P1PBPP2/4N1PP/R1BQK2R w KQ - 2 12", gs);
+	pos.make_move(Move::make(E1, H1, CASTLES), gs2);
+	mu_assert(pos.piece_on(E1) == NO_PIECE);
+	mu_assert(pos.piece_on(F1) == W_ROOK);
+	mu_assert(pos.piece_on(G1) == W_KING);
+	mu_assert(pos.piece_on(H1) == NO_PIECE);
+	mu_assert(pos.castling_rights() == 0);
+
+	pos.seed("r1b1k2r/pppq1ppp/n3pn2/1N1P4/1PP5/P7/2Q2PPP/R3KBNR w KQkq - 1 13", gs);
+	pos.make_move(Move::make(E1, A1, CASTLES), gs2);
+	mu_assert(pos.piece_on(E1) == NO_PIECE);
+	mu_assert(pos.piece_on(D1) == W_ROOK);
+	mu_assert(pos.piece_on(C1) == W_KING);
+	mu_assert(pos.piece_on(A1) == NO_PIECE);
+	mu_assert(pos.castling_rights() == 12);
+
+	pos.seed("r3k2r/ppp2ppp/n4n2/1N1P1b2/1PB5/P7/5PPP/2KR2NR b kq - 1 16", gs);
+	pos.make_move(Move::make(E8, A8, CASTLES), gs2);
+	mu_assert(pos.piece_on(E8) == NO_PIECE);
+	mu_assert(pos.piece_on(D8) == B_ROOK);
+	mu_assert(pos.piece_on(C8) == B_KING);
+	mu_assert(pos.piece_on(A8) == NO_PIECE);
+	mu_assert(pos.castling_rights() == 0);
+}}}
+
+static void make_ep_captures()
+{{{
+	Gamestate gs;
+	Position pos;
+	pos.seed("rnbqkbnr/pp2pppp/2p5/3pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3", gs);
+
+	Gamestate gs2;
+	mu_assert(pos.ep_square() == D6);
+	pos.make_move(Move::make(E5, D6, EN_PASSANT), gs2);
+	mu_assert(pos.piece_on(E5) == NO_PIECE);
+	mu_assert(pos.piece_on(D5) == NO_PIECE);
+	mu_assert(pos.piece_on(D6) == W_PAWN);
+	mu_assert(pos.ep_square() == NO_SQUARE);
+
+	pos.seed("rnbqkbnr/p2ppppp/2p5/Pp6/8/8/1PPPPPPP/RNBQKBNR w KQkq b6 0 3", gs2);
+	pos.make_move(Move::make(A5, B6, EN_PASSANT), gs2);
+	mu_assert(pos.piece_on(B6) == W_PAWN);
+	mu_assert(pos.piece_on(B5) == NO_PIECE);
+	mu_assert(pos.piece_on(A5) == NO_PIECE);
+}}}
+
+static void make_promotions()
+{{{
+	
+}}}
+
+static void suite()
+{{{   
 	mu_run(Positions::fen_constructor);
 	mu_run(Positions::make_simple_moves);
 	mu_run(Positions::make_captures);
+	mu_run(Positions::make_castles);
+	mu_run(Positions::make_ep_captures);
 }}}
 }
 
