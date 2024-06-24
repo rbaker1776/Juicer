@@ -171,7 +171,7 @@ static void suite()
 }
 
 
-namespace Movegen
+namespace Attacks
 {
 static void magics()
 {{{
@@ -234,12 +234,15 @@ static void pseudo_attacks()
 		mu_assert(PSEUDO_ATTACKS[KING][s] == ((RANK8_BB | RANK7_BB | RANK6_BB) & (file_bb(s) | file_bb(s-1) | file_bb(s+1)) & ~square_to_bb(s)));
 
 	mu_assert(PSEUDO_ATTACKS[KING][A1] == (A2 | B2 | B1));
+
+	mu_assert(PAWN_ATTACKS[BLACK][A2] == square_to_bb(B1));
+	mu_assert(PAWN_ATTACKS[WHITE][E2] == (D3 | F3));
 }}}
 
 static void suite()
 {{{
-	mu_run(Movegen::magics);
-	mu_run(Movegen::pseudo_attacks);
+	mu_run(Attacks::magics);
+	mu_run(Attacks::pseudo_attacks);
 }}}
 }
 
@@ -265,6 +268,8 @@ static void fen_constructor()
 	mu_assert(pos.ep_square() == NO_SQUARE);
 	mu_assert(pos.rule_50() == 0);
 	mu_assert(pos.ply() == 0);
+	mu_assert(pos.pieces(WHITE, ROOK, KNIGHT, BISHOP, QUEEN, KING) == RANK1_BB);
+	mu_assert(pos.pieces(ROOK, KNIGHT, BISHOP, QUEEN, KING) == (RANK1_BB | RANK8_BB));
 	
 	pos.seed("rNbqkbNr/pppppppp/8/8/8/8/PPPPPPPP/RnBQKBnR w KQkq - 20 11", gs);
 	mu_assert(pos.pieces(PAWN) == (RANK2_BB | RANK7_BB));
@@ -530,6 +535,46 @@ static void play_game()
 	}
 }}}
 
+static void undo_moves()
+{{{
+	Gamestate gs;
+	Position pos;
+	pos.seed(STARTING_POS, gs);
+
+	Gamestate gs2;
+	pos.make_move(Move::make(E2, E4), gs2);
+	pos.undo_move(Move::make(E2, E4));
+	mu_assert(pos.fen() == STARTING_POS);
+
+	pos.make_move(Move::make(E2, E4), gs2);
+	pos.undo_move(Move::make(E2, E4));
+	mu_assert(pos.fen() == STARTING_POS);
+
+	pos.make_move(Move::make(G1, F3), gs2);
+	pos.undo_move(Move::make(G1, F3));
+	mu_assert(pos.fen() == STARTING_POS);
+
+	Gamestate gss[20];
+	Move moves[20] = 
+	{
+		Move::make(D2, D4), Move::make(A7, A5),
+		Move::make(D4, D5), Move::make(E7, E5),
+		Move::make(C1, G5), Move::make(C7, C5),
+		Move::make(D5, C6, EN_PASSANT), Move::make(A5, A4),
+		Move::make(G5, D8), Move::make(E8, D8),
+		Move::make(E2, E4), Move::make(A4, A3),
+		Move::make(F1, D3), Move::make(A3, B2),
+		Move::make(G1, E2), Move::make(B2, A1, PROMOTION, KNIGHT),
+		Move::make(E1, H1, CASTLES), Move::make(D7, D5),
+		Move::make(B1, A3), Move::make(A1, C2),
+	};
+
+	for (int i = 0; i < 20; ++i) pos.make_move(moves[i], gss[i]);
+	for (int i = 19; i >= 0; --i) pos.undo_move(moves[i]);
+
+	mu_assert(pos.fen() == STARTING_POS);
+}}}
+
 static void suite()
 {{{ 
 	mu_run(Positions::fen_constructor);
@@ -540,6 +585,7 @@ static void suite()
 	mu_run(Positions::make_promotions);
 	mu_run(Positions::fen_conversions);
 	mu_run(Positions::play_game);
+	mu_run(Positions::undo_moves);
 }}}
 }
 
@@ -549,7 +595,7 @@ int main()
 	init_bitboards();
 
 	mu_suite(Bitboards::suite);
-	mu_suite(Movegen::suite);
+	mu_suite(Attacks::suite);
 	mu_suite(Positions::suite);
 
 	return 0;

@@ -3,12 +3,11 @@
 
 #include <string>
 #include "types.h"
+#include "bitboard.h"
 #include "juicer.h"
 
 
-// Maximum number of legal moves in a chess position
-// Arises from the incredibly unlikely: 1B1KNNBk/4Q1pp/2Q4Q/Q4Q2/3Q4/1Q4Q1/4Q3/R6R w - - 0 1
-constexpr int MAX_LEGAL_MOVES = 218;
+const std::string STARTING_POS = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 
 typedef struct Gamestate
@@ -16,6 +15,7 @@ typedef struct Gamestate
 	int rule_50;
 	int castling_rights;
 	Square ep_square;
+	Piece captured_piece = NO_PIECE;
 
 	Gamestate* previous;
 } Gamestate;
@@ -41,12 +41,18 @@ public:
 	std::string to_string() const;
 
 	void make_move(const Move m, Gamestate& gs, bool is_check = false);
+	void undo_move(const Move m);
 
 	// Board information
 	inline Piece piece_on(Square s) const { return mailbox[s]; }
-	inline uint64_t pieces(Color c, PieceType pt = ALL_PIECE_TYPES) const { return bitboards[pt | (c << 3)]; }
-	inline uint64_t pieces(Piece pc) const { return bitboards[pc]; }
 	inline uint64_t pieces(PieceType pt = ALL_PIECE_TYPES) const { return bitboards[pt] | bitboards[pt | 8]; }
+	template<typename... PieceTypes>
+	inline uint64_t pieces(PieceType pt, PieceTypes... pts) const { return pieces(pt) | pieces(pts...); }
+	inline uint64_t pieces(Color c, PieceType pt = ALL_PIECE_TYPES) const { return bitboards[pt | (c << 3)]; }
+	template<typename... PieceTypes>
+	inline uint64_t pieces(Color c, PieceTypes... pts) const { return pieces(c) & pieces(pts...); }
+	inline uint64_t pieces(Piece pc) const { return bitboards[pc]; }
+	inline Square king_sq(Color c) const { return ::lsb(bitboards[(c << 3) | KING]); }
 
 	// Board manipulation
 	void place_piece(Piece pc, Square s);

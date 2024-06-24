@@ -105,6 +105,8 @@ constexpr Color operator~(Color c) { return Color(1 - int(c)); }
 constexpr Color& operator^=(Color& c, int n) { return c = Color(int(c) ^ n); }
 
 constexpr PieceType type_of(Piece pc) { return PieceType(pc & 7); }
+constexpr Color color_of(Piece pc) { return Color(pc >> 3); }
+constexpr Piece make_piece(Color c, PieceType pt) { return Piece((c << 3) | pt); }
 
 
 enum CastlingRights: int
@@ -155,7 +157,7 @@ public:
 	constexpr bool operator!=(const Move& m) const { return this->data != m.data; }
 	
 	constexpr explicit operator bool() const { return data != 0; }
-	constexpr uint16_t get_data() const { return data; }
+	constexpr uint16_t raw() const { return data; }
 };
 
 
