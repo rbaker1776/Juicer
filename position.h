@@ -19,7 +19,8 @@ typedef struct Gamestate
 	Gamestate* previous;
 	uint64_t kings_guards[2];
 	uint64_t pinners[2];
-	uint64_t checking_squares[6];
+	uint64_t checking_squares[7];
+	uint64_t checkers;
 
 } Gamestate;
 
@@ -57,6 +58,8 @@ public:
 	inline uint64_t pieces(Piece pc) const { return bitboards[pc]; }
 	inline Square king_sq(Color c) const { return ::lsb(bitboards[(c << 3) | KING]); }
 
+	uint64_t attackers_to(Square s, uint64_t occupied = 0ull) const;
+
 	// Board manipulation
 	void place_piece(Piece pc, Square s);
 	inline void place_piece(Color c, PieceType pt, Square s) { place_piece(Piece(pt | (c << 3)), s); }
@@ -69,6 +72,10 @@ public:
 	inline int rule_50() const { return this->state->rule_50; }
 	inline Square ep_square() const { return this->state->ep_square; }
 	inline int ply() const { return this->gameply; }
+
+	inline uint64_t kings_guards(Color c) const { return this->state->kings_guards[c]; }
+	inline uint64_t checkers() const { return this->state->checkers; }
+	inline uint64_t checking_squares(PieceType pt) const { return this->state->checking_squares[pt]; }
 
 	// State manipulation
 	void update_check_info() const;

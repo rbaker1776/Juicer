@@ -590,6 +590,38 @@ static void suite()
 }
 
 
+namespace Movegen
+{
+static void basic_legals()
+{{{
+	Gamestate gs;
+	Position pos;
+	pos.seed(STARTING_POS, gs);
+
+	MoveList<LEGAL> ml(pos);
+
+	mu_assert(ml.size() == 20);
+
+	for (const ValuedMove* move = ml.begin(); move < ml.end() - 19; ++move)
+	{
+		Gamestate gs2;
+		pos.make_move(*move, gs2);
+		MoveList<LEGAL> ml2(pos);
+		std::cout << ml2.size() << std::endl;
+		for (const Move* m = ml2.begin(); m < ml2.end(); ++m)
+			std::cout << sq_to_string(m->from()) << sq_to_string(m->to()) << std::endl;
+		mu_assert(ml2.size() == 20);
+		pos.undo_move(*move);
+	}
+}}}
+
+static void suite()
+{{{
+	mu_run(basic_legals);
+}}}
+}
+
+
 int main()
 {
 	init_bitboards();
@@ -597,6 +629,7 @@ int main()
 	mu_suite(Bitboards::suite);
 	mu_suite(Attacks::suite);
 	mu_suite(Positions::suite);
+	mu_suite(Movegen::suite);
 
 	return 0;
 }

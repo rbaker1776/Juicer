@@ -110,6 +110,7 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 	ss >> std::skipws >> state->rule_50 >> gameply;
 	gameply = 2 * (gameply - 1) + this->turn;
 	
+	this->state->checkers = 0ull;
 	return *this;
 }
 
@@ -170,6 +171,17 @@ std::string Position::to_string() const
 	}
 
 	return s + "  a   b   c   d   e   f   g   h";
+}
+
+
+uint64_t Position::attackers_to(Square s, uint64_t occupied) const
+{
+	return (pawn_attacks_bb<BLACK>(s) & pieces(W_PAWN))
+		 | (pawn_attacks_bb<WHITE>(s) & pieces(B_PAWN))
+		 | (attacks_bb<KNIGHT>(s) & pieces(KNIGHT))
+		 | (attacks_bb<BISHOP>(s, occupied) & pieces(BISHOP, QUEEN))
+		 | (attacks_bb<ROOK>(s, occupied) & pieces(ROOK, QUEEN))
+		 | (attacks_bb<KING>(s, occupied) & pieces(KING));
 }
 
 
@@ -284,6 +296,8 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 		case H8: state->castling_rights &= ~BLACK_OO; break;
 		default: break;
 	}
+
+	this->state->checkers = is_check ? attackers_to(king_sq(~turn), pieces()) & pieces(turn) : 0ull;
 
 	this->turn ^= 1;
 

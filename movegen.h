@@ -17,6 +17,11 @@ constexpr int MAX_LEGAL_MOVES = 218;
 enum GenType
 {
 	LEGAL,
+	EVASION,
+	NON_EVASION,
+	CAPTURE,
+	QUIET_CHECK,
+	QUIET,
 };
 
 
@@ -35,9 +40,10 @@ ValuedMove* generate(const Position& pos, ValuedMove* move);
 template<GenType Gt>
 struct MoveList
 {
-	explicit MoveList(const Position& pos): last(generate_moves<Gt>(pos, moves)) {}
+	explicit MoveList(const Position& pos): last(generate<Gt>(pos, moves)) {}
 	const ValuedMove* begin() const { return moves; }
 	const ValuedMove* end()   const { return last; }
+	int size() const { return last - moves; }
 
 private:
 	ValuedMove* last;
