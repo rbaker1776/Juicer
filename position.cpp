@@ -387,3 +387,20 @@ inline void Position::clear_board()
 	for (Square s = A1; s <= H8; ++s) { mailbox[s] = NO_PIECE; }
 	for (uint64_t& bb: bitboards) { bb = 0ull; }
 }
+
+
+void Position::update_guards(Color c) const
+{
+	Square ksq = this->king_sq(c);
+
+	state->kings_guards[c] = 0ull;
+	state->pinners[~c] = 0ull;
+
+	uint64_t snipers = (attacks_bb<ROOK>(ksq) & pieces(~c, QUEEN, ROOK)) | (attacks_bb<BISHOP>(ksq) & pieces(~c, QUEEN, BISHOP));
+	uint64_t occupied = this->pieces() ^ snipers;
+
+	while (snipers)
+	{
+		Square s = pop_lsb(snipers);
+	}
+}

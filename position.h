@@ -16,6 +16,8 @@ typedef struct Gamestate
 	int castling_rights;
 	Square ep_square;
 	Piece captured_piece = NO_PIECE;
+	uint64_t kings_guards[2];
+	uint64_t pinners[2];
 
 	Gamestate* previous;
 } Gamestate;
@@ -66,6 +68,9 @@ public:
 	inline int rule_50() const { return this->state->rule_50; }
 	inline Square ep_square() const { return this->state->ep_square; }
 	inline int ply() const { return this->gameply; }
+
+	// State manipulation
+	void update_guards(Color c) const;
 };
 
 

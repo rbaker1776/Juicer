@@ -80,6 +80,9 @@ extern uint64_t ROOK_TABLE[0x15c00];
 extern uint64_t BISHOP_TABLE[0x12c0];
 
 
+extern uint64_t LINE_BB[64][64];
+extern uint64_t BETWEEN_BB[64][64];
+
 template<Direction D>
 constexpr uint64_t shift(uint64_t bb)
 {
@@ -100,7 +103,7 @@ constexpr uint64_t shift(uint64_t bb)
 }
 
 template<PieceType Pt>
-constexpr uint64_t attacks_bb(Square s, uint64_t occupied)
+constexpr uint64_t attacks_bb(Square s, uint64_t occupied = 0ull)
 {
 	#if DEBUG == true
 		assert(Pt != PAWN);
@@ -112,6 +115,21 @@ constexpr uint64_t attacks_bb(Square s, uint64_t occupied)
 		case ROOK: return ROOK_MAGICS[s].attacks[ROOK_MAGICS[s].index(occupied)];
 		case QUEEN: return ROOK_MAGICS[s].attacks[ROOK_MAGICS[s].index(occupied)] | BISHOP_MAGICS[s].attacks[BISHOP_MAGICS[s].index(occupied)];
 		default: return PSEUDO_ATTACKS[Pt][s];
+	}
+}
+
+constexpr uint64_t attacks_bb(PieceType pt, Square s, uint64_t occupied = 0ull)
+{
+	#if DEBUG == true
+		assert(pt != PAWN);
+		assert(::is_ok(s));
+	#endif
+	switch (pt)
+	{
+		case BISHOP: return attacks_bb<BISHOP>(s, occupied);
+		case ROOK: return attacks_bb<ROOK>(s, occupied);
+		case QUEEN: return attacks_bb<QUEEN>(s, occupied);
+		default: return PSEUDO_ATTACKS[pt][s];
 	}
 }
 

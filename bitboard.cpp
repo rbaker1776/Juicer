@@ -1,4 +1,5 @@
 #include <bitset>
+#include <iostream>
 #include "bitboard.h"
 
 
@@ -12,6 +13,9 @@ Magic BISHOP_MAGICS[64];
 
 uint64_t ROOK_TABLE[0x15c00];
 uint64_t BISHOP_TABLE[0x12c0];
+
+uint64_t LINE_BB[64][64];
+uint64_t BETWEEN_BB[64][64];
 
 
 static uint64_t safe_step(Square s, int step)
@@ -117,5 +121,16 @@ void init_bitboards()
 			bm.attacks[bm.index(blockers)] = sliding_attack(BISHOP, s, blockers);
 			blockers = (blockers - bm.mask) & bm.mask;
 		}
+	}	
+
+	for (Square s1 = A1; s1 <= H8; ++s1) for (Square s2 = A1; s2 <= H8; ++s2) for (PieceType pt: { BISHOP, ROOK })
+	{
+		if (PSEUDO_ATTACKS[pt][s1] & s2)
+		{
+			LINE_BB[s1][s2] = (attacks_bb(pt, s1, 0) & attacks_bb(pt, s2, 0)) | s1 | s2;
+			BETWEEN_BB[s1][s2] = attacks_bb(pt, s1, square_to_bb(s2)) & attacks_bb(pt, s2, square_to_bb(s1));
+		}
+		BETWEEN_BB[s1][s2] |= s2;
 	}
+	std::cout << bb_to_string(LINE_BB[A6][F2]) << std::endl;
 }
