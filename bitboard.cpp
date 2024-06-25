@@ -1,5 +1,4 @@
 #include <bitset>
-#include <iostream>
 #include "bitboard.h"
 
 
@@ -132,5 +131,4 @@ void init_bitboards()
 		}
 		BETWEEN_BB[s1][s2] |= s2;
 	}
-	std::cout << bb_to_string(LINE_BB[A6][F2]) << std::endl;
 }

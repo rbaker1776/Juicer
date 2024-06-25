@@ -287,6 +287,8 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 
 	this->turn ^= 1;
 
+	this->update_check_info();
+
 	#if DEBUG == true
 		assert(is_ok());
 	#endif
@@ -389,6 +391,21 @@ inline void Position::clear_board()
 }
 
 
+void Position::update_check_info() const
+{
+	this->update_guards(WHITE);
+	this->update_guards(BLACK);
+
+	Square ksq = king_sq(~turn);
+
+	state->checking_squares[PAWN] = pawn_attacks_bb(~turn, ksq);
+	state->checking_squares[KNIGHT] = attacks_bb<KNIGHT>(ksq);
+	state->checking_squares[BISHOP] = attacks_bb<BISHOP>(ksq, pieces());
+	state->checking_squares[ROOK] = attacks_bb<ROOK>(ksq, pieces());
+	state->checking_squares[QUEEN] = state->checking_squares[BISHOP] | state->checking_squares[ROOK];
+	state->checking_squares[KING] = 0ull;
+}
+
 void Position::update_guards(Color c) const
 {
 	Square ksq = this->king_sq(c);
@@ -402,5 +419,13 @@ void Position::update_guards(Color c) const
 	while (snipers)
 	{
 		Square s = pop_lsb(snipers);
+		uint64_t bb = BETWEEN_BB[ksq][s] & occupied;
+
+		if (popcount(bb) == 1)
+		{
+			state->kings_guards[c] |= bb;
+			if (bb & pieces(c))
+				state->pinners[~c] |= s;
+		}
 	}
 }

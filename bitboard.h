@@ -140,6 +140,8 @@ constexpr uint64_t pawn_attacks_bb(uint64_t bb)
 				   	  : shift<SW>(bb) | shift<SE>(bb);
 }
 
+constexpr uint64_t pawn_attacks_bb(Color c, uint64_t bb) { return c == WHITE ? pawn_attacks_bb<WHITE>(bb) : pawn_attacks_bb<BLACK>(bb); }
+
 constexpr Direction pawn_push(Color c) { return c == WHITE ? Direction::N : Direction::S; }
 
 
