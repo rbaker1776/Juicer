@@ -139,7 +139,7 @@ ValuedMove* generate_moves(const Position& pos, ValuedMove* moves, uint64_t targ
 	#endif
 
 	uint64_t from_pieces = pos.pieces(Us, Pt);
-
+	
 	while (from_pieces)
 	{
 		Square from = pop_lsb(from_pieces);
