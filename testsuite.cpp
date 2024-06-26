@@ -584,18 +584,19 @@ static void suite()
 
 namespace Movegen
 {
-static void simple_moves()
+static void perft()
 {{{
 	Engine juicer;
-	//mu_assert(juicer.perft(1) == 20);
-	//mu_assert(juicer.perft(2) == 400);
-	juicer.make_move("e2e4");
-	juicer.make_move("b8c6");
+	mu_assert(juicer.perft(1) == 20);
+	mu_assert(juicer.perft(2) == 400);
+	mu_assert(juicer.perft(3) == 8902);
+	mu_assert(juicer.perft(4) == 197281);
+	std::cout << juicer.perft(4) << std::endl;
 }}}
 
 static void suite()
-{{{
-	mu_run(simple_moves);
+{{{ 
+	mu_run(perft);
 }}}
 }
 

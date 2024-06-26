@@ -5,6 +5,7 @@
 #include "position.h"
 #include "types.h"
 #include "uci.h"
+#include "juicer.h"
 
 
 class Engine
@@ -23,7 +24,7 @@ public:
 
 	const Position& position() const { return this->pos; }
 
-	uint64_t perft(int depth);
+	uint64_t perft(int depth, bool isroot = true);
 
 private:
 	Position pos;

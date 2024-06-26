@@ -9,6 +9,7 @@
 #define LSB_METHOD BUILTIN
 
 #define DEBUG true
+#define VERBOSE true
 #define VERSION 1
 
 
