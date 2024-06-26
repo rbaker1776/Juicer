@@ -158,6 +158,8 @@ public:
 	
 	constexpr explicit operator bool() const { return data != 0; }
 	constexpr uint16_t raw() const { return data; }
+
+	constexpr bool is_ok() const { return none().data != data && null().data != data; }
 };
 
 

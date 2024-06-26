@@ -44,7 +44,8 @@ public:
 	std::string fen() const;
 	std::string to_string() const;
 
-	void make_move(const Move m, Gamestate& gs, bool is_check = false);
+	void make_move(const Move m, Gamestate& gs, bool is_check);
+	inline void make_move(const Move m, Gamestate& gs) { make_move(m, gs, gives_check(m)); }
 	void undo_move(const Move m);
 
 	// Board information
@@ -57,7 +58,6 @@ public:
 	inline uint64_t pieces(Color c, PieceTypes... pts) const { return pieces(c) & pieces(pts...); }
 	inline uint64_t pieces(Piece pc) const { return bitboards[pc]; }
 	inline Square king_sq(Color c) const { return ::lsb(bitboards[(c << 3) | KING]); }
-
 	uint64_t attackers_to(Square s, uint64_t occupied = 0ull) const;
 
 	// Board manipulation
@@ -72,7 +72,6 @@ public:
 	inline int rule_50() const { return this->state->rule_50; }
 	inline Square ep_square() const { return this->state->ep_square; }
 	inline int ply() const { return this->gameply; }
-
 	inline uint64_t kings_guards(Color c) const { return this->state->kings_guards[c]; }
 	inline uint64_t checkers() const { return this->state->checkers; }
 	inline uint64_t checking_squares(PieceType pt) const { return this->state->checking_squares[pt]; }
@@ -80,6 +79,10 @@ public:
 	// State manipulation
 	void update_check_info() const;
 	void update_guards(Color c) const;
+	
+	// Move information
+	bool is_legal(Move m) const;
+	bool gives_check(Move m) const;
 };
 
 

@@ -451,3 +451,84 @@ void Position::update_guards(Color c) const
 		}
 	}
 }
+
+
+bool Position::is_legal(Move m) const
+{
+	#if DEBUG == true
+		assert(m.is_ok());
+	#endif
+
+	Square from = m.from();
+	Square to = m.to();
+
+	#if DEBUG == true
+		assert(color_of(mailbox[from]) == turn);
+	#endif
+
+	if (m.type() == EN_PASSANT)
+	{
+		Square ksq = this->king_sq(turn);
+		Square capsq = to - pawn_push(turn);
+		uint64_t occupied = (pieces() ^ from ^ capsq) | to;
+
+		#if DEBUG == true
+			assert(to == ep_square());
+			assert(mailbox[from] == make_piece(turn, PAWN));
+			assert(mailbox[capsq] == make_piece(~turn, PAWN));
+			assert(mailbox[to] == NO_PIECE);
+		#endif
+
+		return !(attacks_bb<ROOK>(ksq, occupied) & pieces(~turn, QUEEN, ROOK))
+			&& !(attacks_bb<BISHOP>(ksq, occupied) & pieces(~turn, QUEEN, BISHOP));
+	}
+
+	if (m.type() == CASTLES)
+	{
+		to = (turn == WHITE ? (to > from ? G1 : C1) : (to > from ? G8 : C8));
+		Direction step = to > from ? Direction::W : Direction::E;
+
+		for (Square s = to; s != from; s += step)
+			if (attackers_to(s) & pieces(~turn));
+				return false;
+
+		return true;
+	}
+
+	if (type_of(mailbox[from]) == KING)
+		return !(attackers_to(to, pieces() ^ from) & pieces(~turn));
+
+	return !(kings_guards(turn) & from) || colinear(from, to, king_sq(turn));
+}
+
+bool Position::gives_check(Move m) const 
+{
+	#if DEBUG == true
+		assert(m.is_ok());
+		assert(color_of(mailbox[m.from()]) == turn);
+	#endif
+
+	Square from = m.from();
+	Square to = m.to();
+
+	if (state->checking_squares[type_of(mailbox[from])] & to)
+		return true;
+
+	switch (m.type())
+	{
+		case NORMAL: return false;
+		case PROMOTION: return attacks_bb(m.promotion_type(), to, pieces() ^ from) & king_sq(~turn);
+		case CASTLES: 
+		{
+			Square rto = (turn == WHITE ? (to > from ? F1 : D1) : (to > from ? F8 : D8));
+			return state->checking_squares[ROOK] & rto;
+		}
+		case EN_PASSANT:
+		{
+			Square capsq = make_square(file_of(to), rank_of(from));
+			uint64_t bb = (pieces() ^ from ^ capsq) | to;
+			return (attacks_bb<ROOK>(king_sq(~turn), bb) & pieces(turn, QUEEN, ROOK))
+				 | (attacks_bb<BISHOP>(king_sq(~turn), bb) & pieces(turn, QUEEN, BISHOP));
+		}
+	}
+}

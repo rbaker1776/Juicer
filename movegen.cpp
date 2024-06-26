@@ -189,11 +189,7 @@ ValuedMove* generate_all(const Position& pos, ValuedMove* moves)
 		if (Checks) bb &= ~attacks_bb<QUEEN>(pos.king_sq(~Us));
 
 		while (bb)
-		{
 			*moves++ = Move(ksq, pop_lsb(bb));
-		}
-
-		// SOME RANDOM SHIT
 	}
 
 	return moves;
@@ -222,15 +218,13 @@ ValuedMove* generate<LEGAL>(const Position& pos, ValuedMove* moves)
 
 	moves = pos.checkers() ? generate<EVASION>(pos, moves) : generate<NON_EVASION>(pos, moves);
 
-	/*
 	while (curr != moves)
 	{
-		if (((pinned & curr->from()) || curr->from() == ksq || curr->type() == EN_PASSANT) && !pos.legal(*curr))
+		if (((pinned & curr->from()) || curr->from() == ksq || curr->type() == EN_PASSANT) && !pos.is_legal(*curr))
 			*curr = *(--moves);
 		else
 			++curr;
 	}
-	*/
 
 	return moves;	
 }

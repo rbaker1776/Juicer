@@ -81,6 +81,9 @@ extern uint64_t BISHOP_TABLE[0x12c0];
 extern uint64_t LINE_BB[64][64];
 extern uint64_t BETWEEN_BB[64][64];
 
+constexpr bool colinear(Square s1, Square s2, Square s3) { return LINE_BB[s1][s2] & s3; }
+
+
 template<Direction D>
 constexpr uint64_t shift(uint64_t bb)
 {

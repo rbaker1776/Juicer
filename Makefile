@@ -13,11 +13,12 @@ CLI_SRC = $(JUICER_SRC) cli.cpp
 TEST = testjuicer
 CLI = juicer
 
-test: $(TEST_SRC)
-	$(CXX) $(STD) $(CFLAGS) $(TEST_SRC) -o $(TEST) && time ./$(TEST)
 
 cli: $(CLI_SRC)
 	$(CXX) $(STD) $(CFLAGS) $(CLI_SRC) -o $(CLI) && ./$(CLI)
+
+test: $(TEST_SRC)
+	$(CXX) $(STD) $(CFLAGS) $(TEST_SRC) -o $(TEST) && time ./$(TEST)
 
 memcheck: $(TEST)
 	leaks --atExit -- ./$(TEST)
