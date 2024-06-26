@@ -20,6 +20,9 @@ bool Position::is_ok() const
 	assert(popcount(bitboards[W_PAWN]) <= 8);
 	assert(popcount(bitboards[B_PAWN]) <= 8);
 
+	assert(pieces(WHITE) == (pieces(W_PAWN) | pieces(W_KNIGHT) | pieces(W_BISHOP) | pieces(W_ROOK) | pieces(W_QUEEN) | pieces(W_KING)));
+	assert(pieces(BLACK) == (pieces(B_PAWN) | pieces(B_KNIGHT) | pieces(B_BISHOP) | pieces(B_ROOK) | pieces(B_QUEEN) | pieces(B_KING)));
+
 	for (Square s = A1; s <= H8; ++s)
 		assert(mailbox[s] == NO_PIECE || (bitboards[mailbox[s]] | s) > 0);
 
@@ -112,6 +115,11 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 	gameply = 2 * (gameply - 1) + this->turn;
 	
 	this->state->checkers = 0ull;
+
+	#if DEBUG == true
+		assert(is_ok());
+	#endif
+
 	return *this;
 }
 
@@ -254,9 +262,8 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 
 	if (move.type() != CASTLES)
 	{
-		this->mailbox[to] = pc;
-		this->mailbox[from] = NO_PIECE;
-		this->bitboards[pc] ^= square_to_bb(from) | to;
+		place_piece(pc, to);
+		remove_piece(from);
 	}
 
 	this->state->ep_square = NO_SQUARE;

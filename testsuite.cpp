@@ -301,17 +301,6 @@ static void fen_constructor()
 	mu_assert(pos.ply() == 33);
 	mu_assert(pos.side_to_move() == BLACK);
 	mu_assert(pos.castling_rights() == 3);
-
-	pos.seed("8/8/8/8/k7/8/5PPP/4K2R w K e8 0 35", gs);
-	mu_assert(pos.pieces() == (A4 | E1 | F2 | G2 | H2 | H1));
-	mu_assert(pos.ep_square() == NO_SQUARE);
-	mu_assert(pos.ply() == 68);
-	mu_assert(pos.castling_rights() == 1);
-
-	pos.seed("8/8/8/8/8/8/8/8 b qk e8 999999 999999", gs);
-	mu_assert(pos.pieces() == 0);
-	mu_assert(pos.ply() == 2 * 999998 + 1);
-	mu_assert(pos.castling_rights() == 12);
 }}}
 
 static void make_simple_moves()
@@ -325,6 +314,7 @@ static void make_simple_moves()
 	mu_assert(pos.pieces(W_PAWN) == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 	mu_assert(pos.side_to_move() == BLACK);
 	mu_assert(pos.ply() == 1);
+	mu_assert(pos.pieces(WHITE) == (RANK1_BB | A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 
 	Gamestate gs3;
 	pos.make_move(Move::make(C7, C5), gs3);
@@ -600,9 +590,7 @@ static void simple_moves()
 	//mu_assert(juicer.perft(1) == 20);
 	//mu_assert(juicer.perft(2) == 400);
 	juicer.make_move("e2e4");
-	std::cout << juicer.position().to_string() << std::endl;
-	for (const ValuedMove& m: MoveList<LEGAL>(juicer.position()))
-		{}//std::cout << UCI::move_to_string(m) << std::endl;
+	juicer.make_move("b8c6");
 }}}
 
 static void suite()
