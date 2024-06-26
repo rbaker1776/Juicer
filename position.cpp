@@ -40,12 +40,6 @@ bool Position::is_ok() const
 	if (state->castling_rights & BLACK_OO)  assert(mailbox[H8] == B_ROOK && mailbox[E8] == B_KING);
 	if (state->castling_rights & BLACK_OOO) assert(mailbox[A8] == B_ROOK && mailbox[E8] == B_KING);
 
-	if (state->ep_square != NO_SQUARE)
-	{
-		assert(rank_of(state->ep_square) == (turn == WHITE ? RANK_6 : RANK_3));
-		assert(PAWN_ATTACKS[turn][state->ep_square] & pieces(~turn, PAWN));
-	}
-
 	return true;
 }
 
@@ -185,8 +179,8 @@ std::string Position::to_string() const
 
 uint64_t Position::attackers_to(Square s, uint64_t occupied) const
 {
-	return (pawn_attacks_bb<BLACK>(s) & pieces(W_PAWN))
-		 | (pawn_attacks_bb<WHITE>(s) & pieces(B_PAWN))
+	return (pawn_attacks_bb(BLACK, s) & pieces(W_PAWN))
+		 | (pawn_attacks_bb(WHITE, s) & pieces(B_PAWN))
 		 | (attacks_bb<KNIGHT>(s) & pieces(KNIGHT))
 		 | (attacks_bb<BISHOP>(s, occupied) & pieces(BISHOP, QUEEN))
 		 | (attacks_bb<ROOK>(s, occupied) & pieces(ROOK, QUEEN))
@@ -203,7 +197,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 		assert(&gs != this->state);
 	#endif
 
-	std::memcpy(&gs, this->state, sizeof(Gamestate));
+	std::memcpy(&gs, this->state, offsetof(Gamestate, captured_piece));
 	gs.previous = this->state;
 	this->state = &gs;
 
@@ -489,7 +483,7 @@ bool Position::is_legal(Move m) const
 		Direction step = to > from ? Direction::W : Direction::E;
 
 		for (Square s = to; s != from; s += step)
-			if (attackers_to(s) & pieces(~turn));
+			if (attackers_to(s) & pieces(~turn))
 				return false;
 
 		return true;

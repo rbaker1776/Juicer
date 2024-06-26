@@ -1,6 +1,6 @@
 CXX = g++
 STD = -std=c++20
-CFLAGS = -O0 -Wall -Wextra -pedantic
+CFLAGS = -O3 -Wall -Wextra -pedantic
 
 JUICER_SRC = bitboard.cpp\
 		     position.cpp\

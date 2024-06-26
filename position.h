@@ -12,9 +12,10 @@ const std::string STARTING_POS = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w 
 
 typedef struct Gamestate
 {
-	int rule_50;
 	int castling_rights;
+	int rule_50;
 	Square ep_square;
+
 	Piece captured_piece = NO_PIECE;
 	Gamestate* previous;
 	uint64_t kings_guards[2];

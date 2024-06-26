@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 #include "movegen.h"
 #include "position.h"
 
@@ -110,7 +109,7 @@ ValuedMove* generate_pawn_moves(const Position& pos, ValuedMove* moves, uint64_t
 		if (pos.ep_square() != NO_SQUARE)
 		{
 			#if DEBUG == true
-				assert(rank_of(pos.ep_square()) == (pos.side_to_move() == WHITE ? RANK_6 : RANK_3));
+				assert(rank_of(pos.ep_square()) == (Us == WHITE ? RANK_6 : RANK_3));
 			#endif
 
 			if (Gt == EVASION && (target & (pos.ep_square() + Up))) return moves;
