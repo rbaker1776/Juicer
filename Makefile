@@ -5,7 +5,8 @@ CFLAGS = -O0 -Wall -Wextra -pedantic
 JUICER_SRC = bitboard.cpp\
 		     position.cpp\
 			 movegen.cpp\
-			 engine.cpp
+			 engine.cpp\
+			 uci.cpp
 TEST_SRC = $(JUICER_SRC) testsuite.cpp
 CLI_SRC = $(JUICER_SRC) cli.cpp
 

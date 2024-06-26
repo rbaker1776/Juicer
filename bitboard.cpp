@@ -58,21 +58,6 @@ std::string bb_to_string(uint64_t bb)
 	return s + "  a   b   c   d   e   f   g   h";
 }
 
-std::string sq_to_string(Square s)
-{
-	if (s == NO_SQUARE) { return "-"; }
-	std::string str = "a1";
-	str[0] += s & 7;
-	str[1] += s >> 3;
-	return str;
-}
-
-Square string_to_sq(const std::string& str)
-{
-	if (str.size() != 2 || str[0] > 'h' || str[0] < 'a' || str[1] < '1' || str[1] > '8') return NO_SQUARE;
-	return make_square(File(str[0] - 'a'), Rank(str[1] - '1'));
-}
-
 
 void init_bitboards()
 {

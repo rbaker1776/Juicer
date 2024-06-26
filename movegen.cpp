@@ -29,9 +29,14 @@ ValuedMove* generate_pawn_moves(const Position& pos, ValuedMove* moves, uint64_t
 	constexpr Color Them = ~Us;
 	constexpr uint64_t Rank7 = (Us == WHITE ? RANK7_BB : RANK2_BB);
 	constexpr uint64_t Rank3 = (Us == WHITE ? RANK3_BB : RANK6_BB);
-	constexpr Direction Up = pawn_push(Us);
+	constexpr Direction Up = (Us == WHITE ? Direction::N : Direction::S);
 	constexpr Direction UpRight = (Us == WHITE ? Direction::NE : Direction::SW);
 	constexpr Direction UpLeft = (Us == WHITE ? Direction::NW : Direction::SE);
+
+	#if DEBUG == true
+		assert(Us == pos.side_to_move());
+		assert(Them == ~pos.side_to_move());
+	#endif
 
 	const uint64_t empty_sqs = ~pos.pieces();
 	const uint64_t enemies = Gt == EVASION ? pos.checkers() : pos.pieces(Them);
@@ -130,6 +135,7 @@ ValuedMove* generate_moves(const Position& pos, ValuedMove* moves, uint64_t targ
 {
 	#if DEBUG == true
 		assert(Pt != KING && Pt != PAWN);
+		assert(Us == pos.side_to_move());
 	#endif
 
 	uint64_t from_pieces = pos.pieces(Us, Pt);
@@ -155,11 +161,13 @@ ValuedMove* generate_all(const Position& pos, ValuedMove* moves)
 {
 	#if DEBUG == true
 		assert(Gt != LEGAL);
+		assert(Us == pos.side_to_move());
 	#endif
 
 	constexpr bool Checks = Gt == QUIET_CHECK;
 	const Square ksq = pos.king_sq(Us);
 	uint64_t target;
+	ValuedMove* curr = moves;
 
 	if (Gt != EVASION || popcount(pos.checkers()) <= 1)
 	{

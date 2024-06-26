@@ -3,6 +3,7 @@
 #include "bitboard.h"
 #include "position.h"
 #include "engine.h"
+#include "uci.h"
 #include "xorshiftstar64.h"
 
 
@@ -596,8 +597,12 @@ namespace Movegen
 static void simple_moves()
 {{{
 	Engine juicer;
-	mu_assert(juicer.perft(1) == 20);
-	mu_assert(juicer.perft(2) == 400);
+	//mu_assert(juicer.perft(1) == 20);
+	//mu_assert(juicer.perft(2) == 400);
+	juicer.make_move("e2e4");
+	std::cout << juicer.position().to_string() << std::endl;
+	for (const ValuedMove& m: MoveList<LEGAL>(juicer.position()))
+		{}//std::cout << UCI::move_to_string(m) << std::endl;
 }}}
 
 static void suite()

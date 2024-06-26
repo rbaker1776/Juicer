@@ -8,11 +8,23 @@ Engine::Engine()
 	pos.seed(STARTING_POS, states->back());
 }
 
-
 void Engine::set_position(const std::string& fen)
 {
 	states = std::unique_ptr<std::deque<Gamestate>>(new std::deque<Gamestate>(1));
 	pos.seed(fen, states->back());
+}
+
+
+void Engine::make_move(Move move)
+{
+	states->emplace_back();
+	pos.make_move(move, states->back());
+}
+
+void Engine::undo_move(Move move)
+{
+	pos.undo_move(move);
+	states->pop_back();
 }
 
 
@@ -31,12 +43,10 @@ uint64_t Engine::perft(int depth)
 		}
 		else
 		{
-			states->emplace_back();
-			pos.make_move(m, states->back());
+			this->make_move(m);
 			count = leaf ? MoveList<LEGAL>(pos).size() : perft(depth - 1);
 			nodes += count;
-			pos.undo_move(m);
-			states->pop_back();
+			this->undo_move(m);
 		}
 	}
 	return nodes;

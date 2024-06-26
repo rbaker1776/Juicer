@@ -4,6 +4,7 @@
 #include <cassert>
 #include "bitboard.h"
 #include "position.h"
+#include "uci.h"
 
 
 constexpr std::string_view PIECE_TO_CHAR(" PNBRQK  pnbrqk ");
@@ -146,7 +147,7 @@ std::string Position::fen() const
 	if (this->state->castling_rights == 0) { ss << '-'; }
 
 	// 4) En passant target
-	ss << ' ' << sq_to_string(this->state->ep_square) << ' ';
+	ss << ' ' << UCI::sq_to_string(this->state->ep_square) << ' ';
 
 	// 5) Halfmoves and 6) Fullmoves
 	ss << state->rule_50 << ' ' << ((this->gameply - (turn == BLACK)) / 2 + 1); 

@@ -59,8 +59,6 @@ extern uint8_t CENTER_DISTANCE[64];
 void init_bitboards();
 
 std::string bb_to_string(uint64_t bb);
-std::string sq_to_string(Square s);
-Square string_to_sq(const std::string& str);
 
 
 typedef struct Magic
@@ -177,7 +175,7 @@ static constexpr Square lsb(uint64_t bb)
 		for (; (bb & 1) == 0; bb >>= 1) ++idx;
 		return Square(idx);
 	#elif defined(__GNUC__)
-		return Square(__builtin_ctz(bb));
+		return Square(__builtin_ctzll(bb));
 	#elif defined(_MSC_VER)
 		#ifdef _WIN64
 			unsigned long idx;
