@@ -2,6 +2,7 @@
 #include "minunit.h"
 #include "bitboard.h"
 #include "position.h"
+#include "engine.h"
 #include "xorshiftstar64.h"
 
 
@@ -592,32 +593,16 @@ static void suite()
 
 namespace Movegen
 {
-static void basic_legals()
+static void simple_moves()
 {{{
-	Gamestate gs;
-	Position pos;
-	pos.seed(STARTING_POS, gs);
-
-	MoveList<LEGAL> ml(pos);
-
-	mu_assert(ml.size() == 20);
-
-	for (const ValuedMove* move = ml.begin(); move < ml.end() - 19; ++move)
-	{
-		Gamestate gs2;
-		pos.make_move(*move, gs2);
-		MoveList<LEGAL> ml2(pos);
-		std::cout << ml2.size() << std::endl;
-		for (const Move* m = ml2.begin(); m < ml2.end(); ++m)
-			std::cout << sq_to_string(m->from()) << sq_to_string(m->to()) << std::endl;
-		mu_assert(ml2.size() == 20);
-		pos.undo_move(*move);
-	}
+	Engine juicer;
+	mu_assert(juicer.perft(1) == 20);
+	mu_assert(juicer.perft(2) == 400);
 }}}
 
 static void suite()
 {{{
-	mu_run(basic_legals);
+	mu_run(simple_moves);
 }}}
 }
 
