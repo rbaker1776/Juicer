@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cassert>
 #include "movegen.h"
 #include "position.h"
@@ -166,7 +167,6 @@ ValuedMove* generate_all(const Position& pos, ValuedMove* moves)
 	constexpr bool Checks = Gt == QUIET_CHECK;
 	const Square ksq = pos.king_sq(Us);
 	uint64_t target;
-	ValuedMove* curr = moves;
 
 	if (Gt != EVASION || popcount(pos.checkers()) <= 1)
 	{
@@ -182,13 +182,18 @@ ValuedMove* generate_all(const Position& pos, ValuedMove* moves)
 		moves = generate_moves<Us, QUEEN, Checks>(pos, moves, target);
 	}
 
-	if (!Checks|| pos.kings_guards(~Us) & ksq)
+	if (!Checks || pos.kings_guards(~Us) & ksq)
 	{
 		uint64_t bb = attacks_bb<KING>(ksq) & (Gt == EVASION ? ~pos.pieces(Us) : target);
 		if (Checks) bb &= ~attacks_bb<QUEEN>(pos.king_sq(~Us));
 
 		while (bb)
 			*moves++ = Move(ksq, pop_lsb(bb));
+
+		if ((Gt == QUIET || Gt == NON_EVASION) && pos.can_castle(Us & ANY_CASTLES))
+			for (CastlingRights cr: { Us & KING_SIDE, Us & QUEEN_SIDE })
+				if (!(pos.pieces() & CASTLING_BB[cr]) && pos.can_castle(cr))
+					*moves++ = Move::make(ksq, CASTLING_TO[cr], CASTLES);
 	}
 
 	return moves;

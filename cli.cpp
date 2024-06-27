@@ -32,17 +32,24 @@ void print_help_msg()
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
 	init_bitboards();
 
 	Engine juicer;
-	std::string command;
+	std::string command = std::string();
 	std::string arg;
+	const bool clargs = argc > 1;
+
+	for (int i = 1; i < argc; ++i)
+	{
+		command += argv[i];
+		if (i < argc - 1) command += " ";
+	}
 
 	while (true)
 	{
-		std::getline(std::cin, command);
+		if (command == "") std::getline(std::cin, command);
 		std::istringstream ss(command);
 		ss >> arg;
 		
@@ -66,6 +73,9 @@ int main()
 			std::cout << std::endl << "Nodes searched: " << perft << std::endl;
 		}
 		else std::cout << "Invalid command. Try \"help\" for valid commands." << std::endl;
+
+		command = "";
+		if (clargs) break;
 	}
 
 	return 0;

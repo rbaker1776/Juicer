@@ -73,6 +73,7 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 
 	// 2) Side to move
 	ss >> token;
+	std::cout << token << std::endl;
 	this->turn = token == 'w' ? WHITE : BLACK;
 	ss >> token;
 
@@ -231,7 +232,6 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 		remove_piece(to);
 		place_piece(this->turn, ROOK, from + d);
 		place_piece(this->turn, KING, from + 2 * d);
-		this->state->castling_rights &= ~CASTLING_RIGHTS[this->turn];
 		this->state->captured_piece = make_piece(turn, ROOK);
 	}
 	else if (captured_pc != NO_PIECE)
@@ -483,7 +483,7 @@ bool Position::is_legal(Move m) const
 		Direction step = to > from ? Direction::W : Direction::E;
 
 		for (Square s = to; s != from; s += step)
-			if (attackers_to(s) & pieces(~turn))
+			if (attackers_to(s, pieces()) & pieces(~turn))
 				return false;
 
 		return true;
@@ -507,6 +507,9 @@ bool Position::gives_check(Move m) const
 
 	if (state->checking_squares[type_of(mailbox[from])] & to)
 		return true;
+
+	if (state->kings_guards[~turn] & from)
+		return !colinear(from, to, king_sq(~turn)) || m.type() == CASTLES;
 
 	switch (m.type())
 	{

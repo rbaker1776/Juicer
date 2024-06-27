@@ -24,7 +24,7 @@ public:
 
 	const Position& position() const { return this->pos; }
 
-	uint64_t perft(int depth, bool isroot = true);
+	uint64_t perft(int depth, bool isroot = true, bool suppress_output = false);
 
 private:
 	Position pos;

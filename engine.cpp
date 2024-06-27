@@ -29,7 +29,7 @@ void Engine::undo_move(Move move)
 }
 
 
-uint64_t Engine::perft(int depth, bool isroot)
+uint64_t Engine::perft(int depth, bool isroot, bool suppress_output)
 {
 	uint64_t count = 0;
 	uint64_t nodes = 0;
@@ -45,12 +45,12 @@ uint64_t Engine::perft(int depth, bool isroot)
 		else
 		{
 			this->make_move(m);
-			count = leaf ? MoveList<LEGAL>(pos).size() : perft(depth - 1, false);
+			count = leaf ? MoveList<LEGAL>(pos).size() : perft(depth - 1, false, suppress_output);
 			nodes += count;
 			this->undo_move(m);
 		}
 		#if VERBOSE == true
-			if (isroot)
+			if (isroot && !suppress_output)
 				std::cout << UCI::move_to_string(m) << ": " << count << std::endl;
 		#endif
 	}

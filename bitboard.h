@@ -56,6 +56,23 @@ extern uint8_t SQUARE_DISTANCE[64][64];
 extern uint8_t CENTER_DISTANCE[64];
 
 
+constexpr uint64_t WHITEOO_BB  = F1 | G1;
+constexpr uint64_t WHITEOOO_BB = B1 | C1 | D1;
+constexpr uint64_t BLACKOO_BB  = F8 | G8;
+constexpr uint64_t BLACKOOO_BB = B8 | C8 | D8;
+
+constexpr uint64_t CASTLING_BB[16] = 
+{
+	0ull, WHITEOO_BB, WHITEOOO_BB, WHITEOO_BB | WHITEOOO_BB, BLACKOO_BB, 0ull, 0ull, 0ull, BLACKOOO_BB, 
+	0ull, 0ull, 0ull, BLACKOO_BB | BLACKOOO_BB, 0ull, 0ull, WHITEOO_BB | WHITEOOO_BB | BLACKOO_BB | BLACKOOO_BB,
+};
+
+constexpr Square CASTLING_TO[9] = 
+{
+	NO_SQUARE, H1, A1, NO_SQUARE, H8, NO_SQUARE, NO_SQUARE, NO_SQUARE, A8,
+};
+
+
 void init_bitboards();
 
 std::string bb_to_string(uint64_t bb);

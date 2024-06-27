@@ -111,15 +111,19 @@ constexpr Piece make_piece(Color c, PieceType pt) { return Piece((c << 3) | pt);
 
 enum CastlingRights: int
 {
-	WHITE_OO  = 1,
+	NO_CASTLES,
+	WHITE_OO  = 1, 
 	WHITE_OOO = 2,
 	BLACK_OO  = 4,
 	BLACK_OOO = 8,
 	WHITE_CASTLES = WHITE_OO | WHITE_OOO,
 	BLACK_CASTLES = BLACK_OO | BLACK_OOO,
+	KING_SIDE = WHITE_OO | BLACK_OO,
+	QUEEN_SIDE = WHITE_OOO | BLACK_OOO,
+	ANY_CASTLES = 15,
 };
 
-constexpr int CASTLING_RIGHTS[2] = { WHITE_CASTLES, BLACK_CASTLES };
+constexpr CastlingRights operator&(Color c, CastlingRights cr) { return CastlingRights((c == WHITE ? WHITE_CASTLES : BLACK_CASTLES) & cr); }
 
 
 enum MoveType: int
