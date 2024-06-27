@@ -73,7 +73,6 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 
 	// 2) Side to move
 	ss >> token;
-	std::cout << token << std::endl;
 	this->turn = token == 'w' ? WHITE : BLACK;
 	ss >> token;
 
@@ -109,7 +108,8 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 	ss >> std::skipws >> state->rule_50 >> gameply;
 	gameply = 2 * (gameply - 1) + this->turn;
 	
-	this->state->checkers = 0ull;
+	this->state->checkers = attackers_to(king_sq(turn)) & pieces(~turn);
+	this->update_check_info();
 
 	#if DEBUG == true
 		assert(is_ok());
@@ -209,6 +209,11 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 
 	#if DEBUG == true
 		assert(color_of(pc) == turn);
+		if (type_of(captured_pc) == KING)
+		{
+			std::cout << to_string() << std::endl;
+			std::cout << UCI::move_to_string(move) << std::endl;
+		}
 		assert(type_of(captured_pc) != KING);
 		assert(captured_pc == NO_PIECE || color_of(captured_pc) == ~turn || (move.type() == CASTLES && color_of(captured_pc) == turn));
 	#endif
@@ -299,7 +304,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 		default: break;
 	}
 
-	this->state->checkers = is_check ? attackers_to(king_sq(~turn), pieces()) & pieces(turn) : 0ull;
+	this->state->checkers = is_check ? attackers_to(king_sq(~turn)) & pieces(turn) : 0ull;
 
 	this->turn ^= 1;
 

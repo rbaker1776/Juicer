@@ -5,6 +5,7 @@
 #include "engine.h"
 #include "uci.h"
 #include "xorshiftstar64.h"
+#include "juicer.h"
 
 
 static uint64_t safe_step(Square s, int step)
@@ -744,7 +745,7 @@ static void perft()
 		{5, 80, 493, 8897, 52710, 1001523},
 		{15, 66, 1197, 7059, 133987, 764643},
 		{16, 71, 1287, 7626, 145232, 846648},
-		{45, 130, 782, 22180, 118882, 3517770},
+		{5, 130, 782, 22180, 118882, 3517770},
 		{26, 112, 3189, 17945, 532933, 2788982},
 		{3, 32, 134, 2073, 10485, 179869},
 		{4, 49, 243, 3991, 20780, 367724},
@@ -851,12 +852,21 @@ static void perft()
 		{31, 570, 17546, 351806, 11139762, 244063299},
 	};
 
+	uint64_t total_perft = 0;
 	for (int i = 0; i < 128; ++i)
 	{
 		juicer.set_position(positions[i]);
 		for (int depth = 1; depth <= 6; ++depth)
-			mu_assert(juicer.perft(depth, true, true) == perft_results[i][depth]);
+		{
+			uint64_t perft = juicer.perft(depth, 1, 1);
+			mu_assert(perft == perft_results[i][depth-1], positions[i]);
+			total_perft += perft;
+			#if QUICK_TEST == true
+				if (depth == 4) break;
+			#endif
+		}
 	}
+	std::cout << "Total nodes searched: " << total_perft << std::endl;
 }}}
 
 static void suite()

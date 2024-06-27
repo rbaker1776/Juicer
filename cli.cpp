@@ -23,7 +23,7 @@ void print_help_msg()
 		std::cout << std::string(10, ' ') << "* move a7a8q // promotes the pawn on a7 to a queen on a8" << std::endl;
 		std::cout << std::string(10, ' ') << "* move e2e4 c7c5 g1f3 d7d6 d2d4 // plays multiple moves" << std::endl;;
 	std::cout << std::setw(12) << "\"show\"" << " - Show the current position" << std::endl;
-	std::cout << std::setw(12) << "\"perft\"" << " - Get perft data for a given depth (default is perft 6)" << std::endl;
+	std::cout << std::setw(12) << "\"perft\"" << " - Get perft data for a given depth (default is perft 4)" << std::endl;
 	std::cout << std::setw(12) << "\"help\"" << " - It would be weird if you didn't already understand this command" << std::endl;
 	std::cout << std::setw(12) << "\"quit\"" << " - Quit Juicer" << std::endl;
 
@@ -58,8 +58,16 @@ int main(int argc, char* argv[])
 		else if (arg == "show") std::cout << juicer.position().to_string() << std::endl;
 		else if (arg == "seed")
 		{
-			if (!(ss >> arg) || arg == "startpos") arg = STARTING_POS;
-			juicer.set_position(arg);
+			std::string fen = std::string();
+			if (!(ss >> arg) || arg == "startpos") fen = STARTING_POS;
+			else
+			{
+				do
+				{
+					fen += arg + " ";
+				} while (ss >> arg);
+			}
+			juicer.set_position(fen);
 		}
 		else if (arg == "move")
 		{
@@ -68,7 +76,7 @@ int main(int argc, char* argv[])
 		}
 		else if (arg == "perft") 
 		{
-			if (!(ss >> arg)) arg = "6";
+			if (!(ss >> arg)) arg = "4";
 			uint64_t perft = juicer.perft(std::stoi(arg));
 			std::cout << std::endl << "Nodes searched: " << perft << std::endl;
 		}

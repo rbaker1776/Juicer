@@ -58,7 +58,7 @@ public:
 	inline uint64_t pieces(Color c, PieceTypes... pts) const { return pieces(c) & pieces(pts...); }
 	inline uint64_t pieces(Piece pc) const { return bitboards[pc]; }
 	inline Square king_sq(Color c) const { return ::lsb(bitboards[(c << 3) | KING]); }
-	uint64_t attackers_to(Square s, uint64_t occupied = 0ull) const;
+	uint64_t attackers_to(Square s, uint64_t occupied) const;
 	inline uint64_t attackers_to(Square s) const { return attackers_to(s, pieces()); }
 
 	// Board manipulation
