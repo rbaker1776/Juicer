@@ -3,11 +3,12 @@
 
 #include <string>
 #include "types.h"
+#include "movement.h"
 #include "bitboard.h"
 #include "juicer.h"
 
 
-const std::string STARTING_POS = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+const std::string STARTPOS_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 
 typedef struct Gamestate

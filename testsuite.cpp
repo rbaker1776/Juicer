@@ -1,6 +1,7 @@
 #include <bitset>
 #include "minunit.h"
 #include "bitboard.h"
+#include "movement.h"
 #include "position.h"
 #include "engine.h"
 #include "uci.h"
@@ -205,47 +206,47 @@ static void magics()
 		}
 }}}
 
-static void pseudo_attacks()
+static void piece_attacks()
 {{{
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][A1] == (B3 | C2));
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][D4] == (C2 | E2 | B3 | F3 | B5 | F5 | C6 | E6));
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][H2] == (F1 | F3 | G4));
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][G3] == (H1 | F1 | E2 | E4 | F5 | H5));
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][B6] == (A8 | C8 | A4 | C4 | D7 | D5));
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][F7] == (H8 | D8 | H6 | D6 | G5 | E5));
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][H1] == (F2 | G3));
-	mu_assert(PSEUDO_ATTACKS[KNIGHT][E5] == (D7 | F7 | G6 | C6 | F3 | D3 | G4 | C4));
+	mu_assert(PIECE_ATTACKS[KNIGHT][A1] == (B3 | C2));
+	mu_assert(PIECE_ATTACKS[KNIGHT][D4] == (C2 | E2 | B3 | F3 | B5 | F5 | C6 | E6));
+	mu_assert(PIECE_ATTACKS[KNIGHT][H2] == (F1 | F3 | G4));
+	mu_assert(PIECE_ATTACKS[KNIGHT][G3] == (H1 | F1 | E2 | E4 | F5 | H5));
+	mu_assert(PIECE_ATTACKS[KNIGHT][B6] == (A8 | C8 | A4 | C4 | D7 | D5));
+	mu_assert(PIECE_ATTACKS[KNIGHT][F7] == (H8 | D8 | H6 | D6 | G5 | E5));
+	mu_assert(PIECE_ATTACKS[KNIGHT][H1] == (F2 | G3));
+	mu_assert(PIECE_ATTACKS[KNIGHT][E5] == (D7 | F7 | G6 | C6 | F3 | D3 | G4 | C4));
 
-	mu_assert(PSEUDO_ATTACKS[BISHOP][A1] == (B2 | C3 | D4 | E5 | F6 | G7 | H8));
-	mu_assert(PSEUDO_ATTACKS[BISHOP][C2] == (B1 | D1 | B3 | A4 | D3 | E4 | F5 | G6 | H7));
-	mu_assert(PSEUDO_ATTACKS[BISHOP][C6] == (B7 | A8 | D5 | E4 | F3 | G2 | H1 | B5 | A4 | D7 | E8));
+	mu_assert(PIECE_ATTACKS[BISHOP][A1] == (B2 | C3 | D4 | E5 | F6 | G7 | H8));
+	mu_assert(PIECE_ATTACKS[BISHOP][C2] == (B1 | D1 | B3 | A4 | D3 | E4 | F5 | G6 | H7));
+	mu_assert(PIECE_ATTACKS[BISHOP][C6] == (B7 | A8 | D5 | E4 | F3 | G2 | H1 | B5 | A4 | D7 | E8));
 
 	for (Square s = A1; s <= H8; ++s)
 	{
-		mu_assert((PSEUDO_ATTACKS[BISHOP][s] & (file_bb(s) | rank_bb(s))) == 0);
-		mu_assert((PSEUDO_ATTACKS[KNIGHT][s] & (file_bb(s) | rank_bb(s))) == 0);
-		mu_assert((PSEUDO_ATTACKS[KNIGHT][s] & PSEUDO_ATTACKS[QUEEN][s]) == 0);
+		mu_assert((PIECE_ATTACKS[BISHOP][s] & (file_bb(s) | rank_bb(s))) == 0);
+		mu_assert((PIECE_ATTACKS[KNIGHT][s] & (file_bb(s) | rank_bb(s))) == 0);
+		mu_assert((PIECE_ATTACKS[KNIGHT][s] & PIECE_ATTACKS[QUEEN][s]) == 0);
 	}
 
 	for (Square s = A1; s <= H8; ++s)
-		mu_assert(PSEUDO_ATTACKS[ROOK][s] == ((rank_bb(s) | file_bb(s)) & ~square_to_bb(s)));
+		mu_assert(PIECE_ATTACKS[ROOK][s] == ((rank_bb(s) | file_bb(s)) & ~square_to_bb(s)));
 
 	for (Square s = A1; s <= H8; ++s)
-		mu_assert(PSEUDO_ATTACKS[QUEEN][s] == (PSEUDO_ATTACKS[BISHOP][s] | PSEUDO_ATTACKS[ROOK][s]));
+		mu_assert(PIECE_ATTACKS[QUEEN][s] == (PIECE_ATTACKS[BISHOP][s] | PIECE_ATTACKS[ROOK][s]));
 
 	for (Square s = B7; s <= G7; ++s)
-		mu_assert(PSEUDO_ATTACKS[KING][s] == ((RANK8_BB | RANK7_BB | RANK6_BB) & (file_bb(s) | file_bb(s-1) | file_bb(s+1)) & ~square_to_bb(s)));
+		mu_assert(PIECE_ATTACKS[KING][s] == ((RANK8_BB | RANK7_BB | RANK6_BB) & (file_bb(s) | file_bb(s-1) | file_bb(s+1)) & ~square_to_bb(s)));
 
-	mu_assert(PSEUDO_ATTACKS[KING][A1] == (A2 | B2 | B1));
+	mu_assert(PIECE_ATTACKS[KING][A1] == (A2 | B2 | B1));
 
 	mu_assert(PAWN_ATTACKS[BLACK][A2] == square_to_bb(B1));
 	mu_assert(PAWN_ATTACKS[WHITE][E2] == (D3 | F3));
 }}}
 
 static void suite()
-{{{
+{{{ 
 	mu_run(Attacks::magics);
-	mu_run(Attacks::pseudo_attacks);
+	mu_run(Attacks::piece_attacks);
 }}}
 }
 
@@ -878,6 +879,7 @@ static void suite()
 
 int main()
 {
+	std::cout << PIECE_ATTACKS[1][1] << std::endl;
 	init_bitboards();
 
 	mu_suite(Bitboards::suite);

@@ -1,6 +1,8 @@
 #ifndef XORSHIFTSTAR64_H_7FC690B3A69F
 #define XORSHIFTSTAR64_H_7FC690B3A69F
 
+#include "juicer.h"
+
 
 namespace xrs
 {

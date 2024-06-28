@@ -1,7 +1,12 @@
-#include <iostream>
-#include <cassert>
 #include "movegen.h"
+
+#if (DEBUG)
+	#include <iostream>
+	#include <cassert>
+#endif
+
 #include "position.h"
+#include "movement.h"
 
 
 template<GenType Gt, Direction D, bool Enemy>
@@ -29,11 +34,11 @@ ValuedMove* generate_pawn_moves(const Position& pos, ValuedMove* moves, uint64_t
 	constexpr Color Them = ~Us;
 	constexpr uint64_t Rank7 = (Us == WHITE ? RANK7_BB : RANK2_BB);
 	constexpr uint64_t Rank3 = (Us == WHITE ? RANK3_BB : RANK6_BB);
-	constexpr Direction Up = (Us == WHITE ? Direction::N : Direction::S);
+	constexpr Direction Up = pawn_push(Us);
 	constexpr Direction UpRight = (Us == WHITE ? Direction::NE : Direction::SW);
 	constexpr Direction UpLeft = (Us == WHITE ? Direction::NW : Direction::SE);
 
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(Us == pos.side_to_move());
 		assert(Them == ~pos.side_to_move());
 	#endif
@@ -109,7 +114,7 @@ ValuedMove* generate_pawn_moves(const Position& pos, ValuedMove* moves, uint64_t
 
 		if (pos.ep_square() != NO_SQUARE)
 		{
-			#if DEBUG == true
+			#if (DEBUG)
 				assert(rank_of(pos.ep_square()) == (Us == WHITE ? RANK_6 : RANK_3));
 			#endif
 
@@ -117,7 +122,7 @@ ValuedMove* generate_pawn_moves(const Position& pos, ValuedMove* moves, uint64_t
 
 			b1 = pawns_off_7 & pawn_attacks_bb(Them, pos.ep_square());
 
-			#if DEBUG == true
+			#if (DEBUG)
 				assert(b1);
 			#endif
 
@@ -133,7 +138,7 @@ ValuedMove* generate_pawn_moves(const Position& pos, ValuedMove* moves, uint64_t
 template<Color Us, PieceType Pt, bool Checks>
 ValuedMove* generate_moves(const Position& pos, ValuedMove* moves, uint64_t target)
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(Pt != KING && Pt != PAWN);
 		assert(Us == pos.side_to_move());
 	#endif
@@ -159,7 +164,7 @@ ValuedMove* generate_moves(const Position& pos, ValuedMove* moves, uint64_t targ
 template<Color Us, GenType Gt>
 ValuedMove* generate_all(const Position& pos, ValuedMove* moves)
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(Gt != LEGAL);
 		assert(Us == pos.side_to_move());
 	#endif
@@ -203,7 +208,7 @@ ValuedMove* generate_all(const Position& pos, ValuedMove* moves)
 template<GenType Gt>
 ValuedMove* generate(const Position& pos, ValuedMove* moves)
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(Gt != LEGAL);
 		assert((Gt == EVASION) == bool(pos.checkers()));
 	#endif

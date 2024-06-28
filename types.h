@@ -1,6 +1,9 @@
 #ifndef TYPES_H_E51343A1D293
 #define TYPES_H_E51343A1D293
 
+#include <cstdint>
+#include "juicer.h"
+
 
 enum Square: int
 {

@@ -4,6 +4,7 @@
 #include <string>
 #include "position.h"
 #include "types.h"
+#include "juicer.h"
 
 
 namespace UCI

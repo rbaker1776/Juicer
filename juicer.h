@@ -8,7 +8,7 @@
 #define POPCOUNT_METHOD BUILTIN
 #define LSB_METHOD BUILTIN
 
-#define DEBUG false
+#define DEBUG true
 #define VERBOSE true
 #define QUICK_TEST true
 #define VERSION 1

@@ -1,20 +1,16 @@
-#include <bitset>
-#include "bitboard.h"
+#include "movement.h"
 
-
-uint8_t POPCOUNT16[65536];
 
 uint8_t SQUARE_DISTANCE[64][64];
-uint8_t CENTER_DISTANCE[64];
+
+uint64_t LINE_BB[64][64];
+uint64_t BETWEEN_BB[64][64];
 
 Magic ROOK_MAGICS[64];
 Magic BISHOP_MAGICS[64];
 
 uint64_t ROOK_TABLE[0x15c00];
 uint64_t BISHOP_TABLE[0x12c0];
-
-uint64_t LINE_BB[64][64];
-uint64_t BETWEEN_BB[64][64];
 
 
 static uint64_t safe_step(Square s, int step)
@@ -40,43 +36,17 @@ static uint64_t sliding_attack(PieceType pt, Square s, uint64_t occupied)
 	return attacks;
 }
 
-
-std::string bb_to_string(uint64_t bb)
-{
-	const std::string newline = "+---+---+---+---+---+---+---+---+\n";
-	std::string s = newline;
-
-	for (Rank r = RANK_8; r >= RANK_1; --r)
-	{
-		for (File f = FILE_A; f <= FILE_H; ++f)
-		{
-			s += bb & make_square(f, r) ? "| X " : "|   ";
-		}
-		s += "| " + std::to_string(r + 1) + '\n' + newline;
-	}
-	
-	return s + "  a   b   c   d   e   f   g   h";
-}
-
-
 void init_bitboards()
 {
-	for (int i = 0; i < 65536; ++i) { POPCOUNT16[i] = std::bitset<16>(i).count(); }
+	#if (POPCOUNT_METHOD == MANUAL)
+		fill_popcount();
+	#endif
 
-	for (Square s1 = A1; s1 <= H8; ++s1)
-	{
-		CENTER_DISTANCE[s1] = int(std::max(
-			std::abs(rank_of(s1) - 3.5), 
-			std::abs(file_of(s1) - 3.5)
-		));
-		for (Square s2 = A1; s2 <= H8; ++s2)
-		{
-			SQUARE_DISTANCE[s1][s2] = std::max(
-				std::abs(rank_of(s1) - rank_of(s2)),
-				std::abs(file_of(s1) - file_of(s2))
-			);
-		}
-	}
+	for (Square s1 = A1; s1 <= H8; ++s1) for (Square s2 = A1; s2 <= H8; ++s2)
+		SQUARE_DISTANCE[s1][s2] = std::max(
+			std::abs(rank_of(s1) - rank_of(s2)),
+			std::abs(file_of(s1) - file_of(s2))
+		);
 
 	for (Square s = A1; s <= H8; ++s)
 	{
@@ -109,7 +79,7 @@ void init_bitboards()
 
 	for (Square s1 = A1; s1 <= H8; ++s1) for (Square s2 = A1; s2 <= H8; ++s2) for (PieceType pt: { BISHOP, ROOK })
 	{
-		if (PSEUDO_ATTACKS[pt][s1] & s2)
+		if (PIECE_ATTACKS[pt][s1] & s2)
 		{
 			LINE_BB[s1][s2] = (attacks_bb(pt, s1, 0) & attacks_bb(pt, s2, 0)) | s1 | s2;
 			BETWEEN_BB[s1][s2] = attacks_bb(pt, s1, square_to_bb(s2)) & attacks_bb(pt, s2, square_to_bb(s1));

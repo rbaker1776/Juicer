@@ -1,4 +1,3 @@
-#include <iostream>
 #include "uci.h"
 #include "bitboard.h"
 
@@ -35,6 +34,5 @@ Move UCI::string_to_move(const Position& pos, const std::string& str)
 		if (str == UCI::move_to_string(m))
 			return m;
 
-	std::cout << str << std::endl;
 	return Move::none();
 }

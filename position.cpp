@@ -1,9 +1,13 @@
+#include "position.h"
+
+#include <iostream>
 #include <string_view>
 #include <sstream>
-#include <iostream>
-#include <cassert>
-#include "bitboard.h"
-#include "position.h"
+
+#if (DEBUG)
+	#include <cassert>
+#endif
+
 #include "uci.h"
 
 
@@ -95,7 +99,7 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 	if (((ss >> col) && (col >= 'a' && col <= 'h')) && ((ss >> row) && (row == (turn == WHITE ? '6' : '3'))))
 	{
 		this->state->ep_square = make_square(File(col - 'a'), Rank(row - '1'));
-		#if DEBUG == true
+		#if (DEBUG)
 			assert(::is_ok(state->ep_square));
 		#endif
 		en_passant = !(this->pieces() & (state->ep_square | (state->ep_square + pawn_push(turn))))
@@ -111,7 +115,7 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 	this->state->checkers = attackers_to(king_sq(turn)) & pieces(~turn);
 	this->update_check_info();
 
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(is_ok());
 	#endif
 
@@ -120,7 +124,7 @@ Position& Position::seed(const std::string& fen, Gamestate& gs)
 
 std::string Position::fen() const
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(is_ok());
 	#endif
 
@@ -193,7 +197,7 @@ uint64_t Position::attackers_to(Square s, uint64_t occupied) const
 // Assumes the move is valid and legal
 void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(is_ok());
 		assert(&gs != this->state);
 	#endif
@@ -207,7 +211,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 	const Piece pc = this->mailbox[from];
 	const Piece captured_pc = move.type() == EN_PASSANT ? this->mailbox[to + pawn_push(~turn)] : this->mailbox[to];
 
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(color_of(pc) == turn);
 		if (type_of(captured_pc) == KING)
 		{
@@ -226,7 +230,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 	{
 		const Direction d = from > to ? Direction::W : Direction::E;
 
-		#if DEBUG == true
+		#if (DEBUG)
 			assert(type_of(captured_pc) == ROOK);
 			assert(type_of(pc) == KING);
 			assert(mailbox[from + d] == NO_PIECE);
@@ -243,7 +247,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 	{
 		if (move.type() == EN_PASSANT)
 		{
-			#if DEBUG == true
+			#if (DEBUG)
 				assert(type_of(pc) == PAWN);
 				assert(to == state->ep_square);
 				assert(rank_of(to) == (turn == WHITE ? RANK_6 : RANK_3));
@@ -251,7 +255,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 				assert(type_of(piece_on(to + pawn_push(~turn))) == PAWN);
 				assert(color_of(piece_on(to + pawn_push(~turn))) == ~turn);
 			#endif
-			remove_piece(to + pawn_push(~this->turn));
+			remove_piece(to + pawn_push(~turn));
 		}
 		else
 			remove_piece(to);
@@ -274,7 +278,7 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 
 		else if (move.type() == PROMOTION)
 		{
-			#if DEBUG == true	
+			#if (DEBUG)	
 				assert(rank_of(from) == (turn == WHITE ? RANK_7 : RANK_2));
 				assert(rank_of(to) == (turn == WHITE ? RANK_8 : RANK_1));
 				assert(type_of(pc) == PAWN);
@@ -310,14 +314,14 @@ void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 
 	this->update_check_info();
 
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(is_ok());
 	#endif
 }
 
 void Position::undo_move(const Move move)
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(is_ok());
 	#endif
 
@@ -327,14 +331,14 @@ void Position::undo_move(const Move move)
 	const Square to = move.to();
 	Piece pc = mailbox[to];
 
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(mailbox[from] == NO_PIECE || move.type() == CASTLES);
 		assert(type_of(state->captured_piece) != KING);
 	#endif
 
 	if (move.type() == PROMOTION)
 	{
-		#if DEBUG == true
+		#if (DEBUG)
 			assert(rank_of(to) == (turn == WHITE ? RANK_8 : RANK_1));
 			assert(rank_of(from) == (turn == WHITE ? RANK_7 : RANK_2));
 			assert(type_of(pc) >= KNIGHT && type_of(pc) <= QUEEN);
@@ -348,7 +352,7 @@ void Position::undo_move(const Move move)
 	{
 		const Direction d = from > to ? Direction::W : Direction::E;
 
-		#if DEBUG == true
+		#if (DEBUG)
 			assert(mailbox[to] == NO_PIECE);
 			assert(mailbox[from] == NO_PIECE);
 		#endif
@@ -367,7 +371,7 @@ void Position::undo_move(const Move move)
 		{
 			if (move.type() == EN_PASSANT)
 			{
-				#if DEBUG == true
+				#if (DEBUG)
 					assert(type_of(pc) == PAWN);
 					assert(to == state->previous->ep_square);
 					assert(rank_of(to) == (turn == WHITE ? RANK_6 : RANK_3));
@@ -387,7 +391,7 @@ void Position::undo_move(const Move move)
 	this->state = this->state->previous;
 	--gameply;
 
-	#if DEBUG == true
+	#if (DEBUG)
 	 	assert(is_ok());
 	#endif
 }
@@ -454,14 +458,14 @@ void Position::update_guards(Color c) const
 
 bool Position::is_legal(Move m) const
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(m.is_ok());
 	#endif
 
 	Square from = m.from();
 	Square to = m.to();
 
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(color_of(mailbox[from]) == turn);
 	#endif
 
@@ -471,7 +475,7 @@ bool Position::is_legal(Move m) const
 		Square capsq = to - pawn_push(turn);
 		uint64_t occupied = (pieces() ^ from ^ capsq) | to;
 
-		#if DEBUG == true
+		#if (DEBUG)
 			assert(to == ep_square());
 			assert(mailbox[from] == make_piece(turn, PAWN));
 			assert(mailbox[capsq] == make_piece(~turn, PAWN));
@@ -502,7 +506,7 @@ bool Position::is_legal(Move m) const
 
 bool Position::gives_check(Move m) const 
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(m.is_ok());
 		assert(color_of(mailbox[m.from()]) == turn);
 	#endif

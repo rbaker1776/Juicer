@@ -1,12 +1,16 @@
-#include <iostream>
 #include "engine.h"
+
+#if (DEBUG || VERBOSE)
+	#include <iostream>
+#endif
+
 #include "movegen.h"
 
 
 Engine::Engine()
 {
 	states = std::unique_ptr<std::deque<Gamestate>>(new std::deque<Gamestate>(1));
-	pos.seed(STARTING_POS, states->back());
+	pos.seed(STARTPOS_FEN, states->back());
 }
 
 void Engine::set_position(const std::string& fen)

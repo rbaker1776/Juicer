@@ -1,9 +1,9 @@
 #ifndef MOVEGEN_H_DBC6611E298C
 #define MOVEGEN_H_DBC6611E298C
 
-#include <array>
 #include "juicer.h"
 #include "types.h"
+#include "juicer.h"
 
 
 class Position;

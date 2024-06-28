@@ -3,9 +3,10 @@
 
 #include <string>
 #include <cassert>
+#include <bitset>
 #include "types.h"
-#include "lookup_tables.h"
 #include "movegen.h"
+#include "juicer.h"
 
 
 constexpr uint64_t RANK1_BB = 0xff;
@@ -33,16 +34,20 @@ constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
 constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
 constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
 constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
+
 constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
 constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
 constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
 
-constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & square_to_bb(s2); }
-constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | square_to_bb(s2); }
-constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ square_to_bb(s2); }
+constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & s2; }
+constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
+constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
 
 constexpr File file_of(Square s) { return File(s & 7); }
 constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
+
+constexpr Rank operator&(Rank r, Color c) { return c == WHITE ? r : Rank(RANK_8 - r); }
+constexpr Square operator&(Square s, Color c) { return c == WHITE ? s : make_square(file_of(s), rank_of(s) & BLACK); }
 
 constexpr uint64_t file_bb(File f) { return FILEA_BB << f; }
 constexpr uint64_t rank_bb(Rank r) { return RANK1_BB << (8 * r); }
@@ -52,118 +57,37 @@ constexpr uint64_t rank_bb(Square s) { return rank_bb(rank_of(s)); }
 
 constexpr bool is_ok(Square s) { return s >= A1 && s <= H8; }
 
-extern uint8_t SQUARE_DISTANCE[64][64];
-extern uint8_t CENTER_DISTANCE[64];
 
-
-constexpr uint64_t WHITEOO_BB  = F1 | G1;
-constexpr uint64_t WHITEOOO_BB = B1 | C1 | D1;
-constexpr uint64_t BLACKOO_BB  = F8 | G8;
-constexpr uint64_t BLACKOOO_BB = B8 | C8 | D8;
-
-constexpr uint64_t CASTLING_BB[16] = 
-{
-	0ull, WHITEOO_BB, WHITEOOO_BB, WHITEOO_BB | WHITEOOO_BB, BLACKOO_BB, 0ull, 0ull, 0ull, BLACKOOO_BB, 
-	0ull, 0ull, 0ull, BLACKOO_BB | BLACKOOO_BB, 0ull, 0ull, WHITEOO_BB | WHITEOOO_BB | BLACKOO_BB | BLACKOOO_BB,
-};
-
-constexpr Square CASTLING_TO[9] = 
-{
-	NO_SQUARE, H1, A1, NO_SQUARE, H8, NO_SQUARE, NO_SQUARE, NO_SQUARE, A8,
-};
-
-
-void init_bitboards();
-
-std::string bb_to_string(uint64_t bb);
-
-
-typedef struct Magic
-{
-	uint64_t magic;
-	uint64_t mask;
-	uint64_t* attacks;
-	uint32_t shift;
-
-	inline uint32_t index(uint64_t occupied) const { return (occupied & mask) * magic >> shift; }
-} Magic;
-
-extern Magic ROOK_MAGICS[64];
-extern Magic BISHOP_MAGICS[64];
-
-extern uint64_t ROOK_TABLE[0x15c00];
-extern uint64_t BISHOP_TABLE[0x12c0];
-
-
-extern uint64_t LINE_BB[64][64];
-extern uint64_t BETWEEN_BB[64][64];
-
-constexpr bool colinear(Square s1, Square s2, Square s3) { return LINE_BB[s1][s2] & s3; }
-
-
-template<Direction D>
-constexpr uint64_t shift(uint64_t bb)
-{
-	switch (D)
+#if (DEBUG)
+	static std::string bb_to_string(uint64_t bb)
 	{
-		case Direction::N: return bb << 8;
-	 	case Direction::S: return bb >> 8;
-	 	case Direction::NN: return bb << 16;
-	 	case Direction::SS: return bb >> 16;
-	 	case Direction::E: return (bb & ~FILEH_BB) << 1;
-	 	case Direction::W: return (bb & ~FILEA_BB) >> 1;
-	 	case Direction::NE: return (bb & ~FILEH_BB) << 9;
-	 	case Direction::NW: return (bb & ~FILEA_BB) << 7;
-	 	case Direction::SE: return (bb & ~FILEH_BB) >> 7;
-	 	case Direction::SW: return (bb & ~FILEA_BB) >> 9;
-		default: return 0ull;
-	}
-}
+		const std::string newline = "+---+---+---+---+---+---+---+---+\n";
+		std::string s = newline;
 
-template<PieceType Pt>
-constexpr uint64_t attacks_bb(Square s, uint64_t occupied = 0ull)
-{
-	#if DEBUG == true
-		assert(Pt != PAWN);
-		assert(::is_ok(s));
-	#endif
-	switch (Pt)
+		for (Rank r = RANK_8; r >= RANK_1; --r)
+		{
+			for (File f = FILE_A; f <= FILE_H; ++f)
+			{
+				s += bb & make_square(f, r) ? "| X " : "|   ";
+			}
+			s += "| " + std::to_string(r + 1) + '\n' + newline;
+		}
+		
+		return s + "  a   b   c   d   e   f   g   h";
+	}
+#endif // DEBUG
+
+
+#if (POPCOUNT_METHOD == MANUAL)
+	static uint8_t POPCOUNT16[65536];
+
+	static void fill_popcount()
 	{
-		case BISHOP: return BISHOP_MAGICS[s].attacks[BISHOP_MAGICS[s].index(occupied)];
-		case ROOK: return ROOK_MAGICS[s].attacks[ROOK_MAGICS[s].index(occupied)];
-		case QUEEN: return ROOK_MAGICS[s].attacks[ROOK_MAGICS[s].index(occupied)] | BISHOP_MAGICS[s].attacks[BISHOP_MAGICS[s].index(occupied)];
-		default: return PSEUDO_ATTACKS[Pt][s];
+		for (int i = 0; i < 65536; ++i)
+			POPCOUNT16[i] = std::bitset<16>(i).count();
 	}
-}
+#endif // POPCOUNT == MANUAL
 
-constexpr uint64_t attacks_bb(PieceType pt, Square s, uint64_t occupied = 0ull)
-{
-	#if DEBUG == true
-		assert(pt != PAWN);
-		assert(::is_ok(s));
-	#endif
-	switch (pt)
-	{
-		case BISHOP: return attacks_bb<BISHOP>(s, occupied);
-		case ROOK: return attacks_bb<ROOK>(s, occupied);
-		case QUEEN: return attacks_bb<QUEEN>(s, occupied);
-		default: return PSEUDO_ATTACKS[pt][s];
-	}
-}
-
-template<Color C>
-constexpr uint64_t pawn_attacks_bb(uint64_t bb)
-{
-	return C == WHITE ? shift<NW>(bb) | shift<NE>(bb)
-				   	  : shift<SW>(bb) | shift<SE>(bb);
-}
-
-constexpr uint64_t pawn_attacks_bb(Color c, Square s) { return PAWN_ATTACKS[c][s]; }
-
-constexpr Direction pawn_push(Color c) { return c == WHITE ? Direction::N : Direction::S; }
-
-
-extern uint8_t POPCOUNT16[65536];
 static constexpr int popcount(uint64_t bb)
 {
 	#if POPCOUNT_METHOD == MANUAL
@@ -186,7 +110,7 @@ static constexpr int popcount(uint64_t bb)
 
 static constexpr Square lsb(uint64_t bb)
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(bb);
 	#endif
 
@@ -222,7 +146,7 @@ static constexpr Square lsb(uint64_t bb)
 
 static constexpr Square pop_lsb(uint64_t& bb)
 {
-	#if DEBUG == true
+	#if (DEBUG)
 		assert(bb);
 	#endif
 	const Square s = lsb(bb);

@@ -2,7 +2,7 @@ CXX = g++
 STD = -std=c++20
 CFLAGS = -O3 -Wall -Wextra -pedantic
 
-JUICER_SRC = bitboard.cpp\
+JUICER_SRC = movement.cpp\
 		     position.cpp\
 			 movegen.cpp\
 			 engine.cpp\
