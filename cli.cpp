@@ -25,7 +25,7 @@ void print_help_msg()
 	std::cout << std::setw(12) << "\"show\"" << " - Show the current position" << std::endl;
 	std::cout << std::setw(12) << "\"fen\"" << " - Print the current position's FEN string notation" << std::endl;
 	std::cout << std::setw(12) << "\"perft\"" << " - Get perft data for a given depth (default is perft 4)" << std::endl;
-	std::cout << std::setw(12) << "\"moves\"" << " - Print a list of legal moves in the position" << std::endl;
+	std::cout << std::setw(12) << "\"moves\"" << " - Print a list of legal moves in the position:" << std::endl;
 	std::cout << std::setw(12) << "\"help\"" << " - It would be weird if you didn't already understand this command" << std::endl;
 	std::cout << std::setw(12) << "\"quit\"" << " - Quit Juicer" << std::endl;
 
