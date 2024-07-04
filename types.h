@@ -104,7 +104,7 @@ constexpr Square& operator+=(Square& sq, int d) { return sq = sq + d; }
 constexpr Square& operator-=(Square& sq, Direction d) { return sq = sq - d; }
 constexpr Square& operator-=(Square& sq, int d) { return sq = sq - d; }
 
-constexpr Color operator~(Color c) { return Color(1 - int(c)); }
+constexpr Color operator~(Color c) { return Color(!bool(c)); }
 constexpr Color& operator^=(Color& c, int n) { return c = Color(int(c) ^ n); }
 
 constexpr PieceType type_of(Piece pc) { return PieceType(pc & 7); }

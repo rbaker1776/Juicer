@@ -5,6 +5,7 @@
 #include "juicer.h"
 #include "engine.h"
 #include "position.h"
+#include "bitboard.h"
 
 
 namespace CLI

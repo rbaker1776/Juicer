@@ -278,6 +278,41 @@ constexpr uint64_t pawn_attacks_bb(Color c, Square s)
 constexpr Direction pawn_push(Color c) { return c == WHITE ? Direction::N : Direction::S; }
 
 
+constexpr Square enpassant_square(uint64_t squares)
+{	
+	switch (squares)
+	{
+		case (A2 | A4): return A3;
+		case (B2 | B4): return B3;
+		case (C2 | C4): return C3;
+		case (D2 | D4): return D3;
+		case (E2 | E4): return E3;
+		case (F2 | F4): return F3;
+		case (G2 | G4): return G3;
+		case (H2 | H4): return H3;
+		case (A7 | A5): return A6;
+		case (B7 | B5): return B6;
+		case (C7 | C5): return C6;
+		case (D7 | D5): return D6;
+		case (E7 | E5): return E6;
+		case (F7 | F5): return F6;
+		case (G7 | G5): return G6;
+		case (H7 | H5): return H6;
+		default: return NO_SQUARE;
+	}
+}
+
+constexpr uint32_t castling_update(uint64_t squares)
+{
+	uint32_t cr = ANY_CASTLES;
+	cr &= (squares & (A1 | E1) ? ~WHITE_OOO : ANY_CASTLES);
+	cr &= (squares & (H1 | E1) ? ~WHITE_OO  : ANY_CASTLES);
+	cr &= (squares & (A8 | E8) ? ~BLACK_OOO : ANY_CASTLES);
+	cr &= (squares & (H8 | E8) ? ~BLACK_OO  : ANY_CASTLES);
+	return cr;
+}
+
+
 void init_bitboards();
 
 

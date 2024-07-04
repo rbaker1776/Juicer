@@ -533,20 +533,20 @@ static void undo_moves()
 {{{
 	Gamestate gs;
 	Position pos;
-	pos.seed(STARTING_POS, gs);
+	pos.seed(STARTPOS_FEN, gs);
 
 	Gamestate gs2;
 	pos.make_move(Move::make(E2, E4), gs2);
 	pos.undo_move(Move::make(E2, E4));
-	mu_assert(pos.fen() == STARTING_POS);
+	mu_assert(pos.fen() == STARTPOS_FEN);
 
 	pos.make_move(Move::make(E2, E4), gs2);
 	pos.undo_move(Move::make(E2, E4));
-	mu_assert(pos.fen() == STARTING_POS);
+	mu_assert(pos.fen() == STARTPOS_FEN);
 
 	pos.make_move(Move::make(G1, F3), gs2);
 	pos.undo_move(Move::make(G1, F3));
-	mu_assert(pos.fen() == STARTING_POS);
+	mu_assert(pos.fen() == STARTPOS_FEN);
 
 	Gamestate gss[20];
 	Move moves[20] = 
@@ -566,7 +566,7 @@ static void undo_moves()
 	for (int i = 0; i < 20; ++i) pos.make_move(moves[i], gss[i]);
 	for (int i = 19; i >= 0; --i) pos.undo_move(moves[i]);
 
-	mu_assert(pos.fen() == STARTING_POS);
+	mu_assert(pos.fen() == STARTPOS_FEN);
 }}}
 
 static void suite()
@@ -879,7 +879,6 @@ static void suite()
 
 int main()
 {
-	std::cout << PIECE_ATTACKS[1][1] << std::endl;
 	init_bitboards();
 
 	mu_suite(Bitboards::suite);

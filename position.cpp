@@ -1,19 +1,15 @@
 #include "position.h"
-
 #include <iostream>
 #include <string_view>
 #include <sstream>
-
-#if (DEBUG)
-	#include <cassert>
-#endif
-
+#include <cassert>
 #include "uci.h"
 
 
 constexpr std::string_view PIECE_TO_CHAR(" PNBRQK  pnbrqk ");
 
 
+#if (DEBUG)
 bool Position::is_ok() const
 {
 	assert(popcount(bitboards[W_KING]) == 1);
@@ -46,6 +42,7 @@ bool Position::is_ok() const
 
 	return true;
 }
+#endif // DEBUG
 
 
 Position& Position::seed(const std::string& fen, Gamestate& gs)
@@ -193,8 +190,6 @@ uint64_t Position::attackers_to(Square s, uint64_t occupied) const
 }
 
 
-// Makes a move and updates the gamestate accordingly
-// Assumes the move is valid and legal
 void Position::make_move(const Move move, Gamestate& gs, bool is_check)
 {
 	#if (DEBUG)

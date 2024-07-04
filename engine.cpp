@@ -1,9 +1,5 @@
 #include "engine.h"
-
-#if (DEBUG || VERBOSE)
-	#include <iostream>
-#endif
-
+#include <iostream>
 #include "movegen.h"
 
 

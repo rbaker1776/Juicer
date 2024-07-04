@@ -1,10 +1,5 @@
 #include "movegen.h"
-
-#if (DEBUG)
-	#include <iostream>
-	#include <cassert>
-#endif
-
+#include <cassert>
 #include "position.h"
 #include "movement.h"
 
@@ -175,7 +170,7 @@ ValuedMove* generate_all(const Position& pos, ValuedMove* moves)
 
 	if (Gt != EVASION || popcount(pos.checkers()) <= 1)
 	{
-		target = Gt == EVASION ? BETWEEN_BB[ksq][lsb(pos.checkers())]
+		target = Gt == EVASION ? BETWEEN_BB[ksq][square_of(pos.checkers())]
 			   : Gt == NON_EVASION ? ~pos.pieces(Us)
 			   : Gt == CAPTURE ? pos.pieces(~Us)
 			   : ~pos.pieces();

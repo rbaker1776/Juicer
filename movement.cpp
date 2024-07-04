@@ -16,7 +16,7 @@ uint64_t BISHOP_TABLE[0x12c0];
 static uint64_t safe_step(Square s, int step)
 {
 	Square to = Square(s + step);
-	return (is_ok(to) && SQUARE_DISTANCE[s][to] <= 2) ? square_to_bb(to) : 0;
+	return (::is_ok(to) && SQUARE_DISTANCE[s][to] <= 2) ? square_to_bb(to) : 0;
 }
 
 static uint64_t sliding_attack(PieceType pt, Square s, uint64_t occupied)
@@ -35,6 +35,7 @@ static uint64_t sliding_attack(PieceType pt, Square s, uint64_t occupied)
 	}
 	return attacks;
 }
+
 
 void init_bitboards()
 {

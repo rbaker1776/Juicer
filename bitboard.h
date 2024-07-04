@@ -59,33 +59,33 @@ constexpr bool is_ok(Square s) { return s >= A1 && s <= H8; }
 
 
 #if (DEBUG)
-	static std::string bb_to_string(uint64_t bb)
-	{
-		const std::string newline = "+---+---+---+---+---+---+---+---+\n";
-		std::string s = newline;
+static std::string bb_to_string(uint64_t bb)
+{
+	const std::string newline = "+---+---+---+---+---+---+---+---+\n";
+	std::string s = newline;
 
-		for (Rank r = RANK_8; r >= RANK_1; --r)
+	for (Rank r = RANK_8; r >= RANK_1; --r)
+	{
+		for (File f = FILE_A; f <= FILE_H; ++f)
 		{
-			for (File f = FILE_A; f <= FILE_H; ++f)
-			{
-				s += bb & make_square(f, r) ? "| X " : "|   ";
-			}
-			s += "| " + std::to_string(r + 1) + '\n' + newline;
+			s += bb & make_square(f, r) ? "| X " : "|   ";
 		}
-		
-		return s + "  a   b   c   d   e   f   g   h";
+		s += "| " + std::to_string(r + 1) + '\n' + newline;
 	}
+	
+	return s + "  a   b   c   d   e   f   g   h";
+}
 #endif // DEBUG
 
 
 #if (POPCOUNT_METHOD == MANUAL)
-	static uint8_t POPCOUNT16[65536];
+static uint8_t POPCOUNT16[65536];
 
-	static void fill_popcount()
-	{
-		for (int i = 0; i < 65536; ++i)
-			POPCOUNT16[i] = std::bitset<16>(i).count();
-	}
+static void fill_popcount()
+{
+	for (int i = 0; i < 65536; ++i)
+		POPCOUNT16[i] = std::bitset<16>(i).count();
+}
 #endif // POPCOUNT == MANUAL
 
 static constexpr int popcount(uint64_t bb)
@@ -108,7 +108,8 @@ static constexpr int popcount(uint64_t bb)
 	#endif
 }
 
-static constexpr Square lsb(uint64_t bb)
+
+static constexpr Square square_of(uint64_t bb)
 {
 	#if (DEBUG)
 		assert(bb);
@@ -140,7 +141,7 @@ static constexpr Square lsb(uint64_t bb)
 		#endif
 	#else
 		#define LSB_METHOD MANUAL
-		return lsb(bb);
+		return square_of(bb);
 	#endif
 }
 
@@ -149,7 +150,7 @@ static constexpr Square pop_lsb(uint64_t& bb)
 	#if (DEBUG)
 		assert(bb);
 	#endif
-	const Square s = lsb(bb);
+	const Square s = square_of(bb);
 	bb &= bb - 1;
 	return s;
 }
