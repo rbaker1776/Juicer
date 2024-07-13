@@ -1,15 +1,12 @@
 #include <bitset>
-#include <fstream>
-#include <chrono>
 #include "minunit.h"
-#include "xorshiftstar64.h"
 #include "bitboard.h"
 #include "movement.h"
 #include "position.h"
-#include "juicer.h"
-#include "movegen.h"
 #include "engine.h"
 #include "uci.h"
+#include "xorshiftstar64.h"
+#include "juicer.h"
 
 
 static uint64_t safe_step(Square s, int step)
@@ -30,32 +27,6 @@ static uint64_t sliding_attack(PieceType pt, Square s, uint64_t occupied)
 		while (safe_step(from, d) && !(occupied & from)) 
 		{ 
 			attacks |= (from += d); 
-		}
-	}
-	return attacks;
-}}}
-
-static uint64_t xray_attack(PieceType pt, Square s, uint64_t occupied)
-{{{
-	uint64_t attacks = 0;
-	Direction rook_directions[4] = { N, S, E, W };
-	Direction bishop_directions[4] = { NE, SE, NW, SW };
-
-	for (Direction d: (pt == ROOK ? rook_directions : bishop_directions))
-	{
-		Square from = s;
-		bool breakout = false;
-		while (safe_step(from, d) && !(breakout && (occupied & from))) 
-		{ 
-			if (occupied & from) 
-			{
-				attacks |= from;
-				breakout = true;
-			}
-			if (breakout)
-				attacks |= (from += d); 
-			else
-				from += d;
 		}
 	}
 	return attacks;
@@ -212,26 +183,26 @@ static void magics()
 		{
 			const Square s = Square(xrs::rand<uint8_t>() & 63);
 			const uint64_t occupied = xrs::sparse_rand<uint64_t>() & ~square_to_bb(s);
-			mu_assert(sliding_attack(ROOK, s, occupied) == ROOK_MAGICS[s][occupied]);
+			mu_assert(sliding_attack(ROOK, s, occupied) == ROOK_MAGICS[s].attacks[ROOK_MAGICS[s].index(occupied)]);
 		}
 		for (int i = 0; i < 100'000; ++i)
 		{
 			const Square s = Square(xrs::rand<uint8_t>() & 63);
 			const uint64_t occupied = xrs::rand<uint64_t>() & ~square_to_bb(s);
-			mu_assert(sliding_attack(ROOK, s, occupied) == ROOK_MAGICS[s][occupied]);
+			mu_assert(sliding_attack(ROOK, s, occupied) == ROOK_MAGICS[s].attacks[ROOK_MAGICS[s].index(occupied)]);
 		}
 
 		for (int i = 0; i < 100'000; ++i)
 		{
 			const Square s = Square(xrs::rand<uint8_t>() & 63);
 			const uint64_t occupied = xrs::sparse_rand<uint64_t>() & ~square_to_bb(s);
-			mu_assert(sliding_attack(BISHOP, s, occupied) == BISHOP_MAGICS[s][occupied]);
+			mu_assert(sliding_attack(BISHOP, s, occupied) == BISHOP_MAGICS[s].attacks[BISHOP_MAGICS[s].index(occupied)]);
 		}
 		for (int i = 0; i < 100'000; ++i)
 		{
 			const Square s = Square(xrs::rand<uint8_t>() & 63);
 			const uint64_t occupied = xrs::rand<uint64_t>() & ~square_to_bb(s);
-			mu_assert(sliding_attack(BISHOP, s, occupied) == BISHOP_MAGICS[s][occupied]);
+			mu_assert(sliding_attack(BISHOP, s, occupied) == BISHOP_MAGICS[s].attacks[BISHOP_MAGICS[s].index(occupied)]);
 		}
 }}}
 
@@ -279,7 +250,7 @@ static void suite()
 }}}
 }
 
-/*
+
 namespace Positions
 {
 static void fen_constructor()
@@ -904,20 +875,25 @@ static void suite()
 	mu_run(perft);
 }}}
 }
-*/
+
 
 int main()
 {
-	//mu_suite(Bitboards::suite);
-	//mu_suite(Attacks::suite);
-	//mu_suite(Positions::suite);
-	//mu_suite(Movegen::suite);
+	init_bitboards();
 
-	Engine juicer;
-	std::cout << juicer.perft<7, false>() << std::endl;
+	mu_suite(Bitboards::suite);
+	mu_suite(Attacks::suite);
+	mu_suite(Positions::suite);
+	mu_suite(Movegen::suite);
 
+	Gamestate gs;
+	Position pos;
+	pos.seed("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", gs);
+	auto start = std::chrono::steady_clock::now();
+	MoveList<LEGAL> m(pos);
+	auto stop = std::chrono::steady_clock::now();
+	std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count() << std::endl;
+	std::cout << m.size() << std::endl;
 
 	return 0;
 }
-
-

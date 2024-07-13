@@ -1,5 +1,5 @@
-#ifndef TYPES_H_E51343A1D293
-#define TYPES_H_E51343A1D293
+#ifndef TYPES_H_8D2FD9177A41
+#define TYPES_H_8D2FD9177A41
 
 #include <cstdint>
 #include "juicer.h"
@@ -15,7 +15,6 @@ enum Square: int
 	A6, B6, C6, D6, E6, F6, G6, H6,
 	A7, B7, C7, D7, E7, F7, G7, H7,
 	A8, B8, C8, D8, E8, F8, G8, H8,
-	NUM_SQUARES = 64,
 	NO_SQUARE,
 };
 
@@ -29,6 +28,7 @@ enum Rank: int
 	RANK_6,
 	RANK_7,
 	RANK_8,
+	NO_RANK,
 };
 
 enum File: int
@@ -41,19 +41,21 @@ enum File: int
 	FILE_F,
 	FILE_G,
 	FILE_H,
+	NO_FILE,
 };
 
-#define ENABLE_INCREMENT_OPERATORS(T) \
-	constexpr T& operator++(T& x) { return x = T(int(x) + 1); } \
-	constexpr T& operator--(T& x) { return x = T(int(x) - 1); }
+constexpr Square& operator++(Square& s) { return s = Square(int(s) + 1); }
+constexpr Square& operator--(Square& s) { return s = Square(int(s) - 1); }
 
-ENABLE_INCREMENT_OPERATORS(Square);
-ENABLE_INCREMENT_OPERATORS(Rank);
-ENABLE_INCREMENT_OPERATORS(File);
+constexpr Rank& operator++(Rank& r) { return r = Rank(int(r) + 1); }
+constexpr Rank& operator--(Rank& r) { return r = Rank(int(r) - 1); }
 
-#undef ENABLE_INCREMENT_OPERATORS
+constexpr File& operator++(File& f) { return f = File(int(f) + 1); }
+constexpr File& operator--(File& f) { return f = File(int(f) - 1); }
 
 
+// value corresponds to the bitshift associated with a step in a given direction
+// one step north (ex. f4->f5) is a bitshift right by 8
 enum Direction: int
 {
 	N = 8,
@@ -64,14 +66,25 @@ enum Direction: int
 	NE = N + E,
 	SW = S + W,
 	SE = S + E,
-	NN = 2 * N,
-	SS = 2 * S,
+	NN = N + N,
+	SS = S + S,
+	NO_DIRECTION = 0,
 };
+
+constexpr Square operator+(Square s, Direction d) { return Square(int(s) + int(d)); }
+constexpr Square operator-(Square s, Direction d) { return Square(int(s) - int(d)); }
+
+constexpr Square operator+(Square s, int d) { return Square(int(s) + d); }
+constexpr Square operator-(Square s, int d) { return Square(int(s) - d); }
+
+constexpr Square& operator+=(Square& s, Direction d) { return s = s + d; }
+constexpr Square& operator-=(Square& s, Direction d) { return s = s - d; }
+
 
 enum PieceType: int
 {
-	NO_PIECE_TYPE,
-	PAWN,
+	NO_PIECE_TYPE = 0,
+	PAWN = 1,
 	KNIGHT,
 	BISHOP,
 	ROOK,
@@ -82,92 +95,70 @@ enum PieceType: int
 
 enum Piece: int
 {
-	NO_PIECE,
-	W_PAWN = PAWN, W_KNIGHT, W_BISHOP, W_ROOK, W_QUEEN, W_KING,
-	B_PAWN = PAWN + 8, B_KNIGHT, B_BISHOP, B_ROOK, B_QUEEN, B_KING,
+	NO_PIECE = 0,
+	W_PAWN = PAWN,
+	W_KNIGHT,
+	W_BISHOP,
+	W_ROOK,
+	W_QUEEN,
+	W_KING,
+	B_PAWN = PAWN + 8,
+	B_KNIGHT,
+	B_BISHOP,
+	B_ROOK,
+	B_QUEEN,
+	B_KING,
 };
 
+
+// type bool instead of type int to ensure reduced template instantiations
 enum Color: int
 {
-	WHITE,
-	BLACK,
+	WHITE = false,
+	BLACK = true,
 };
 
-
-constexpr Square operator+(Square sq, Direction d) { return Square(int(sq) + int(d)); }
-constexpr Square operator+(Square sq, int d) { return Square(int(sq) + d); }
-constexpr Square operator-(Square sq, Direction d) { return Square(int(sq) - int(d)); }
-constexpr Square operator-(Square sq, int d) { return Square(int(sq) - d); }
-
-constexpr Square& operator+=(Square& sq, Direction d) { return sq = sq + d; }
-constexpr Square& operator+=(Square& sq, int d) { return sq = sq + d; }
-constexpr Square& operator-=(Square& sq, Direction d) { return sq = sq - d; }
-constexpr Square& operator-=(Square& sq, int d) { return sq = sq - d; }
-
 constexpr Color operator~(Color c) { return Color(!bool(c)); }
-constexpr Color& operator^=(Color& c, int n) { return c = Color(int(c) ^ n); }
 
 constexpr PieceType type_of(Piece pc) { return PieceType(pc & 7); }
 constexpr Color color_of(Piece pc) { return Color(pc >> 3); }
 constexpr Piece make_piece(Color c, PieceType pt) { return Piece((c << 3) | pt); }
 
 
-enum CastlingRights: int
+enum Castling: int
 {
-	NO_CASTLES,
-	WHITE_OO  = 1, 
-	WHITE_OOO = 2,
-	BLACK_OO  = 4,
-	BLACK_OOO = 8,
-	WHITE_CASTLES = WHITE_OO | WHITE_OOO,
-	BLACK_CASTLES = BLACK_OO | BLACK_OOO,
+	NO_CASTLES = 0,
+	WHITE_OOO = 8,
+	WHITE_OO  = 4,
+	BLACK_OOO = 2,
+	BLACK_OO  = 1,
+	WHITE_CASTLES = WHITE_OOO | WHITE_OO,
+	BLACK_CASTLES = BLACK_OOO | BLACK_OO,
 	KING_SIDE = WHITE_OO | BLACK_OO,
 	QUEEN_SIDE = WHITE_OOO | BLACK_OOO,
-	ANY_CASTLES = 15,
+	ALL_CASTLES = KING_SIDE | QUEEN_SIDE,
 };
 
-constexpr CastlingRights operator&(Color c, CastlingRights cr) { return CastlingRights((c == WHITE ? WHITE_CASTLES : BLACK_CASTLES) & cr); }
 
-
-enum MoveType: int
+enum MoveType
 {
-	NORMAL = 0,
-	PROMOTION = 1 << 14,
-	EN_PASSANT = 2 << 14,
-	CASTLES = 3 << 14,
+	NORMAL,
+	CASTLING,
+	EN_PASSANT,
+	PROMOTION,
 };
 
-class Move
+struct Move
 {
-protected:
-	uint16_t data;
-
 public:
-	Move() = default;
-	constexpr explicit Move(uint16_t d): data(d) {}
-	constexpr Move(Square from, Square to): data((from << 6) + to) {}
-	
-	static constexpr Move make(Square from, Square to, MoveType mt = NORMAL, PieceType pt = KNIGHT)
-	{ return Move(mt + ((pt - KNIGHT) << 12) + (from << 6) + to); }
+	MoveType type;
+	Square from;
+	Square to;
+	PieceType piece;
 
-	static constexpr Move none() { return Move(A1, A1); }
-	static constexpr Move null() { return Move(A2, A2); }
-
-	constexpr Square from() const { return Square((data >> 6) & 63); }
-	constexpr Square to() const { return Square(data & 63); }
-	constexpr int from_to() const { return data & 0xfff; }
-
-	constexpr MoveType type() const { return MoveType(data & (3 << 14)); }
-	constexpr PieceType promotion_type() const { return PieceType(((data >> 12) & 3) + KNIGHT); }
-
-	constexpr bool operator==(const Move& m) const { return this->data == m.data; }
-	constexpr bool operator!=(const Move& m) const { return this->data != m.data; }
-	
-	constexpr explicit operator bool() const { return data != 0; }
-	constexpr uint16_t raw() const { return data; }
-
-	constexpr bool is_ok() const { return none().data != data && null().data != data; }
+	constexpr Move() = default;
+	constexpr Move(MoveType mt, Square from, Square to, PieceType pt = KNIGHT): type(mt), from(from), to(to), piece(pt) {}
 };
 
 
-#endif // TYPES_H_E51343A1D293
+#endif // TYPES_H_8D2FD9177A41

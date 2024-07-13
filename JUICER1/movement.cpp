@@ -1,16 +1,17 @@
 #include "movement.h"
+#include "juicer.h"
+#include <iostream>
 
-
-uint8_t SQUARE_DISTANCE[64][64];
-
-uint64_t LINE_BB[64][64];
-uint64_t BETWEEN_BB[64][64];
 
 Magic ROOK_MAGICS[64];
 Magic BISHOP_MAGICS[64];
 
-uint64_t ROOK_TABLE[0x15c00];
+uint64_t ROOK_TABLE[88064];
 uint64_t BISHOP_TABLE[0x12c0];
+
+#if (POPCOUNT_METHOD == MANUAL)
+//uint8_t POPCOUNT16[65536];
+#endif
 
 
 static uint64_t safe_step(Square s, int step)
@@ -40,14 +41,9 @@ static uint64_t sliding_attack(PieceType pt, Square s, uint64_t occupied)
 void init_bitboards()
 {
 	#if (POPCOUNT_METHOD == MANUAL)
-		fill_popcount();
+	//for (int i = 0; i < 65536; ++i)
+	//	POPCOUNT16[i] = std::bitset<16>(i).count();
 	#endif
-
-	for (Square s1 = A1; s1 <= H8; ++s1) for (Square s2 = A1; s2 <= H8; ++s2)
-		SQUARE_DISTANCE[s1][s2] = std::max(
-			std::abs(rank_of(s1) - rank_of(s2)),
-			std::abs(file_of(s1) - file_of(s2))
-		);
 
 	for (Square s = A1; s <= H8; ++s)
 	{
@@ -77,14 +73,4 @@ void init_bitboards()
 			blockers = (blockers - bm.mask) & bm.mask;
 		}
 	}	
-
-	for (Square s1 = A1; s1 <= H8; ++s1) for (Square s2 = A1; s2 <= H8; ++s2) for (PieceType pt: { BISHOP, ROOK })
-	{
-		if (PIECE_ATTACKS[pt][s1] & s2)
-		{
-			LINE_BB[s1][s2] = (attacks_bb(pt, s1, 0) & attacks_bb(pt, s2, 0)) | s1 | s2;
-			BETWEEN_BB[s1][s2] = attacks_bb(pt, s1, square_to_bb(s2)) & attacks_bb(pt, s2, square_to_bb(s1));
-		}
-		BETWEEN_BB[s1][s2] |= s2;
-	}
 }

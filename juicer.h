@@ -1,17 +1,18 @@
-#ifndef JUICER_H_B767A0F9037F
-#define JUICER_H_B767A0F9037F
+#ifndef JUICER_H_78A29C6E15DC
+#define JUICER_H_78A29C6E15DC
 
 
 #define MANUAL 0
 #define BUILTIN 1
 
-#define POPCOUNT_METHOD BUILTIN
-#define LSB_METHOD BUILTIN
+#define POPCOUNT BUILTIN
+#define LSB BUILTIN
 
 #define DEBUG false
 #define VERBOSE true
 #define QUICK_TEST true
+
 #define VERSION 1
 
 
-#endif // JUICER_H_B767A0F9037F
+#endif // JUICER_H_78A29C6E15DC

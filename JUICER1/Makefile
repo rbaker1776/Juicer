@@ -1,13 +1,18 @@
 CXX = g++
 STD = -std=c++20
-CFLAGS = -O3 -Wall -Wextra -pedantic
+CFLAGS = -O3 -Wall -Wextra -pedantic -fconstexpr-steps=393222
 
-SRC = position.cpp
-TEST_SRC = $(SRC) testsuite.cpp
-CLI_SRC = $(SRC) cli.cpp
+JUICER_SRC = movement.cpp\
+		     position.cpp\
+			 movegen.cpp\
+			 engine.cpp\
+			 uci.cpp
+TEST_SRC = $(JUICER_SRC) testsuite.cpp
+CLI_SRC = $(JUICER_SRC) cli.cpp
 
 TEST = testjuicer
 CLI = juicer
+
 
 cli: $(CLI_SRC)
 	$(CXX) $(STD) $(CFLAGS) $(CLI_SRC) -o $(CLI) && ./$(CLI)

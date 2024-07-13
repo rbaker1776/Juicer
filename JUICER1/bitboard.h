@@ -1,13 +1,13 @@
-#ifndef BITBOARD_H_0CEDFBF5F401
-#define BITBOARD_H_0CEDFBF5F401
+#ifndef BITBOARD_H_DE3A36A4E0B0
+#define BITBOARD_H_DE3A36A4E0B0
 
-#include <cstdint>
-#include <array>
-#include <bitset>
 #include <string>
-#include <sstream>
 #include <cassert>
+#include <iostream>
+#include <bitset>
+#include <array>
 #include "types.h"
+#include "movegen.h"
 #include "juicer.h"
 
 
@@ -28,8 +28,6 @@ constexpr uint64_t FILEE_BB = FILEA_BB << 4;
 constexpr uint64_t FILEF_BB = FILEA_BB << 5;
 constexpr uint64_t FILEG_BB = FILEA_BB << 6;
 constexpr uint64_t FILEH_BB = FILEA_BB << 7;
-
-constexpr uint64_t BOARD_BB = UINT64_MAX;
 
 
 constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
@@ -62,63 +60,81 @@ constexpr uint64_t rank_bb(Square s) { return rank_bb(rank_of(s)); }
 constexpr bool is_ok(Square s) { return s >= A1 && s <= H8; }
 
 
-template<Color C> constexpr uint64_t ep_rank_bb() { if constexpr (C == WHITE) return RANK5_BB; else return RANK4_BB; }
-template<Color C> constexpr uint64_t rank_2_bb() { if constexpr (C == WHITE) return RANK2_BB; else return RANK7_BB; }
-template<Color C> constexpr uint64_t rank_6_bb() { if constexpr (C == WHITE) return RANK6_BB; else return RANK3_BB; }
-template<Color C> constexpr uint64_t rank_7_bb() { if constexpr (C == WHITE) return RANK7_BB; else return RANK2_BB; }
+#if (DEBUG)
+static std::string bb_to_string(uint64_t bb)
+{
+	const std::string newline = "+---+---+---+---+---+---+---+---+\n";
+	std::string s = newline;
+
+	for (Rank r = RANK_8; r >= RANK_1; --r)
+	{
+		for (File f = FILE_A; f <= FILE_H; ++f)
+		{
+			s += bb & make_square(f, r) ? "| X " : "|   ";
+		}
+		s += "| " + std::to_string(r + 1) + '\n' + newline;
+	}
+	
+	return s + "  a   b   c   d   e   f   g   h";
+}
+#endif // DEBUG
 
 
-#if (POPCOUNT == MANUAL)
-// this ugly function minimizes constexpr steps to 393222 = 6 * (2^16 + 1)
-static consteval uint8_t popcount16(uint16_t n)
+#if (POPCOUNT_METHOD == MANUAL)
+// through experimentation, this ugly function minimized constexpr steps required to 393222
+// 393222 = 6(2^16 + 1)
+// I didn't have to look up any of the the powers of two
+// is that a brag or a sad reflection on what I carry in my mind?
+static consteval uint8_t manual_popcount16(int n)
 {
 	return bool(n & 1) + bool(n & 2) + bool(n & 4) + bool(n & 8)
 	     + bool(n & 16) + bool(n & 32) + bool(n & 64) + bool(n & 128)
-		 + bool(n & 256) + bool(n & 512) + bool(n & 1024) + bool(2048)
-		 + bool(n & 4096) + bool(n & 8192) + bool(n & 16384) + bool(n & 32768);
+	     + bool(n & 256) + bool(n & 512) + bool(n & 1024) + bool(n & 2048)
+	     + bool(n & 4096) + bool(n & 8192) + bool(n & 16384) + bool(n & 32768);
 }
 
 static consteval std::array<uint8_t, 65536> fill_popcount()
 {
-	std::array<uint8_t, 65536> popcount;
-	for (uint16_t i = 0; i <= UINT16_MAX; ++i)
-		popcount_16[i] = popcount16(i);
-	return popcount;
+	std::array<uint8_t, 65536> popcount_16 = {};
+	for (int i = 0; i < 65536; ++i)
+		popcount_16[i] = manual_popcount16(i);
+	return popcount_16;
 }
 
 static constexpr std::array<uint8_t, 65536> POPCOUNT16 = fill_popcount();
-#endif // (POPCOUNT == MANUAL)
+#endif // POPCOUNT == MANUAL
 
-
-static constexpr size_t popcount(uint64_t bb)
+static constexpr int popcount(uint64_t bb)
 {
-	#if (POPCOUNT == MANUAL)
+	#if (POPCOUNT_METHOD == MANUAL)
 		union
 		{
-			uint64_t u64;
-			uint16_t u16[4];
-		} u = {bb};
-		return POPCOUNT16[u.u16[0]] + POPCOUNT16[u.u16[1]] + POPCOUNT16[u.u16[2]] + POPCOUNT16[u.u16[3]];
-	#elif defined(__GNUC__)
-		return __builtin_popcountll(bb);
+			uint64_t whole;
+			uint16_t quarters[4];
+		};
+		whole = bb;
+		return POPCOUNT16[quarters[0]]
+			 + POPCOUNT16[quarters[1]] 
+			 + POPCOUNT16[quarters[2]]
+			 + POPCOUNT16[quarters[3]];
 	#elif defined(_MSC_VER)
 		return int(_mm_popcnt_u64(bb));
-	#else
-		#error "Compiler not supported for builtin popcount. Set POPCOUNT to MANUAL in juicer.h."
+	#elif defined(__GNUC__)
+		return __builtin_popcountll(bb);
 	#endif
 }
 
 
-static constexpr Square lsb(uint64_t bb)
+static constexpr Square square_of(uint64_t bb)
 {
 	#if (DEBUG)
 		assert(bb);
 	#endif
 
-	#if LSB == MANUAL
-		Square s;
-		for (s = A1; !(bb & s); ++s) {}
-		return s;
+	#if LSB_METHOD == MANUAL
+		int idx = 0;
+		for (; (bb & 1) == 0; bb >>= 1) ++idx;
+		return Square(idx);
 	#elif defined(__GNUC__)
 		return Square(__builtin_ctzll(bb));
 	#elif defined(_MSC_VER)
@@ -128,7 +144,7 @@ static constexpr Square lsb(uint64_t bb)
 			return Square(idx);
 		#else
 			unsigned long idx;
-			if (bb & 0xffffffff)
+			if (bb & 0xffffffff);
 			{
 				_BitScanForward(&idx, int32_t(bb));
 				return Square(idx);
@@ -140,7 +156,8 @@ static constexpr Square lsb(uint64_t bb)
 			}
 		#endif
 	#else
-		#error "Compiler not supported for builtin lsb. Set LSB to MANUAL in juicer.h"
+		#define LSB_METHOD MANUAL
+		return square_of(bb);
 	#endif
 }
 
@@ -149,33 +166,10 @@ static constexpr Square pop_lsb(uint64_t& bb)
 	#if (DEBUG)
 		assert(bb);
 	#endif
-
-	const Square s = lsb(bb);
+	const Square s = square_of(bb);
 	bb &= bb - 1;
 	return s;
 }
 
 
-#if (DEBUG)
-static std::string bb_to_string(uint64_t bb, char marker = 'X')
-{
-	std::ostringstream ss;
-	ss << "+---+---+---+---+---+---+---+---+\n";
-
-	for (Rank r = RANK_8; r >= RANK_1; --r)
-	{
-		for (File f = FILE_A; f <= FILE_H; ++f)
-		{
-			ss << '|' << ' ' << (bb & make_square(f, r) ? marker : ' ') << ' ';
-		}
-		ss << '|' << ' ' << std::to_string(r + 1) << '\n';
-		ss << "+---+---+---+---+---+---+---+---+\n";
-	}
-
-	ss << "  a   b   c   d   e   f   g   h";
-	return ss.str();
-}
-#endif // (DEBUG)
-
-
-#endif // BITBOARD_H_0CEDFBF5F401
+#endif // BITBOARD_H_DE3A36A4E0B0
