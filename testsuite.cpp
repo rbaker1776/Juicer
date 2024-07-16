@@ -322,21 +322,21 @@ namespace Positions
 
 		Engine juicer;
 		juicer.seed("4r1k1/ppp2pb1/3p1P1p/7Q/2Pq3B/1P5P/P4RP1/6K1 b - - 0 26");
-		mu_assert(juicer.state().turn == BLACK);
-		mu_assert(juicer.state().has_ep_pawn == false);
-		mu_assert(juicer.state().w_castle_ooo == false);
-		mu_assert(juicer.state().w_castle_oo  == false);
-		mu_assert(juicer.state().b_castle_ooo == false);
-		mu_assert(juicer.state().b_castle_oo  == false);
+		mu_assert(juicer.boardstate().turn == BLACK);
+		mu_assert(juicer.boardstate().has_ep_pawn == false);
+		mu_assert(juicer.boardstate().w_castle_ooo == false);
+		mu_assert(juicer.boardstate().w_castle_oo  == false);
+		mu_assert(juicer.boardstate().b_castle_ooo == false);
+		mu_assert(juicer.boardstate().b_castle_oo  == false);
 
 		
 		juicer.seed("1rbqkbnr/pppppppp/2n5/8/4P3/5N2/PPPP1PPP/RNBQKBR1 b Qk - 4 3");
-		mu_assert(juicer.state().turn == BLACK);
-		mu_assert(juicer.state().has_ep_pawn == false);
-		mu_assert(juicer.state().w_castle_ooo == true);
-		mu_assert(juicer.state().w_castle_oo  == false);
-		mu_assert(juicer.state().b_castle_ooo == false);
-		mu_assert(juicer.state().b_castle_oo  == true);
+		mu_assert(juicer.boardstate().turn == BLACK);
+		mu_assert(juicer.boardstate().has_ep_pawn == false);
+		mu_assert(juicer.boardstate().w_castle_ooo == true);
+		mu_assert(juicer.boardstate().w_castle_oo  == false);
+		mu_assert(juicer.boardstate().b_castle_ooo == false);
+		mu_assert(juicer.boardstate().b_castle_oo  == true);
 	}}}
 
 	static void make_simple_moves()
@@ -345,14 +345,14 @@ namespace Positions
 
 		juicer.make_move(Move(NORMAL, E2, E4, PAWN));
 		mu_assert(juicer.board().wp == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
-		mu_assert(juicer.state().turn == BLACK);
-		mu_assert(juicer.state().has_ep_pawn == false);
+		mu_assert(juicer.boardstate().turn == BLACK);
+		mu_assert(juicer.boardstate().has_ep_pawn == false);
 
 		juicer.make_move(Move(NORMAL, E7, E5, PAWN));
 		mu_assert(juicer.board().wp == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 		mu_assert(juicer.board().bp == (A7 | B7 | C7 | D7 | E5 | F7 | G7 | H7));
-		mu_assert(juicer.state().turn == WHITE);
-		mu_assert(juicer.state().has_ep_pawn == false);
+		mu_assert(juicer.boardstate().turn == WHITE);
+		mu_assert(juicer.boardstate().has_ep_pawn == false);
 	}}}
 
 	static void make_captures()
@@ -379,10 +379,10 @@ namespace Positions
 	{{{ 
 		Engine juicer("r1bqkb1r/ppp2ppp/2n5/3np1N1/2B5/8/PPPP1PPP/RNBQK2R w KQkq - 0 6");
 		juicer.make_move(Move(CASTLING, E1, G1, KING));
-		mu_assert(juicer.state().w_castle_ooo == false);
-		mu_assert(juicer.state().w_castle_oo  == false);
-		mu_assert(juicer.state().b_castle_ooo == true);
-		mu_assert(juicer.state().b_castle_oo  == true);
+		mu_assert(juicer.boardstate().w_castle_ooo == false);
+		mu_assert(juicer.boardstate().w_castle_oo  == false);
+		mu_assert(juicer.boardstate().b_castle_ooo == true);
+		mu_assert(juicer.boardstate().b_castle_oo  == true);
 		mu_assert(juicer.board().piece_on(G1) == W_KING);
 		mu_assert(juicer.board().piece_on(F1) == W_ROOK);
 		mu_assert(juicer.board().piece_on(E1) == NO_PIECE);
@@ -390,10 +390,10 @@ namespace Positions
 
 		juicer.seed("r3kbnr/ppp1pppp/2nq4/3p4/4P1b1/2NB4/PPPPNPPP/R1B1K2R b KQkq - 5 5");
 		juicer.make_move(Move(CASTLING, E8, C8, KING));
-		mu_assert(juicer.state().w_castle_ooo == true);
-		mu_assert(juicer.state().w_castle_oo  == true);
-		mu_assert(juicer.state().b_castle_ooo == false);
-		mu_assert(juicer.state().b_castle_oo  == false);
+		mu_assert(juicer.boardstate().w_castle_ooo == true);
+		mu_assert(juicer.boardstate().w_castle_oo  == true);
+		mu_assert(juicer.boardstate().b_castle_ooo == false);
+		mu_assert(juicer.boardstate().b_castle_oo  == false);
 		mu_assert(juicer.board().piece_on(C8) == B_KING);
 		mu_assert(juicer.board().piece_on(D8) == B_ROOK);
 		mu_assert(juicer.board().piece_on(A8) == NO_PIECE);

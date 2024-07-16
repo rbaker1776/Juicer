@@ -15,7 +15,6 @@ namespace CLI
 int main(int argc, char* argv[])
 {
 	Engine juicer;
-	juicer.seed("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1");
 
 	std::string command = std::string();
 	std::string arg;
@@ -38,7 +37,7 @@ int main(int argc, char* argv[])
 			std::cout << juicer.board().to_string() << std::endl;
 		else if (arg == "move")
 			while (ss >> arg)
-				juicer.make_move(UCI::string_to_move(juicer.board(), juicer.state(), arg));
+				juicer.make_move(UCI::string_to_move(juicer.board(), juicer.boardstate(), juicer.gamestate(), arg));
 		else if (arg == "perft")
 		{
 			if (!(ss >> arg)) arg = "4";

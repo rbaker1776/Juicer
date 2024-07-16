@@ -26,7 +26,8 @@ public:
 	uint64_t perft(int depth);
 
 	inline const Board& board() const { return this->boards.back(); }
-	inline const Gamestate& state() const { return this->states.back(); }
+	inline const Boardstate& boardstate() const { return this->boardstates.back(); }
+	inline const Gamestate& gamestate() const { return this->gamestates.back(); }
 
 private:
 	template<PieceType Pt> inline void make_move(Square from, Square to);
@@ -35,7 +36,8 @@ private:
 	inline void ep_capture(Square from, Square to);
 
 	std::vector<Board> boards;
-	std::vector<Gamestate> states;
+	std::vector<Boardstate> boardstates;
+	std::vector<Gamestate> gamestates;
 }; // class Engine
 
 
@@ -48,14 +50,14 @@ uint64_t Engine::perft(int depth)
 	if (depth < 1)
 		return 1;
 
-	for (const Move& m: MoveList(this->boards.back(), this->states.back()))
+	for (const Move& m: MoveList(this->boards.back(), this->boardstates.back(), this->gamestates.back().ep_target))
 	{
 		if (depth == 1)
 			count = 1, nodes++;
 		else
 		{
 			make_move(m);
-			count = leaf ? MoveList(this->boards.back(), this->states.back()).size() : perft<false>(depth - 1);
+			count = leaf ? MoveList(this->boards.back(), this->boardstates.back(), this->gamestates.back().ep_target).size() : perft<false>(depth - 1);
 			nodes += count;
 			undo_move();
 		}
@@ -69,47 +71,38 @@ uint64_t Engine::perft(int depth)
 constexpr Engine::Engine()
 {
 	boards.reserve(256);
-	states.reserve(256);
+	boardstates.reserve(256);
+	gamestates.reserve(256);
 	boards.emplace_back(Board::startpos());
-	states.emplace_back(Gamestate::startpos());
-	Movegen::ep_targets.clear();
-	Movegen::ep_targets.push_back(NO_SQUARE);
+	boardstates.emplace_back(Boardstate::startpos());
+	gamestates.emplace_back(Gamestate::startpos());
 }
 
 constexpr Engine::Engine(std::string_view fen)
 {
 	boards.reserve(256);
-	states.reserve(256);
+	boardstates.reserve(256);
+	gamestates.reserve(256);
 	this->boards.emplace_back(fen);
-	this->states.emplace_back(Gamestate(
-		(FEN::info<FEN::TURN>(fen) ? BLACK : WHITE), FEN::info<FEN::HAS_EP>(fen), FEN::info<FEN::W_CASTLE_OOO>(fen),
-		FEN::info<FEN::W_CASTLE_OO>(fen), FEN::info<FEN::B_CASTLE_OOO>(fen), FEN::info<FEN::B_CASTLE_OO>(fen)
-	));
-	Movegen::ep_targets.clear();
-	Movegen::ep_targets.push_back(NO_SQUARE);
+	this->boardstates.emplace_back(fen);
+	this->gamestates.emplace_back(fen);
 }
 
 inline void Engine::seed(std::string_view fen)
 {
 	boards.clear();
-	states.clear();
+	boardstates.clear();
+	gamestates.clear();
 	this->boards.emplace_back(fen);
-	this->states.emplace_back(Gamestate(
-		(FEN::info<FEN::TURN>(fen) ? BLACK : WHITE), FEN::info<FEN::HAS_EP>(fen), FEN::info<FEN::W_CASTLE_OOO>(fen),
-		FEN::info<FEN::W_CASTLE_OO>(fen), FEN::info<FEN::B_CASTLE_OOO>(fen), FEN::info<FEN::B_CASTLE_OO>(fen)
-	));
-	Movegen::ep_targets.clear();
-	Movegen::ep_targets.push_back(FEN::ep_square(fen));
-	if (Movegen::ep_targets.back() != NO_SQUARE)
-		Movegen::ep_targets.back() += states.back().turn == WHITE ? Direction::S : Direction::N;
+	this->boardstates.emplace_back(fen);
+	this->gamestates.emplace_back(fen);
 }
 
 inline void Engine::make_move(const Move& m)
 {
 	#if (DEBUG)
-		assert(states.size() == boards.size() && boards.size() == Movegen::ep_targets.size());
+		assert(boardstates.size() == boards.size() && boards.size() == gamestates.size());
 	#endif
-	Movegen::ep_targets.push_back(NO_SQUARE);
 
 	switch (m.type)
 	{
@@ -137,7 +130,9 @@ inline void Engine::make_move(const Move& m)
 					std::cerr << "Error, invalid squares for castling move: " << m.from << "->" << m.to << '.' << std::endl;
 			}
 			break;
-		case EN_PASSANT: this->ep_capture(m.from, m.to); break;
+		case EN_PASSANT:
+			this->ep_capture(m.from, m.to);
+			break;
 		case PROMOTION:
 			switch (m.piece)
 			{
@@ -155,89 +150,108 @@ inline void Engine::make_move(const Move& m)
 inline void Engine::undo_move()
 {
 	boards.pop_back();
-	states.pop_back();
-	Movegen::ep_targets.pop_back();
+	boardstates.pop_back();
+	gamestates.pop_back();
 }
 
 template<PieceType Pt>
 inline void Engine::make_move(Square from, Square to)
 {
 	const Board& board = this->boards.back();
-	const Gamestate& state = this->states.back();
+	const Boardstate& boardstate = this->boardstates.back();
+	const Gamestate& gamestate = this->gamestates.back();
 
 	const bool is_capture = board.pieces & to;
 
 	if (is_capture)
-		if (state.turn == WHITE)
+	{
+		if (boardstate.turn == WHITE)
 			boards.emplace_back(board.move<WHITE, Pt, true>(from, to));
 		else 
 			boards.emplace_back(board.move<BLACK, Pt, true>(from, to));
+	}
 	else // no capture
-		if (state.turn == WHITE)
+	{
+		if (boardstate.turn == WHITE)
 			boards.emplace_back(board.move<WHITE, Pt, false>(from, to));
 		else
 			boards.emplace_back(board.move<BLACK, Pt, false>(from, to));
+	}
 
 	if constexpr (Pt == PAWN)
 	{
-		if (SQUARE_DISTANCE[from][to] > 1 && ((state.turn == WHITE ? board.bp : board.wp) & (shift<E>(square_to_bb(to)) | shift<W>(square_to_bb(to)))))
+		if (SQUARE_DISTANCE[from][to] > 1 && ((boardstate.turn == WHITE ? board.bp : board.wp) & (shift<E>(square_to_bb(to)) | shift<W>(square_to_bb(to)))))
 		{
-			Movegen::ep_targets.back() = to;
-			states.emplace_back(state.pawn_push());
+			boardstates.emplace_back(boardstate.pawn_push());
+			gamestates.emplace_back(gamestate.pawn_push(to));
 		}
 		else
-			states.emplace_back(state.quiet_move());
+		{
+			boardstates.emplace_back(boardstate.quiet_move());
+			gamestates.emplace_back(gamestate.pawn_step());
+		}
 	}
-	else if constexpr (Pt == ROOK)
-		if ((A1 | A8) & from)
-			states.emplace_back(state.rook_move_queenside());
-		else if ((H1 | H8) & from)
-			states.emplace_back(state.rook_move_kingside());
+	else 
+	{
+		if constexpr (Pt == ROOK)
+		{
+			if ((A1 | A8) & from)
+				boardstates.emplace_back(boardstate.rook_move_queenside());
+			else if ((H1 | H8) & from)
+				boardstates.emplace_back(boardstate.rook_move_kingside());
+			else
+				boardstates.emplace_back(boardstate.quiet_move());
+		}
+		else if constexpr (Pt == KING)
+			boardstates.emplace_back(boardstate.king_move());
 		else
-			states.emplace_back(state.quiet_move());
-	else if constexpr (Pt == KING)
-		states.emplace_back(state.king_move());
-	else
-		states.emplace_back(state.quiet_move());
+			boardstates.emplace_back(boardstate.quiet_move());
+		
+		gamestates.emplace_back(is_capture ? gamestate.capture() : gamestate.quiet_move());
+	}
 }
 
 template<Castling Cr>
 inline void Engine::castle()
 {
 	this->boards.emplace_back(this->boards.back().castles<Cr>());
-	this->states.emplace_back(this->states.back().king_move());
+	this->boardstates.emplace_back(this->boardstates.back().king_move());
+	this->gamestates.emplace_back(this->gamestates.back().quiet_move());
 }
 
 inline void Engine::ep_capture(Square from, Square to)
 {
-	if (this->states.back().turn == WHITE)
+	if (this->boardstates.back().turn == WHITE)
 		this->boards.emplace_back(this->boards.back().enpassant<WHITE>(from, to));
 	else
 		this->boards.emplace_back(this->boards.back().enpassant<BLACK>(from, to));
 
-	this->states.emplace_back(this->states.back().quiet_move());
+	this->boardstates.emplace_back(this->boardstates.back().quiet_move());
+	this->gamestates.emplace_back(this->gamestates.back().capture());
 }
 
 template<PieceType Pt>
 inline void Engine::promote(Square from, Square to)
 {
 	const Board& board = this->boards.back();
-	const Gamestate& state = this->states.back();
+	const Boardstate& boardstate = this->boardstates.back();
+	const Gamestate& gamestate = this->gamestates.back();
 
 	const bool is_capture = board.pieces & to;
 
 	if (is_capture)
-		if (state.turn == WHITE)
+		if (boardstate.turn == WHITE)
 			this->boards.emplace_back(board.promote<WHITE, Pt, true>(from, to));
 		else
 			this->boards.emplace_back(board.promote<BLACK, Pt, true>(from, to));
 	else
-		if (state.turn == WHITE)
+		if (boardstate.turn == WHITE)
 			this->boards.emplace_back(board.promote<WHITE, Pt, false>(from, to));
 		else
 			this->boards.emplace_back(board.promote<BLACK, Pt, false>(from, to));
 
-	this->states.emplace_back(state.quiet_move());
+	this->boardstates.emplace_back(boardstate.quiet_move());
+	this->gamestates.emplace_back((is_capture ? gamestate.capture() : gamestate.pawn_step()));
 }
 
 

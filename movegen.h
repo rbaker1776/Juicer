@@ -10,13 +10,13 @@
 #include "juicer.h"
 
 
-inline Move* enumerate(const Board& board, const Gamestate& state, Move* moves);
+inline Move* enumerate(const Board& board, const Boardstate& state, Square ep, Move* moves);
 
 
 struct MoveList
 {
 public:
-	explicit MoveList(const Board& board, const Gamestate& state): last(enumerate(board, state, moves)) {}
+	explicit MoveList(const Board& board, const Boardstate& state, Square ep): last(enumerate(board, state, ep, moves)) {}
 
 	const Move* begin() const { return moves; }
 	const Move* end() const { return last; }
@@ -31,11 +31,6 @@ private:
 // holds and updates variables used for move generation
 namespace Movegen
 {
-	static std::vector<Square> ep_targets([](){
-		std::vector<Square> eps(1, NO_SQUARE);
-		eps.reserve(256);
-		return eps;
-	}());
 	static Square ep_target = NO_SQUARE;
 
 	static uint64_t rook_pins;
@@ -60,7 +55,7 @@ namespace Movegen
 } // namespace Movegen
 
 
-template<Gamestate State, bool IsCheck>
+template<Boardstate State, bool IsCheck>
 inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 {
 	constexpr Color Us = State.turn;
@@ -264,12 +259,11 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 	return moves;
 }
 
-template<Gamestate State>
+template<Boardstate State>
 inline Move* enumerate(const Board& board, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
-	Movegen::ep_target = Movegen::ep_targets.back();
 	uint64_t king_atk = Movegen::king_attacks<Us, State.has_ep_pawn>(board);
 
 	if (Movegen::checkmask == BOARD_BB) // not in check
@@ -420,8 +414,9 @@ inline uint64_t Movegen::king_attacks(const Board& board)
 }
 
 
-inline Move* enumerate(const Board& board, const Gamestate& state, Move* moves)
+inline Move* enumerate(const Board& board, const Boardstate& state, Square ep, Move* moves)
 {
+	Movegen::ep_target = ep;
 	switch (state.pattern())
 	{
 		case 0:  return enumerate<0>(board, moves);
@@ -489,7 +484,7 @@ inline Move* enumerate(const Board& board, const Gamestate& state, Move* moves)
 		case 62: return enumerate<62>(board, moves);
 		case 63: return enumerate<63>(board, moves);
 		default:
-			std::cerr << "Error, unrecognizable Gamestate pattern: " << state.pattern() << '.' << std::endl;
+			std::cerr << "Error, unrecognizable Boardstate pattern: " << state.pattern() << '.' << std::endl;
 			return nullptr;
 	}
 }
