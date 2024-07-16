@@ -9,7 +9,13 @@
 
 namespace UCI
 {
-inline std::string sq_to_string(Square s)
+	inline std::string sq_to_string(Square s);
+	inline std::string move_to_string(const Move& m);
+	inline Move string_to_move(const Board& board, const Gamestate& state, const std::string& str);
+} // namespace UCI
+
+
+inline std::string UCI::sq_to_string(Square s)
 {
 	if (s == NO_SQUARE) { return "-"; }
 	std::string str = "a1";
@@ -18,7 +24,7 @@ inline std::string sq_to_string(Square s)
 	return str;
 }
 
-inline std::string move_to_string(const Move& m)
+inline std::string UCI::move_to_string(const Move& m)
 {
 	Square from = m.from;
 	Square to = m.to;
@@ -32,14 +38,13 @@ inline std::string move_to_string(const Move& m)
 	return move;
 }
 
-inline Move string_to_move(const Board& board, const Gamestate& state, const std::string& str)
+inline Move UCI::string_to_move(const Board& board, const Gamestate& state, const std::string& str)
 {
 	for (const Move& m: MoveList(board, state))
 		if (str == UCI::move_to_string(m))
 			return m;
 
 	return Move();
-}
 }
 
 

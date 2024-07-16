@@ -2,7 +2,7 @@ CXX = g++
 STD = -std=c++20
 CFLAGS = -O3 -Wall -Wextra -pedantic
 
-SRC = position.cpp
+SRC =
 TEST_SRC = $(SRC) testsuite.cpp
 CLI_SRC = $(SRC) cli.cpp
 
@@ -16,4 +16,4 @@ test: $(TEST_SRC)
 	$(CXX) $(STD) $(CFLAGS) $(TEST_SRC) -o $(TEST) && time ./$(TEST)
 
 memcheck: $(TEST)
-	leaks --atExit -- ./$(TEST)
+	leaks --atExit -- ./testjuicer

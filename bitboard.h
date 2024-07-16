@@ -11,25 +11,25 @@
 #include "juicer.h"
 
 
-constexpr uint64_t RANK1_BB = 0xff;
-constexpr uint64_t RANK2_BB = RANK1_BB << 8;
-constexpr uint64_t RANK3_BB = RANK1_BB << 16;
-constexpr uint64_t RANK4_BB = RANK1_BB << 24;
-constexpr uint64_t RANK5_BB = RANK1_BB << 32;
-constexpr uint64_t RANK6_BB = RANK1_BB << 40;
-constexpr uint64_t RANK7_BB = RANK1_BB << 48;
-constexpr uint64_t RANK8_BB = RANK1_BB << 56;
+static constexpr uint64_t RANK1_BB = 0xff;
+static constexpr uint64_t RANK2_BB = RANK1_BB << 8;
+static constexpr uint64_t RANK3_BB = RANK1_BB << 16;
+static constexpr uint64_t RANK4_BB = RANK1_BB << 24;
+static constexpr uint64_t RANK5_BB = RANK1_BB << 32;
+static constexpr uint64_t RANK6_BB = RANK1_BB << 40;
+static constexpr uint64_t RANK7_BB = RANK1_BB << 48;
+static constexpr uint64_t RANK8_BB = RANK1_BB << 56;
 
-constexpr uint64_t FILEA_BB = 0x0101010101010101ull;
-constexpr uint64_t FILEB_BB = FILEA_BB << 1;
-constexpr uint64_t FILEC_BB = FILEA_BB << 2;
-constexpr uint64_t FILED_BB = FILEA_BB << 3;
-constexpr uint64_t FILEE_BB = FILEA_BB << 4;
-constexpr uint64_t FILEF_BB = FILEA_BB << 5;
-constexpr uint64_t FILEG_BB = FILEA_BB << 6;
-constexpr uint64_t FILEH_BB = FILEA_BB << 7;
+static constexpr uint64_t FILEA_BB = 0x0101010101010101ull;
+static constexpr uint64_t FILEB_BB = FILEA_BB << 1;
+static constexpr uint64_t FILEC_BB = FILEA_BB << 2;
+static constexpr uint64_t FILED_BB = FILEA_BB << 3;
+static constexpr uint64_t FILEE_BB = FILEA_BB << 4;
+static constexpr uint64_t FILEF_BB = FILEA_BB << 5;
+static constexpr uint64_t FILEG_BB = FILEA_BB << 6;
+static constexpr uint64_t FILEH_BB = FILEA_BB << 7;
 
-constexpr uint64_t BOARD_BB = UINT64_MAX;
+static constexpr uint64_t BOARD_BB = UINT64_MAX;
 
 
 constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
@@ -62,10 +62,10 @@ constexpr uint64_t rank_bb(Square s) { return rank_bb(rank_of(s)); }
 constexpr bool is_ok(Square s) { return s >= A1 && s <= H8; }
 
 
-template<Color C> constexpr uint64_t ep_rank_bb() { if constexpr (C == WHITE) return RANK5_BB; else return RANK4_BB; }
-template<Color C> constexpr uint64_t rank_2_bb() { if constexpr (C == WHITE) return RANK2_BB; else return RANK7_BB; }
-template<Color C> constexpr uint64_t rank_6_bb() { if constexpr (C == WHITE) return RANK6_BB; else return RANK3_BB; }
-template<Color C> constexpr uint64_t rank_7_bb() { if constexpr (C == WHITE) return RANK7_BB; else return RANK2_BB; }
+template<Color C> consteval uint64_t ep_rank_bb() { if constexpr (C == WHITE) return RANK5_BB; else return RANK4_BB; }
+template<Color C> consteval uint64_t rank_2_bb()  { if constexpr (C == WHITE) return RANK2_BB; else return RANK7_BB; }
+template<Color C> consteval uint64_t rank_6_bb()  { if constexpr (C == WHITE) return RANK6_BB; else return RANK3_BB; }
+template<Color C> consteval uint64_t rank_7_bb()  { if constexpr (C == WHITE) return RANK7_BB; else return RANK2_BB; }
 
 
 #if (POPCOUNT == MANUAL)
@@ -115,7 +115,7 @@ static constexpr Square lsb(uint64_t bb)
 		assert(bb);
 	#endif
 
-	#if LSB == MANUAL
+	#if (LSB == MANUAL)
 		Square s;
 		for (s = A1; !(bb & s); ++s) {}
 		return s;

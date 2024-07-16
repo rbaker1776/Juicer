@@ -7,15 +7,16 @@
 
 namespace CLI
 {
-static constexpr std::string_view seperator = "========================================================================================================================";
-static constexpr std::string_view juicer_title = "Juicer V1 by Ryan Baker";
-
+	static constexpr std::string_view seperator = "========================================================================================================================";
+	static constexpr std::string_view juicer_title = "Juicer V1 by Ryan Baker";
 } // namespace CLI
 
 
 int main(int argc, char* argv[])
 {
 	Engine juicer;
+	juicer.seed("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1");
+
 	std::string command = std::string();
 	std::string arg;
 
@@ -46,8 +47,9 @@ int main(int argc, char* argv[])
 		}
 
 		command = "";
+
 		if (clargs)
-			break;
+			return 0;
 	}
 
 	return 0;

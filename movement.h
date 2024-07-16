@@ -3570,9 +3570,9 @@ static constexpr uint64_t attacks_bb(PieceType pt, Square s, uint64_t occupied =
 	#endif
 	switch (pt)
 	{
-		case ROOK:   return attacks_bb<ROOK>(s, occupied);
+		case ROOK: return attacks_bb<ROOK>(s, occupied);
 		case BISHOP: return attacks_bb<BISHOP>(s, occupied);
-		case QUEEN:  return attacks_bb<QUEEN>(s, occupied);
+		case QUEEN: return attacks_bb<QUEEN>(s, occupied);
 		default: return PIECE_ATTACKS[pt][s];
 	}
 }
@@ -3581,20 +3581,30 @@ static constexpr uint64_t attacks_bb(PieceType pt, Square s, uint64_t occupied =
 template<Direction D>
 static constexpr uint64_t shift(uint64_t bb)
 {
-	if constexpr (D == Direction::N)  return bb << 8;
-	if constexpr (D == Direction::S)  return bb >> 8;
-	if constexpr (D == Direction::NN) return bb << 16;
-	if constexpr (D == Direction::SS) return bb >> 16;
-	if constexpr (D == Direction::E)  return (bb & ~FILEH_BB) << 1;
-	if constexpr (D == Direction::W)  return (bb & ~FILEA_BB) >> 1;
-	if constexpr (D == Direction::NE) return (bb & ~FILEH_BB) << 9;
-	if constexpr (D == Direction::NW) return (bb & ~FILEA_BB) << 7;
-	if constexpr (D == Direction::SE) return (bb & ~FILEH_BB) >> 7;
-	if constexpr (D == Direction::SW) return (bb & ~FILEA_BB) >> 9;
+	if constexpr (D == Direction::N)
+		return bb << 8;
+	if constexpr (D == Direction::S)
+		return bb >> 8;
+	if constexpr (D == Direction::NN)
+		return bb << 16;
+	if constexpr (D == Direction::SS)
+		return bb >> 16;
+	if constexpr (D == Direction::E)
+		return (bb & ~FILEH_BB) << 1;
+	if constexpr (D == Direction::W)
+		return (bb & ~FILEA_BB) >> 1;
+	if constexpr (D == Direction::NE)
+		return (bb & ~FILEH_BB) << 9;
+	if constexpr (D == Direction::NW)
+		return (bb & ~FILEA_BB) << 7;
+	if constexpr (D == Direction::SE)
+		return (bb & ~FILEH_BB) >> 7;
+	if constexpr (D == Direction::SW)
+		return (bb & ~FILEA_BB) >> 9;
 }
 
 template<Color C>
-constexpr Direction pawn_step()
+consteval Direction pawn_step()
 {
 	if constexpr (C == WHITE)
 		return Direction::N;
@@ -3603,12 +3613,30 @@ constexpr Direction pawn_step()
 }
 
 template<Color C>
-constexpr Direction pawn_push()
+consteval Direction pawn_push()
 {
 	if constexpr (C == WHITE)
 		return Direction::NN;
 	else
 		return Direction::SS;
+}
+
+template<Color C>
+consteval Direction pawn_atk_west()
+{
+	if constexpr (C == WHITE)
+		return Direction::NW;
+	else
+		return Direction::SW;
+}
+
+template<Color C>
+consteval Direction pawn_atk_east()
+{
+	if constexpr (C == WHITE)
+		return Direction::NE;
+	else
+		return Direction::SE;
 }
 
 template<Color C>
@@ -3630,7 +3658,7 @@ constexpr uint64_t pawn_push_bb(uint64_t bb)
 }
 
 template<Color C>
-constexpr uint64_t pawn_attacks_bb(uint64_t bb)
+constexpr uint64_t pawn_atk_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE) 
 		return shift<NW>(bb) | shift<NE>(bb);
@@ -3639,7 +3667,7 @@ constexpr uint64_t pawn_attacks_bb(uint64_t bb)
 }
 
 template<Color C>
-constexpr uint64_t pawn_attacks_west_bb(uint64_t bb)
+constexpr uint64_t pawn_atk_west_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE)
 		return shift<NW>(bb);
@@ -3648,19 +3676,13 @@ constexpr uint64_t pawn_attacks_west_bb(uint64_t bb)
 }
 
 template<Color C>
-constexpr uint64_t pawn_attacks_east_bb(uint64_t bb)
+constexpr uint64_t pawn_atk_east_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE)
 		return shift<NE>(bb);
 	else
 		return shift<SE>(bb);
 }
-
-template<Color C> constexpr uint64_t undo_pawn_step_bb(uint64_t bb) { return pawn_step_bb<~C>(bb); }
-template<Color C> constexpr uint64_t undo_pawn_push_bb(uint64_t bb) { return pawn_push_bb<~C>(bb); }
-
-template<Color C> constexpr uint64_t undo_pawn_attacks_west_bb(uint64_t bb) { return pawn_attacks_east<~C>(bb); }
-template<Color C> constexpr uint64_t undo_pawn_attacks_east_bb(uint64_t bb) { return pawn_attacks_west<~C>(bb); }
 
 
 // CENTER_DISTANCE[s] = minimum number of king moves to get from s to center

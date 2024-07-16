@@ -155,10 +155,11 @@ public:
 	Square from;
 	Square to;
 	PieceType piece;
+	int promise;
 
 	constexpr Move() = default;
 	constexpr Move(MoveType mt, Square from, Square to, PieceType pt = KNIGHT): type(mt), from(from), to(to), piece(pt) {}
-};
+}; // struct Move
 
 
 #endif // TYPES_H_8D2FD9177A41
