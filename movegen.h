@@ -10,13 +10,21 @@
 #include "juicer.h"
 
 
+enum GenType: int
+{
+	LEGAL = 0,
+	CAPTURES = 1,
+	CHECKS = 2,
+};
+
+template<GenType Gt>
 inline Move* enumerate(const Board& board, const Boardstate& state, Square ep, Move* moves);
 
-
+template<GenType Gt>
 struct MoveList
 {
 public:
-	explicit MoveList(const Board& board, const Boardstate& state, Square ep): last(enumerate(board, state, ep, moves)) {}
+	explicit MoveList(const Board& board, const Boardstate& state, Square ep): last(enumerate<Gt>(board, state, ep, moves)) {}
 
 	const Move* begin() const { return moves; }
 	const Move* end() const { return last; }
@@ -50,12 +58,12 @@ namespace Movegen
 	template<Color Us>
 	inline void register_ep_pin(const Board& board, Square ksq);
 		
-	template<Color Us, bool EnPassant>
+	template<GenType Gt, Color Us, bool EnPassant>
 	inline uint64_t king_attacks(const Board& board);
 } // namespace Movegen
 
 
-template<Boardstate State, bool IsCheck>
+template<GenType Gt, Boardstate State, bool IsCheck>
 inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 {
 	constexpr Color Us = State.turn;
@@ -64,7 +72,14 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 	if constexpr (!IsCheck)
 		Movegen::checkmask = BOARD_BB;
 
-	const uint64_t moveable_sqs = ~board.bitboard<Us>() & Movegen::checkmask;
+	uint64_t moveable_sqs;
+	if constexpr (Gt == LEGAL)
+		moveable_sqs = ~board.bitboard<Us>() & Movegen::checkmask;
+	else if constexpr (Gt == CAPTURES)
+		moveable_sqs = board.bitboard<Them>() & Movegen::checkmask;
+	else
+		moveable_sqs = 0;
+
 	const Square ksq = board.king_sq<Us>();
 
 	{
@@ -80,6 +95,7 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::E, KING);
 	}
 
+	if constexpr (Gt == LEGAL)
 	{
 		const uint64_t vertical_pawns = board.bitboard<Us, PAWN>() & ~Movegen::bishop_pins;
 		const uint64_t diagonal_pawns = board.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
@@ -181,6 +197,78 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 			*moves++ = Move(NORMAL, s, s + pawn_push<Us>(), PAWN);
 		}
 	}
+	else if constexpr (Gt == CAPTURES)
+	{
+		const uint64_t diagonal_pawns = board.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
+
+		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(board.bitboard<Them>() & Movegen::checkmask);
+		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(board.bitboard<Them>() & Movegen::checkmask);
+		w_atk_pawns &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
+		e_atk_pawns &= pawn_atk_west_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
+
+		if constexpr (State.has_ep_pawn)
+		{
+			if (Movegen::ep_target != NO_SQUARE)
+			{
+				uint64_t ep_atk_west = diagonal_pawns & shift<E>(Movegen::checkmask & Movegen::ep_target);
+				uint64_t ep_atk_east = diagonal_pawns & shift<W>(Movegen::checkmask & Movegen::ep_target);
+
+				#if (DEBUG)
+					assert(ep_rank_bb<Us>() & Movegen::ep_target);
+					assert(rank_6_bb<Us>() & (Movegen::ep_target + pawn_step<Us>()));
+				#endif
+
+				if (ep_atk_west | ep_atk_east)
+				{
+					ep_atk_west &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
+					ep_atk_east &= pawn_atk_west_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
+
+					if (ep_atk_west)
+						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), Movegen::ep_target + pawn_step<Us>(), PAWN);
+					if (ep_atk_east)
+						*moves++ = Move(EN_PASSANT, lsb(ep_atk_east), Movegen::ep_target + pawn_step<Us>(), PAWN);
+				}
+			}
+		}
+
+		if ((w_atk_pawns | e_atk_pawns) & rank_7_bb<Us>())
+		{
+			for (uint64_t w_promote_pawns = w_atk_pawns & rank_7_bb<Us>(); w_promote_pawns; )
+			{
+				const Square from = pop_lsb(w_promote_pawns);
+				const Square to = from + pawn_atk_west<Us>();
+				*moves++ = Move(PROMOTION, from, to, QUEEN); 
+				*moves++ = Move(PROMOTION, from, to, KNIGHT); 
+				*moves++ = Move(PROMOTION, from, to, ROOK); 
+				*moves++ = Move(PROMOTION, from, to, BISHOP); 
+			}
+
+			for (uint64_t e_promote_pawns = e_atk_pawns & rank_7_bb<Us>(); e_promote_pawns; )
+			{
+				const Square from = pop_lsb(e_promote_pawns);
+				const Square to = from + pawn_atk_east<Us>();
+				*moves++ = Move(PROMOTION, from, to, QUEEN); 
+				*moves++ = Move(PROMOTION, from, to, KNIGHT);
+				*moves++ = Move(PROMOTION, from, to, ROOK); 
+				*moves++ = Move(PROMOTION, from, to, BISHOP); 
+			}
+
+			w_atk_pawns &= ~rank_7_bb<Us>();
+			e_atk_pawns &= ~rank_7_bb<Us>();
+		}
+
+		while (w_atk_pawns)
+		{
+			const Square s = pop_lsb(w_atk_pawns);
+			*moves++ = Move(NORMAL, s, s + pawn_atk_west<Us>(), PAWN);
+		}
+
+		while (e_atk_pawns)
+		{
+			const Square s = pop_lsb(e_atk_pawns);
+			*moves++ = Move(NORMAL, s, s + pawn_atk_east<Us>(), PAWN);
+		}
+	}
 
 	{
 		uint64_t knights = board.bitboard<Us, KNIGHT>() & ~(Movegen::rook_pins | Movegen::bishop_pins);
@@ -259,17 +347,17 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 	return moves;
 }
 
-template<Boardstate State>
+template<GenType Gt, Boardstate State>
 inline Move* enumerate(const Board& board, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
-	uint64_t king_atk = Movegen::king_attacks<Us, State.has_ep_pawn>(board);
+	uint64_t king_atk = Movegen::king_attacks<Gt, Us, State.has_ep_pawn>(board);
 
 	if (Movegen::checkmask == BOARD_BB) // not in check
-		moves = enumerate<State, false>(board, king_atk, moves);
+		moves = enumerate<Gt, State, false>(board, king_atk, moves);
 	else if (Movegen::checkmask != 0) // single check
-		moves = enumerate<State, true>(board, king_atk, moves);
+		moves = enumerate<Gt, State, true>(board, king_atk, moves);
 	else
 	{
 		const Square ksq = board.king_sq<Us>();
@@ -332,7 +420,7 @@ inline void Movegen::register_ep_pin(const Board& board, Square ksq)
 	}
 }
 
-template<Color Us, bool EnPassant>
+template<GenType Gt, Color Us, bool EnPassant>
 inline uint64_t Movegen::king_attacks(const Board& board)
 {
 	constexpr Color Them = ~Us;
@@ -410,79 +498,83 @@ inline uint64_t Movegen::king_attacks(const Board& board)
 
 	Movegen::kingban |= PIECE_ATTACKS[KING][board.king_sq<Them>()];
 
+	if constexpr (Gt == CAPTURES)
+		Movegen::kingban |= ~board.bitboard<Them>();
+
 	return king_moves & ~Movegen::kingban;
 }
 
 
+template<GenType Gt>
 inline Move* enumerate(const Board& board, const Boardstate& state, Square ep, Move* moves)
 {
 	Movegen::ep_target = ep;
 	switch (state.pattern())
 	{
-		case 0:  return enumerate<0>(board, moves);
-		case 1:  return enumerate<1>(board, moves);
-		case 2:  return enumerate<2>(board, moves);
-		case 3:  return enumerate<3>(board, moves);
-		case 4:  return enumerate<4>(board, moves);
-		case 5:  return enumerate<5>(board, moves);
-		case 6:  return enumerate<6>(board, moves);
-		case 7:  return enumerate<7>(board, moves);
-		case 8:  return enumerate<8>(board, moves);
-		case 9:  return enumerate<9>(board, moves);
-		case 10: return enumerate<10>(board, moves);
-		case 11: return enumerate<11>(board, moves);
-		case 12: return enumerate<12>(board, moves);
-		case 13: return enumerate<13>(board, moves);
-		case 14: return enumerate<14>(board, moves);
-		case 15: return enumerate<15>(board, moves);
-		case 16: return enumerate<16>(board, moves);
-		case 17: return enumerate<17>(board, moves);
-		case 18: return enumerate<18>(board, moves);
-		case 19: return enumerate<19>(board, moves);
-		case 20: return enumerate<20>(board, moves);
-		case 21: return enumerate<21>(board, moves);
-		case 22: return enumerate<22>(board, moves);
-		case 23: return enumerate<23>(board, moves);
-		case 24: return enumerate<24>(board, moves);
-		case 25: return enumerate<25>(board, moves);
-		case 26: return enumerate<26>(board, moves);
-		case 27: return enumerate<27>(board, moves);
-		case 28: return enumerate<28>(board, moves);
-		case 29: return enumerate<29>(board, moves);
-		case 30: return enumerate<30>(board, moves);
-		case 31: return enumerate<31>(board, moves);
-		case 32: return enumerate<32>(board, moves);
-		case 33: return enumerate<33>(board, moves);
-		case 34: return enumerate<34>(board, moves);
-		case 35: return enumerate<35>(board, moves);
-		case 36: return enumerate<36>(board, moves);
-		case 37: return enumerate<37>(board, moves);
-		case 38: return enumerate<38>(board, moves);
-		case 39: return enumerate<39>(board, moves);
-		case 40: return enumerate<40>(board, moves);
-		case 41: return enumerate<41>(board, moves);
-		case 42: return enumerate<42>(board, moves);
-		case 43: return enumerate<43>(board, moves);
-		case 44: return enumerate<44>(board, moves);
-		case 45: return enumerate<45>(board, moves);
-		case 46: return enumerate<46>(board, moves);
-		case 47: return enumerate<47>(board, moves);
-		case 48: return enumerate<48>(board, moves);
-		case 49: return enumerate<49>(board, moves);
-		case 50: return enumerate<50>(board, moves);
-		case 51: return enumerate<51>(board, moves);
-		case 52: return enumerate<52>(board, moves);
-		case 53: return enumerate<53>(board, moves);
-		case 54: return enumerate<54>(board, moves);
-		case 55: return enumerate<55>(board, moves);
-		case 56: return enumerate<56>(board, moves);
-		case 57: return enumerate<57>(board, moves);
-		case 58: return enumerate<58>(board, moves);
-		case 59: return enumerate<59>(board, moves);
-		case 60: return enumerate<60>(board, moves);
-		case 61: return enumerate<61>(board, moves);
-		case 62: return enumerate<62>(board, moves);
-		case 63: return enumerate<63>(board, moves);
+		case 0:  return enumerate<Gt, 0>(board, moves);
+		case 1:  return enumerate<Gt, 1>(board, moves);
+		case 2:  return enumerate<Gt, 2>(board, moves);
+		case 3:  return enumerate<Gt, 3>(board, moves);
+		case 4:  return enumerate<Gt, 4>(board, moves);
+		case 5:  return enumerate<Gt, 5>(board, moves);
+		case 6:  return enumerate<Gt, 6>(board, moves);
+		case 7:  return enumerate<Gt, 7>(board, moves);
+		case 8:  return enumerate<Gt, 8>(board, moves);
+		case 9:  return enumerate<Gt, 9>(board, moves);
+		case 10: return enumerate<Gt, 10>(board, moves);
+		case 11: return enumerate<Gt, 11>(board, moves);
+		case 12: return enumerate<Gt, 12>(board, moves);
+		case 13: return enumerate<Gt, 13>(board, moves);
+		case 14: return enumerate<Gt, 14>(board, moves);
+		case 15: return enumerate<Gt, 15>(board, moves);
+		case 16: return enumerate<Gt, 16>(board, moves);
+		case 17: return enumerate<Gt, 17>(board, moves);
+		case 18: return enumerate<Gt, 18>(board, moves);
+		case 19: return enumerate<Gt, 19>(board, moves);
+		case 20: return enumerate<Gt, 20>(board, moves);
+		case 21: return enumerate<Gt, 21>(board, moves);
+		case 22: return enumerate<Gt, 22>(board, moves);
+		case 23: return enumerate<Gt, 23>(board, moves);
+		case 24: return enumerate<Gt, 24>(board, moves);
+		case 25: return enumerate<Gt, 25>(board, moves);
+		case 26: return enumerate<Gt, 26>(board, moves);
+		case 27: return enumerate<Gt, 27>(board, moves);
+		case 28: return enumerate<Gt, 28>(board, moves);
+		case 29: return enumerate<Gt, 29>(board, moves);
+		case 30: return enumerate<Gt, 30>(board, moves);
+		case 31: return enumerate<Gt, 31>(board, moves);
+		case 32: return enumerate<Gt, 32>(board, moves);
+		case 33: return enumerate<Gt, 33>(board, moves);
+		case 34: return enumerate<Gt, 34>(board, moves);
+		case 35: return enumerate<Gt, 35>(board, moves);
+		case 36: return enumerate<Gt, 36>(board, moves);
+		case 37: return enumerate<Gt, 37>(board, moves);
+		case 38: return enumerate<Gt, 38>(board, moves);
+		case 39: return enumerate<Gt, 39>(board, moves);
+		case 40: return enumerate<Gt, 40>(board, moves);
+		case 41: return enumerate<Gt, 41>(board, moves);
+		case 42: return enumerate<Gt, 42>(board, moves);
+		case 43: return enumerate<Gt, 43>(board, moves);
+		case 44: return enumerate<Gt, 44>(board, moves);
+		case 45: return enumerate<Gt, 45>(board, moves);
+		case 46: return enumerate<Gt, 46>(board, moves);
+		case 47: return enumerate<Gt, 47>(board, moves);
+		case 48: return enumerate<Gt, 48>(board, moves);
+		case 49: return enumerate<Gt, 49>(board, moves);
+		case 50: return enumerate<Gt, 50>(board, moves);
+		case 51: return enumerate<Gt, 51>(board, moves);
+		case 52: return enumerate<Gt, 52>(board, moves);
+		case 53: return enumerate<Gt, 53>(board, moves);
+		case 54: return enumerate<Gt, 54>(board, moves);
+		case 55: return enumerate<Gt, 55>(board, moves);
+		case 56: return enumerate<Gt, 56>(board, moves);
+		case 57: return enumerate<Gt, 57>(board, moves);
+		case 58: return enumerate<Gt, 58>(board, moves);
+		case 59: return enumerate<Gt, 59>(board, moves);
+		case 60: return enumerate<Gt, 60>(board, moves);
+		case 61: return enumerate<Gt, 61>(board, moves);
+		case 62: return enumerate<Gt, 62>(board, moves);
+		case 63: return enumerate<Gt, 63>(board, moves);
 		default:
 			std::cerr << "Error, unrecognizable Boardstate pattern: " << state.pattern() << '.' << std::endl;
 			return nullptr;

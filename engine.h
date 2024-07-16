@@ -22,7 +22,7 @@ public:
 	inline void make_move(const Move& m);
 	inline void undo_move();
 	
-	template<bool IsRoot>
+	template<GenType Gt, bool IsRoot>
 	uint64_t perft(int depth);
 
 	inline const Board& board() const { return this->boards.back(); }
@@ -41,7 +41,7 @@ private:
 }; // class Engine
 
 
-template<bool IsRoot>
+template<GenType Gt, bool IsRoot>
 uint64_t Engine::perft(int depth)
 {
 	uint64_t nodes = 0, count = 0;
@@ -50,14 +50,14 @@ uint64_t Engine::perft(int depth)
 	if (depth < 1)
 		return 1;
 
-	for (const Move& m: MoveList(this->boards.back(), this->boardstates.back(), this->gamestates.back().ep_target))
+	for (const Move& m: MoveList<LEGAL>(this->boards.back(), this->boardstates.back(), this->gamestates.back().ep_target))
 	{
 		if (depth == 1)
 			count = 1, nodes++;
 		else
 		{
 			make_move(m);
-			count = leaf ? MoveList(this->boards.back(), this->boardstates.back(), this->gamestates.back().ep_target).size() : perft<false>(depth - 1);
+			count = leaf ? MoveList<Gt>(this->boards.back(), this->boardstates.back(), this->gamestates.back().ep_target).size() : perft<Gt, false>(depth - 1);
 			nodes += count;
 			undo_move();
 		}

@@ -40,7 +40,7 @@ inline std::string UCI::move_to_string(const Move& m)
 
 inline Move UCI::string_to_move(const Board& board, const Boardstate& boardstate, const Gamestate& gamestate, const std::string& str)
 {
-	for (const Move& m: MoveList(board, boardstate, gamestate.ep_target))
+	for (const Move& m: MoveList<LEGAL>(board, boardstate, gamestate.ep_target))
 		if (str == UCI::move_to_string(m))
 			return m;
 
