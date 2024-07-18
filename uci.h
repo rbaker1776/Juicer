@@ -11,7 +11,7 @@ namespace UCI
 {
 	inline std::string sq_to_string(Square s);
 	inline std::string move_to_string(const Move& m);
-	inline Move string_to_move(const Board& board, const Boardstate& boardstate, const Gamestate& gamestate, const std::string& str);
+	inline Move string_to_move(const Position& pos, const std::string& str);
 } // namespace UCI
 
 
@@ -38,9 +38,9 @@ inline std::string UCI::move_to_string(const Move& m)
 	return move;
 }
 
-inline Move UCI::string_to_move(const Board& board, const Boardstate& boardstate, const Gamestate& gamestate, const std::string& str)
+inline Move UCI::string_to_move(const Position& pos, const std::string& str)
 {
-	for (const Move& m: MoveList<LEGAL>(board, boardstate, gamestate.ep_target))
+	for (const Move& m: MoveList<LEGAL>(pos))
 		if (str == UCI::move_to_string(m))
 			return m;
 

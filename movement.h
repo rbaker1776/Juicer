@@ -3590,17 +3590,17 @@ static constexpr uint64_t shift(uint64_t bb)
 	if constexpr (D == Direction::SS)
 		return bb >> 16;
 	if constexpr (D == Direction::E)
-		return (bb & ~FILEH_BB) << 1;
+		return (bb & ~Bitboard::FILEH) << 1;
 	if constexpr (D == Direction::W)
-		return (bb & ~FILEA_BB) >> 1;
+		return (bb & ~Bitboard::FILEA) >> 1;
 	if constexpr (D == Direction::NE)
-		return (bb & ~FILEH_BB) << 9;
+		return (bb & ~Bitboard::FILEH) << 9;
 	if constexpr (D == Direction::NW)
-		return (bb & ~FILEA_BB) << 7;
+		return (bb & ~Bitboard::FILEA) << 7;
 	if constexpr (D == Direction::SE)
-		return (bb & ~FILEH_BB) >> 7;
+		return (bb & ~Bitboard::FILEH) >> 7;
 	if constexpr (D == Direction::SW)
-		return (bb & ~FILEA_BB) >> 9;
+		return (bb & ~Bitboard::FILEA) >> 9;
 }
 
 template<Color C>
@@ -3843,7 +3843,7 @@ constexpr uint64_t BETWEEN_BB[64][64] =
 // LINE_BB[s1][s2] = 
 // full line including s1 and s2
 // if s1 and s2 are not colinear, it is 0
-// LINE_BB[A1][A2] = FILEA_BB
+// LINE_BB[A1][A2] = Bitboard::FILEA
 constexpr uint64_t LINE_BB[64][64] =
 {
 	{ 0, 0xffull, 0xffull, 0xffull, 0xffull, 0xffull, 0xffull, 0xffull, 0x101010101010101ull, 0x8040201008040201ull, 0, 0, 0, 0, 0, 0, 0x101010101010101ull, 0, 0x8040201008040201ull, 0, 0, 0, 0, 0, 0x101010101010101ull, 0, 0, 0x8040201008040201ull, 0, 0, 0, 0, 0x101010101010101ull, 0, 0, 0, 0x8040201008040201ull, 0, 0, 0, 0x101010101010101ull, 0, 0, 0, 0, 0x8040201008040201ull, 0, 0, 0x101010101010101ull, 0, 0, 0, 0, 0, 0x8040201008040201ull, 0, 0x101010101010101ull, 0, 0, 0, 0, 0, 0, 0x8040201008040201ull, },

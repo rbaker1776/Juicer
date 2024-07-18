@@ -87,9 +87,9 @@ namespace Bitboards
 
 	static void bb_utils()
 	{{{
-		mu_assert((RANK1_BB | RANK2_BB) == 0xffff);
-		mu_assert((RANK2_BB & Square::A1) == 0);
-		mu_assert((FILEF_BB | Square::F1) == FILEF_BB);
+		mu_assert((Bitboard::RANK1 | Bitboard::RANK2) == 0xffff);
+		mu_assert((Bitboard::RANK2 & Square::A1) == 0);
+		mu_assert((Bitboard::FILEF | Square::F1) == Bitboard::FILEF);
 
 		for (File f = FILE_A; f <= FILE_H; ++f)
 			for (File g = FILE_A; g < f; ++g)
@@ -146,7 +146,7 @@ namespace Bitboards
 		for (Square s = A1; s <= H8; ++s)
 			mu_assert(square_to_bb(s) == (rank_bb(s) & file_bb(s)));
 
-		mu_assert((FILEA_BB | B1) == (A8 | A7 | A6 | A5 | A4 | A3 | A2 | A1 | B1));
+		mu_assert((Bitboard::FILEA | B1) == (A8 | A7 | A6 | A5 | A4 | A3 | A2 | A1 | B1));
 
 		for (Square s: { E4, D4, E5, D5 })
 			mu_assert(CENTER_DISTANCE[s] == 0);
@@ -266,7 +266,7 @@ namespace Attacks
 			mu_assert(PIECE_ATTACKS[QUEEN][s] == (PIECE_ATTACKS[BISHOP][s] | PIECE_ATTACKS[ROOK][s]));
 
 		for (Square s = B7; s <= G7; ++s)
-			mu_assert(PIECE_ATTACKS[KING][s] == ((RANK8_BB | RANK7_BB | RANK6_BB) & (file_bb(s) | file_bb(s-1) | file_bb(s+1)) & ~square_to_bb(s)));
+			mu_assert(PIECE_ATTACKS[KING][s] == ((Bitboard::RANK8 | Bitboard::RANK7 | Bitboard::RANK6) & (file_bb(s) | file_bb(s-1) | file_bb(s+1)) & ~square_to_bb(s)));
 
 		mu_assert(PIECE_ATTACKS[KING][A1] == (A2 | B2 | B1));
 
@@ -287,8 +287,8 @@ namespace Positions
 	static void fen_constructor()
 	{{{  
 		Board b1("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-		mu_assert(b1.wp == RANK2_BB);
-		mu_assert(b1.bp == RANK7_BB);
+		mu_assert(b1.wp == Bitboard::RANK2);
+		mu_assert(b1.bp == Bitboard::RANK7);
 		mu_assert(b1.wn == (G1 | B1));
 		mu_assert(b1.bn == (G8 | B8));
 		mu_assert(b1.wb == (F1 | C1));	
@@ -299,9 +299,9 @@ namespace Positions
 		mu_assert(b1.bq == square_to_bb(D8));
 		mu_assert(b1.wk == square_to_bb(E1));
 		mu_assert(b1.bk == square_to_bb(E8));
-		mu_assert(b1.w_pieces == (RANK1_BB | RANK2_BB));
-		mu_assert(b1.b_pieces == (RANK7_BB | RANK8_BB));
-		mu_assert(b1.pieces == (RANK1_BB | RANK2_BB | RANK7_BB | RANK8_BB));
+		mu_assert(b1.w_pieces == (Bitboard::RANK1 | Bitboard::RANK2));
+		mu_assert(b1.b_pieces == (Bitboard::RANK7 | Bitboard::RANK8));
+		mu_assert(b1.pieces == (Bitboard::RANK1 | Bitboard::RANK2 | Bitboard::RANK7 | Bitboard::RANK8));
 
 		Board b2("7k/1QQ5/6Q1/6Q1/2Q5/Q5Q1/8/K2Q2Q1 w - - 0 1");
 		mu_assert(b2.wp == 0);

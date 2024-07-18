@@ -37,19 +37,14 @@ int main(int argc, char* argv[])
 			std::cout << juicer.board().to_string() << std::endl;
 		else if (arg == "move")
 			while (ss >> arg)
-				juicer.make_move(UCI::string_to_move(juicer.board(), juicer.boardstate(), juicer.gamestate(), arg));
+				juicer.make_move(UCI::string_to_move(juicer.position(), arg));
 		else if (arg == "perft")
 		{
 			if (!(ss >> arg)) arg = "4";
-			uint64_t perft = juicer.perft<LEGAL, true>(std::stoi(arg));
+			uint64_t perft = juicer.perft<true>(std::stoi(arg));
 			std::cout << std::endl << "Nodes searched: " << perft << std::endl << std::endl;
 		}
-		else if (arg == "captures")
-		{
-			for (const Move& capt: MoveList<CAPTURES>(juicer.board(), juicer.boardstate(), juicer.gamestate().ep_target))
-				std::cout << UCI::move_to_string(capt) << std::endl;
-		}
-
+		
 		command = "";
 
 		if (clargs)

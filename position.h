@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <string_view>
+#include "movement.h"
 #include "bitboard.h"
 #include "types.h"
 #include "juicer.h"
@@ -98,8 +99,8 @@ struct Board
 	const uint64_t pieces;
 
 	constexpr Board():
-		wp(RANK2_BB), wn(B1 | G1), wb(C1 | F1), wr(A1 | H1), wq(square_to_bb(D1)), wk(square_to_bb(E1)),
-		bp(RANK7_BB), bn(B8 | G8), bb(C8 | F8), br(A8 | H8), bq(square_to_bb(D8)), bk(square_to_bb(E8)),
+		wp(Bitboard::RANK2), wn(B1 | G1), wb(C1 | F1), wr(A1 | H1), wq(square_to_bb(D1)), wk(square_to_bb(E1)),
+		bp(Bitboard::RANK7), bn(B8 | G8), bb(C8 | F8), br(A8 | H8), bq(square_to_bb(D8)), bk(square_to_bb(E8)),
 		w_pieces(wp | wn | wb | wr | wq | wk),
 		b_pieces(bp | bn | bb | br | bq | bk),
 		pieces(w_pieces | b_pieces)
@@ -125,12 +126,12 @@ struct Board
 
 	template<Color C, PieceType Pt, bool IsCapture>
 	inline Board move(Square from, Square to) const;
+
+	template<PieceType Pt, bool IsCapture>
+	inline Board move(Square from, Square to) const;
 	
 	template<Castling Cr>
 	inline Board castles() const;
-	
-	template<Color C>
-	inline Board castles(uint64_t kingswitch, uint64_t rookswitch) const;
 	
 	template<Color C>
 	inline Board enpassant(Square from, Square to) const;
@@ -174,74 +175,22 @@ struct Gamestate
 }; // struct Gamestate
 
 
-inline uint8_t Boardstate::pattern() const
+struct Position
 {
-	return ((turn == BLACK) << 5) | (has_ep_pawn << 4)
-	        | (w_castle_ooo << 3) | (w_castle_oo << 2)
-			| (b_castle_ooo << 1) | (b_castle_oo);
-}
+	const Board board;
+	const Boardstate boardstate;
+	const Gamestate gamestate;
 
-inline bool Boardstate::can_castle_queenside(uint64_t seen, uint64_t occupied, uint64_t rook) const
-{
-	if (turn == WHITE && w_castle_ooo)
-	{
-		if (occupied & W_EMPTY_OOO || seen & W_UNSEEN_OOO)
-			return false;
-		if (rook & A1)
-			return true;
-	}
-	else if (turn == BLACK && b_castle_ooo)
-	{
-		if (occupied & B_EMPTY_OOO || seen & B_UNSEEN_OOO)
-			return false;
-		if (rook & A8)
-			return true;
-	}
-	return false;
-}
+	constexpr Position(const Board& board, const Boardstate& bs, const Gamestate& gs):
+		board(board), boardstate(bs), gamestate(gs)
+	{}
 
-inline bool Boardstate::can_castle_kingside(uint64_t seen, uint64_t occupied, uint64_t rook) const
-{
-	if (turn == WHITE && w_castle_oo)
-	{
-		if (occupied & W_EMPTY_OO || seen & W_UNSEEN_OO) 
-			return false;
-		if (rook & H1) 
-			return true;
-	}
-	else if (turn == BLACK && b_castle_oo)
-	{
-		if (occupied & B_EMPTY_OO || seen & B_UNSEEN_OO) 
-			return false;
-		if (rook & H8) 
-			return true;
-	}
-	return false;
-}
+	constexpr Position(std::string_view fen): board(fen), boardstate(fen), gamestate(fen) {}
 
-inline Boardstate Boardstate::king_move() const
-{
-	if (turn == WHITE)
-		return Boardstate(BLACK, false, false, false, b_castle_ooo, b_castle_oo);
-	else
-		return Boardstate(WHITE, false, w_castle_ooo, w_castle_oo, false, false);
-}
+	static constexpr Position startpos() { return Position(Board(), Boardstate::startpos(), Gamestate(NO_SQUARE, 0)); }
 
-inline Boardstate Boardstate::rook_move_queenside() const
-{
-	if (turn == WHITE)
-		return Boardstate(BLACK, false, false, w_castle_oo, b_castle_ooo, b_castle_oo);
-	else
-		return Boardstate(WHITE, false, w_castle_ooo, w_castle_oo, false, b_castle_oo);
-}
-
-inline Boardstate Boardstate::rook_move_kingside() const
-{
-	if (turn == WHITE)
-		return Boardstate(BLACK, false, w_castle_ooo, false, b_castle_ooo, b_castle_oo);
-	else
-		return Boardstate(WHITE, false, w_castle_ooo, w_castle_oo, b_castle_ooo, false);
-}
+	inline Position make_move(const Move& m) const;
+}; // struct Position
 
 
 static constexpr Square FEN::ep_target(std::string_view fen)
@@ -348,6 +297,76 @@ static constexpr int FEN::halfmoves(std::string_view fen)
 }
 
 
+inline uint8_t Boardstate::pattern() const
+{
+	return ((turn == BLACK) << 5) | (has_ep_pawn << 4)
+	        | (w_castle_ooo << 3) | (w_castle_oo << 2)
+			| (b_castle_ooo << 1) | (b_castle_oo);
+}
+
+inline bool Boardstate::can_castle_queenside(uint64_t seen, uint64_t occupied, uint64_t rook) const
+{
+	if (turn == WHITE && w_castle_ooo)
+	{
+		if (occupied & W_EMPTY_OOO || seen & W_UNSEEN_OOO)
+			return false;
+		if (rook & A1)
+			return true;
+	}
+	else if (turn == BLACK && b_castle_ooo)
+	{
+		if (occupied & B_EMPTY_OOO || seen & B_UNSEEN_OOO)
+			return false;
+		if (rook & A8)
+			return true;
+	}
+	return false;
+}
+
+inline bool Boardstate::can_castle_kingside(uint64_t seen, uint64_t occupied, uint64_t rook) const
+{
+	if (turn == WHITE && w_castle_oo)
+	{
+		if (occupied & W_EMPTY_OO || seen & W_UNSEEN_OO) 
+			return false;
+		if (rook & H1) 
+			return true;
+	}
+	else if (turn == BLACK && b_castle_oo)
+	{
+		if (occupied & B_EMPTY_OO || seen & B_UNSEEN_OO) 
+			return false;
+		if (rook & H8) 
+			return true;
+	}
+	return false;
+}
+
+inline Boardstate Boardstate::king_move() const
+{
+	if (turn == WHITE)
+		return Boardstate(BLACK, false, false, false, b_castle_ooo, b_castle_oo);
+	else
+		return Boardstate(WHITE, false, w_castle_ooo, w_castle_oo, false, false);
+}
+
+inline Boardstate Boardstate::rook_move_queenside() const
+{
+	if (turn == WHITE)
+		return Boardstate(BLACK, false, false, w_castle_oo, b_castle_ooo, b_castle_oo);
+	else
+		return Boardstate(WHITE, false, w_castle_ooo, w_castle_oo, false, b_castle_oo);
+}
+
+inline Boardstate Boardstate::rook_move_kingside() const
+{
+	if (turn == WHITE)
+		return Boardstate(BLACK, false, w_castle_ooo, false, b_castle_ooo, b_castle_oo);
+	else
+		return Boardstate(WHITE, false, w_castle_ooo, w_castle_oo, b_castle_ooo, false);
+}
+
+
 template<Color C, PieceType Pt, bool IsCapture>
 inline Board Board::move(Square from, Square to) const
 {
@@ -427,6 +446,15 @@ inline Board Board::move(Square from, Square to) const
 	}
 }
 
+template<PieceType Pt, bool IsCapture>
+inline Board Board::move(Square from, Square to) const
+{
+	if (w_pieces & from)
+		return move<WHITE, Pt, IsCapture>(from, to);
+	else
+		return move<BLACK, Pt, IsCapture>(from, to);
+}
+
 template<Castling Cr>
 inline Board Board::castles() const
 {
@@ -474,7 +502,7 @@ inline Board Board::promote(Square from, Square to) const
 		{
 			#if (DEBUG)
 				assert(w_pieces & from);
-				assert(RANK8_BB & to);
+				assert(Bitboard::RANK8 & to);
 			#endif
 			if constexpr (Pt == QUEEN)  return Board(wp ^ from, wn, wb, wr, wq ^ to, wk, bp, bn & rem, bb & rem, br & rem, bq & rem, bk);
 			if constexpr (Pt == KNIGHT) return Board(wp ^ from, wn ^ to, wb, wr, wq, wk, bp, bn & rem, bb & rem, br & rem, bq & rem, bk);
@@ -485,7 +513,7 @@ inline Board Board::promote(Square from, Square to) const
 		{
 			#if (DEBUG)
 				assert(b_pieces & from);
-				assert(RANK1_BB & to);
+				assert(Bitboard::RANK1 & to);
 			#endif
 			if constexpr (Pt == QUEEN)  return Board(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn, bb, br, bq ^ to, bk);
 			if constexpr (Pt == KNIGHT) return Board(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn ^ to, bb, br, bq, bk);
@@ -503,7 +531,7 @@ inline Board Board::promote(Square from, Square to) const
 		{
 			#if (DEBUG)
 				assert(w_pieces & from);
-				assert(RANK8_BB & to);
+				assert(Bitboard::RANK8 & to);
 			#endif
 			if constexpr (Pt == QUEEN)  return Board(wp ^ from, wn, wb, wr, wq ^ to, wk, bp, bn, bb, br, bq, bk);
 			if constexpr (Pt == KNIGHT) return Board(wp ^ from, wn ^ to, wb, wr, wq, wk, bp, bn, bb, br, bq, bk);
@@ -514,7 +542,7 @@ inline Board Board::promote(Square from, Square to) const
 		{
 			#if (DEBUG)
 				assert(b_pieces & from);
-				assert(RANK1_BB & to);
+				assert(Bitboard::RANK1 & to);
 			#endif
 			if constexpr (Pt == QUEEN)  return Board(wp, wn, wb, wr, wq, wk, bp ^ from, bn, bb, br, bq ^ to, bk);
 			if constexpr (Pt == KNIGHT) return Board(wp, wn, wb, wr, wq, wk, bp ^ from, bn ^ to, bb, br, bq, bk);
@@ -592,6 +620,157 @@ std::string Board::to_string() const
 
 	ss << "  a   b   c   d   e   f   g   h";
 	return ss.str();
+}
+
+
+inline Position Position::make_move(const Move& m) const
+{
+	switch (m.type)
+	{
+		case NORMAL:
+			switch (m.piece)
+			{
+				case PAWN:
+					if (board.pieces & m.to) // capture
+					{
+						return Position(board.move<PAWN, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					}
+					else // no capture
+					{
+						if (SQUARE_DISTANCE[m.from][m.to] == 2) // pawn push
+							return Position(board.move<PAWN, false>(m.from, m.to), boardstate.pawn_push(), gamestate.pawn_push(m.to));
+						else
+							return Position(board.move<PAWN, false>(m.from, m.to), boardstate.quiet_move(), gamestate.pawn_step());
+					}
+
+				case KNIGHT:
+					if (board.pieces & m.to) // capture
+						return Position(board.move<KNIGHT, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					else // no capture
+						return Position(board.move<KNIGHT, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+
+				case BISHOP:
+					if (board.pieces & m.to) // capture
+						return Position(board.move<BISHOP, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					else // no capture
+						return Position(board.move<BISHOP, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+
+				case ROOK:
+					if (board.pieces & m.to) // capture
+					{
+						switch (m.from)
+						{
+							case A1: case A8: return Position(board.move<ROOK, true>(m.from, m.to), boardstate.rook_move_queenside(), gamestate.capture());
+							case H1: case H8: return Position(board.move<ROOK, true>(m.from, m.to), boardstate.rook_move_kingside(),  gamestate.capture());
+							default: return Position(board.move<ROOK, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+						}
+					}
+					else // no capture
+					{
+						switch (m.from)
+						{
+							case A1: case A8: return Position(board.move<ROOK, false>(m.from, m.to), boardstate.rook_move_queenside(), gamestate.quiet_move());
+							case H1: case H8: return Position(board.move<ROOK, false>(m.from, m.to), boardstate.rook_move_kingside(),  gamestate.quiet_move());
+							default: return Position(board.move<ROOK, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+						}
+					}
+
+				case QUEEN:
+					if (board.pieces & m.to) // capture
+						return Position(board.move<QUEEN, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					else // no capture
+						return Position(board.move<QUEEN, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+
+				case KING:
+					if (board.pieces & m.to) // capture
+						return Position(board.move<KING, true>(m.from, m.to), boardstate.king_move(), gamestate.capture());
+					else // no capture
+						return Position(board.move<KING, false>(m.from, m.to), boardstate.king_move(), gamestate.quiet_move());
+			}
+
+		case CASTLING:
+			switch (m.to)
+			{
+				case C1: return Position(board.castles<WHITE_OOO>(), boardstate.king_move(), gamestate.quiet_move());
+				case G1: return Position(board.castles<WHITE_OO>(),  boardstate.king_move(), gamestate.quiet_move());
+				case C8: return Position(board.castles<BLACK_OOO>(), boardstate.king_move(), gamestate.quiet_move());
+				case G8: return Position(board.castles<BLACK_OO>(),  boardstate.king_move(), gamestate.quiet_move());
+			}
+
+		case PROMOTION:
+			switch (m.piece)
+			{
+				case QUEEN:
+					if (board.pieces & m.to) // capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, QUEEN, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+						else
+							return Position(board.promote<BLACK, QUEEN, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					}
+					else // no capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, QUEEN, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+						else
+							return Position(board.promote<BLACK, QUEEN, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+					}
+
+				case KNIGHT:
+					if (board.pieces & m.to) // capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, KNIGHT, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+						else
+							return Position(board.promote<BLACK, KNIGHT, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					}
+					else // no capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, KNIGHT, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+						else
+							return Position(board.promote<BLACK, KNIGHT, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+					}
+
+				case ROOK:
+					if (board.pieces & m.to) // capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, ROOK, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+						else
+							return Position(board.promote<BLACK, ROOK, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					}
+					else // no capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, ROOK, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+						else
+							return Position(board.promote<BLACK, ROOK, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+					}
+
+				case BISHOP:
+					if (board.pieces & m.to) // capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, BISHOP, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+						else
+							return Position(board.promote<BLACK, BISHOP, true>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+					}
+					else // no capture
+					{
+						if (boardstate.turn == WHITE)
+							return Position(board.promote<WHITE, BISHOP, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+						else
+							return Position(board.promote<BLACK, BISHOP, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
+					}
+			}
+
+		case EN_PASSANT:
+			if (boardstate.turn == WHITE)
+				return Position(board.enpassant<WHITE>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+			else
+				return Position(board.enpassant<BLACK>(m.from, m.to), boardstate.quiet_move(), gamestate.capture());
+	}
 }
 
 

@@ -11,25 +11,58 @@
 #include "juicer.h"
 
 
-static constexpr uint64_t RANK1_BB = 0xff;
-static constexpr uint64_t RANK2_BB = RANK1_BB << 8;
-static constexpr uint64_t RANK3_BB = RANK1_BB << 16;
-static constexpr uint64_t RANK4_BB = RANK1_BB << 24;
-static constexpr uint64_t RANK5_BB = RANK1_BB << 32;
-static constexpr uint64_t RANK6_BB = RANK1_BB << 40;
-static constexpr uint64_t RANK7_BB = RANK1_BB << 48;
-static constexpr uint64_t RANK8_BB = RANK1_BB << 56;
+namespace Bitboard
+{
+	static constexpr uint64_t RANK1 = 0xff;
+	static constexpr uint64_t RANK2 = RANK1 << 8;
+	static constexpr uint64_t RANK3 = RANK1 << 16;
+	static constexpr uint64_t RANK4 = RANK1 << 24;
+	static constexpr uint64_t RANK5 = RANK1 << 32;
+	static constexpr uint64_t RANK6 = RANK1 << 40;
+	static constexpr uint64_t RANK7 = RANK1 << 48;
+	static constexpr uint64_t RANK8 = RANK1 << 56;
 
-static constexpr uint64_t FILEA_BB = 0x0101010101010101ull;
-static constexpr uint64_t FILEB_BB = FILEA_BB << 1;
-static constexpr uint64_t FILEC_BB = FILEA_BB << 2;
-static constexpr uint64_t FILED_BB = FILEA_BB << 3;
-static constexpr uint64_t FILEE_BB = FILEA_BB << 4;
-static constexpr uint64_t FILEF_BB = FILEA_BB << 5;
-static constexpr uint64_t FILEG_BB = FILEA_BB << 6;
-static constexpr uint64_t FILEH_BB = FILEA_BB << 7;
+	static constexpr uint64_t FILEA = 0x0101010101010101ull;
+	static constexpr uint64_t FILEB = FILEA << 1;
+	static constexpr uint64_t FILEC = FILEA << 2;
+	static constexpr uint64_t FILED = FILEA << 3;
+	static constexpr uint64_t FILEE = FILEA << 4;
+	static constexpr uint64_t FILEF = FILEA << 5;
+	static constexpr uint64_t FILEG = FILEA << 6;
+	static constexpr uint64_t FILEH = FILEA << 7;
 
-static constexpr uint64_t BOARD_BB = UINT64_MAX;
+	static constexpr uint64_t BOARD = UINT64_MAX;
+
+	template<Color C> static consteval uint64_t rank_1() { if constexpr (C == WHITE) return RANK1; else return RANK8; }
+	template<Color C> static consteval uint64_t rank_2() { if constexpr (C == WHITE) return RANK2; else return RANK7; }
+	template<Color C> static consteval uint64_t rank_3() { if constexpr (C == WHITE) return RANK3; else return RANK6; }
+	template<Color C> static consteval uint64_t rank_4() { if constexpr (C == WHITE) return RANK4; else return RANK5; }
+	template<Color C> static consteval uint64_t rank_5() { if constexpr (C == WHITE) return RANK5; else return RANK4; }
+	template<Color C> static consteval uint64_t rank_6() { if constexpr (C == WHITE) return RANK6; else return RANK3; }
+	template<Color C> static consteval uint64_t rank_7() { if constexpr (C == WHITE) return RANK7; else return RANK2; }
+	template<Color C> static consteval uint64_t rank_8() { if constexpr (C == WHITE) return RANK8; else return RANK1; }
+
+	#if (DEBUG)
+	static std::string bb_to_string(uint64_t bb, char marker = 'X')
+	{
+		std::ostringstream ss;
+		ss << "+---+---+---+---+---+---+---+---+\n";
+
+		for (Rank r = RANK_8; r >= RANK_1; --r)
+		{
+			for (File f = FILE_A; f <= FILE_H; ++f)
+			{
+				ss << '|' << ' ' << (bb & make_square(f, r) ? marker : ' ') << ' ';
+			}
+			ss << '|' << ' ' << std::to_string(r + 1) << '\n';
+			ss << "+---+---+---+---+---+---+---+---+\n";
+		}
+
+		ss << "  a   b   c   d   e   f   g   h";
+		return ss.str();
+	}
+	#endif // (DEBUG)
+} // namespace Bitboard
 
 
 constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
@@ -53,19 +86,13 @@ constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
 constexpr Rank operator&(Rank r, Color c) { return c == WHITE ? r : Rank(RANK_8 - r); }
 constexpr Square operator&(Square s, Color c) { return c == WHITE ? s : make_square(file_of(s), rank_of(s) & BLACK); }
 
-constexpr uint64_t file_bb(File f) { return FILEA_BB << f; }
-constexpr uint64_t rank_bb(Rank r) { return RANK1_BB << (8 * r); }
+constexpr uint64_t file_bb(File f) { return Bitboard::FILEA << f; }
+constexpr uint64_t rank_bb(Rank r) { return Bitboard::RANK1 << (8 * r); }
 
 constexpr uint64_t file_bb(Square s) { return file_bb(file_of(s)); }
 constexpr uint64_t rank_bb(Square s) { return rank_bb(rank_of(s)); }
 
 constexpr bool is_ok(Square s) { return s >= A1 && s <= H8; }
-
-
-template<Color C> consteval uint64_t ep_rank_bb() { if constexpr (C == WHITE) return RANK5_BB; else return RANK4_BB; }
-template<Color C> consteval uint64_t rank_2_bb()  { if constexpr (C == WHITE) return RANK2_BB; else return RANK7_BB; }
-template<Color C> consteval uint64_t rank_6_bb()  { if constexpr (C == WHITE) return RANK6_BB; else return RANK3_BB; }
-template<Color C> consteval uint64_t rank_7_bb()  { if constexpr (C == WHITE) return RANK7_BB; else return RANK2_BB; }
 
 
 #if (POPCOUNT == MANUAL)
@@ -154,28 +181,6 @@ static constexpr Square pop_lsb(uint64_t& bb)
 	bb &= bb - 1;
 	return s;
 }
-
-
-#if (DEBUG)
-static std::string bb_to_string(uint64_t bb, char marker = 'X')
-{
-	std::ostringstream ss;
-	ss << "+---+---+---+---+---+---+---+---+\n";
-
-	for (Rank r = RANK_8; r >= RANK_1; --r)
-	{
-		for (File f = FILE_A; f <= FILE_H; ++f)
-		{
-			ss << '|' << ' ' << (bb & make_square(f, r) ? marker : ' ') << ' ';
-		}
-		ss << '|' << ' ' << std::to_string(r + 1) << '\n';
-		ss << "+---+---+---+---+---+---+---+---+\n";
-	}
-
-	ss << "  a   b   c   d   e   f   g   h";
-	return ss.str();
-}
-#endif // (DEBUG)
 
 
 #endif // BITBOARD_H_0CEDFBF5F401
