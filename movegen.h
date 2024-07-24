@@ -26,6 +26,7 @@ struct MoveList
 public:
 	explicit MoveList(const Position& pos): last(enumerate<Gt>(pos, moves)) {}
 
+
 	const Move* begin() const { return moves; }
 	const Move* end() const { return last; }
 	size_t size() const { return last - moves; }
@@ -39,13 +40,13 @@ private:
 // holds and updates variables used for move generation
 namespace Movegen
 {
-	static Square ep_target = NO_SQUARE;
+	static constinit Square ep_target {NO_SQUARE};
 
-	static uint64_t rook_pins;
-	static uint64_t bishop_pins;
+	static constinit uint64_t rook_pins;
+	static constinit uint64_t bishop_pins;
 
-	static uint64_t checkmask;
-	static uint64_t kingban;
+	static constinit uint64_t checkmask;
+	static constinit uint64_t kingban;
 
 	inline void register_slider_check(Square ksq, Square ssq);
 

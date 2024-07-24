@@ -8,7 +8,7 @@ namespace xrs
 {
 static uint64_t rand64()
 {
-	static uint64_t seed = 1234568909876543210ull;
+	static constinit uint64_t seed = 1234568909876543210;
 	seed ^= seed >> 12;
 	seed ^= seed << 25;
 	seed ^= seed >> 27;
@@ -16,13 +16,16 @@ static uint64_t rand64()
 }
 
 template<typename T>
-static T rand() { return T(xrs::rand64()); }
+static T rand() requires std::is_convertible_v<uint64_t, T>
+{ return static_cast<T>(xrs::rand64()); }
 
 template<typename T>
-static T sparse_rand() { return T(xrs::rand64() & xrs::rand64() & xrs::rand64()); }
+static T sparse_rand() requires std::is_convertible_v<uint64_t, T>
+{ return static_cast<T>(xrs::rand64() & xrs::rand64() & xrs::rand64()); }
 
 template<typename T>
-static T dense_rand() { return T(xrs::rand64() | xrs::rand64()); }
+static T dense_rand() requires std::is_convertible_v<uint64_t, T>
+{ return static_cast<T>(xrs::rand64() | xrs::rand64()); }
 }
 
 

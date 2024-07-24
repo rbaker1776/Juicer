@@ -28,7 +28,6 @@ enum Rank: int
 	RANK_6,
 	RANK_7,
 	RANK_8,
-	NO_RANK,
 };
 
 enum File: int
@@ -41,7 +40,6 @@ enum File: int
 	FILE_F,
 	FILE_G,
 	FILE_H,
-	NO_FILE,
 };
 
 constexpr Square& operator++(Square& s) { return s = Square(int(s) + 1); }
@@ -150,7 +148,6 @@ enum MoveType
 
 struct Move
 {
-public:
 	MoveType type;
 	Square from;
 	Square to;
@@ -160,6 +157,7 @@ public:
 	constexpr Move() = default;
 	constexpr Move(MoveType mt, Square from, Square to, PieceType pt = KNIGHT): type(mt), from(from), to(to), piece(pt) {}
 }; // struct Move
+
 
 
 #endif // TYPES_H_8D2FD9177A41

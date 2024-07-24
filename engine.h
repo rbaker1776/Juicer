@@ -76,7 +76,7 @@ constexpr Engine::Engine()
 constexpr Engine::Engine(std::string_view fen)
 {
 	positions.reserve(256);
-	positions.emplace_back(Position::startpos());
+	positions.emplace_back(fen);
 }
 
 inline void Engine::seed(std::string_view fen)

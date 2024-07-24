@@ -346,13 +346,11 @@ namespace Positions
 		juicer.make_move(Move(NORMAL, E2, E4, PAWN));
 		mu_assert(juicer.board().wp == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 		mu_assert(juicer.boardstate().turn == BLACK);
-		mu_assert(juicer.boardstate().has_ep_pawn == false);
 
 		juicer.make_move(Move(NORMAL, E7, E5, PAWN));
 		mu_assert(juicer.board().wp == (A2 | B2 | C2 | D2 | E4 | F2 | G2 | H2));
 		mu_assert(juicer.board().bp == (A7 | B7 | C7 | D7 | E5 | F7 | G7 | H7));
 		mu_assert(juicer.boardstate().turn == WHITE);
-		mu_assert(juicer.boardstate().has_ep_pawn == false);
 	}}}
 
 	static void make_captures()

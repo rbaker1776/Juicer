@@ -190,6 +190,8 @@ struct Position
 	static constexpr Position startpos() { return Position(Board(), Boardstate::startpos(), Gamestate(NO_SQUARE, 0)); }
 
 	inline Position make_move(const Move& m) const;
+
+	inline Color side_to_move() const { return boardstate.turn; }
 }; // struct Position
 
 
@@ -686,6 +688,8 @@ inline Position Position::make_move(const Move& m) const
 						return Position(board.move<KING, true>(m.from, m.to), boardstate.king_move(), gamestate.capture());
 					else // no capture
 						return Position(board.move<KING, false>(m.from, m.to), boardstate.king_move(), gamestate.quiet_move());
+				default:
+					std::cerr << "Error, invalid piece passed into Position::make_move: " << m.piece << std::endl;
 			}
 
 		case CASTLING:
@@ -695,6 +699,8 @@ inline Position Position::make_move(const Move& m) const
 				case G1: return Position(board.castles<WHITE_OO>(),  boardstate.king_move(), gamestate.quiet_move());
 				case C8: return Position(board.castles<BLACK_OOO>(), boardstate.king_move(), gamestate.quiet_move());
 				case G8: return Position(board.castles<BLACK_OO>(),  boardstate.king_move(), gamestate.quiet_move());
+				default:
+					std::cerr << "Error, invalid square for castling: " << m.to << std::endl;
 			}
 
 		case PROMOTION:
@@ -763,6 +769,9 @@ inline Position Position::make_move(const Move& m) const
 						else
 							return Position(board.promote<BLACK, BISHOP, false>(m.from, m.to), boardstate.quiet_move(), gamestate.quiet_move());
 					}
+				
+				default:
+					std::cerr << "Error, invalid PieceType for promotion: " << m.piece << std::endl;
 			}
 
 		case EN_PASSANT:

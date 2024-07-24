@@ -10,7 +10,6 @@
 
 #define DEBUG false
 #define VERBOSE true
-#define QUICK_TEST true
 
 #define VERSION 1
 

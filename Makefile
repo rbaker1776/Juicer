@@ -1,4 +1,4 @@
-CXX = g++
+CXX = clang++
 STD = -std=c++20
 CFLAGS = -O3 -Wall -Wextra -pedantic
 

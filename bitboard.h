@@ -11,27 +11,46 @@
 #include "juicer.h"
 
 
+constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
+constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
+
+constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
+constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
+constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
+
+constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
+constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
+constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
+
+constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & s2; }
+constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
+constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
+
+constexpr File file_of(Square s) { return File(s & 7); }
+constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
+
+
 namespace Bitboard
 {
-	static constexpr uint64_t RANK1 = 0xff;
-	static constexpr uint64_t RANK2 = RANK1 << 8;
-	static constexpr uint64_t RANK3 = RANK1 << 16;
-	static constexpr uint64_t RANK4 = RANK1 << 24;
-	static constexpr uint64_t RANK5 = RANK1 << 32;
-	static constexpr uint64_t RANK6 = RANK1 << 40;
-	static constexpr uint64_t RANK7 = RANK1 << 48;
-	static constexpr uint64_t RANK8 = RANK1 << 56;
+	static constexpr uint64_t RANK1 {0xff};
+	static constexpr uint64_t RANK2 {RANK1 << 8};
+	static constexpr uint64_t RANK3 {RANK1 << 16};
+	static constexpr uint64_t RANK4 {RANK1 << 24};
+	static constexpr uint64_t RANK5 {RANK1 << 32};
+	static constexpr uint64_t RANK6 {RANK1 << 40};
+	static constexpr uint64_t RANK7 {RANK1 << 48};
+	static constexpr uint64_t RANK8 {RANK1 << 56};
 
-	static constexpr uint64_t FILEA = 0x0101010101010101ull;
-	static constexpr uint64_t FILEB = FILEA << 1;
-	static constexpr uint64_t FILEC = FILEA << 2;
-	static constexpr uint64_t FILED = FILEA << 3;
-	static constexpr uint64_t FILEE = FILEA << 4;
-	static constexpr uint64_t FILEF = FILEA << 5;
-	static constexpr uint64_t FILEG = FILEA << 6;
-	static constexpr uint64_t FILEH = FILEA << 7;
+	static constexpr uint64_t FILEA {0x0101010101010101};
+	static constexpr uint64_t FILEB {FILEA << 1};
+	static constexpr uint64_t FILEC {FILEA << 2};
+	static constexpr uint64_t FILED {FILEA << 3};
+	static constexpr uint64_t FILEE {FILEA << 4};
+	static constexpr uint64_t FILEF {FILEA << 5};
+	static constexpr uint64_t FILEG {FILEA << 6};
+	static constexpr uint64_t FILEH {FILEA << 7};
 
-	static constexpr uint64_t BOARD = UINT64_MAX;
+	static constexpr uint64_t BOARD {UINT64_MAX};
 
 	template<Color C> static consteval uint64_t rank_1() { if constexpr (C == WHITE) return RANK1; else return RANK8; }
 	template<Color C> static consteval uint64_t rank_2() { if constexpr (C == WHITE) return RANK2; else return RANK7; }
@@ -43,7 +62,7 @@ namespace Bitboard
 	template<Color C> static consteval uint64_t rank_8() { if constexpr (C == WHITE) return RANK8; else return RANK1; }
 
 	#if (DEBUG)
-	static std::string bb_to_string(uint64_t bb, char marker = 'X')
+	[[maybe_unused]] static std::string bb_to_string(uint64_t bb, char marker = 'X')
 	{
 		std::ostringstream ss;
 		ss << "+---+---+---+---+---+---+---+---+\n";
@@ -64,27 +83,6 @@ namespace Bitboard
 	#endif // (DEBUG)
 } // namespace Bitboard
 
-
-constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
-constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
-
-constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
-constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
-constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
-
-constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
-constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
-constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
-
-constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & s2; }
-constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
-constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
-
-constexpr File file_of(Square s) { return File(s & 7); }
-constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
-
-constexpr Rank operator&(Rank r, Color c) { return c == WHITE ? r : Rank(RANK_8 - r); }
-constexpr Square operator&(Square s, Color c) { return c == WHITE ? s : make_square(file_of(s), rank_of(s) & BLACK); }
 
 constexpr uint64_t file_bb(File f) { return Bitboard::FILEA << f; }
 constexpr uint64_t rank_bb(Rank r) { return Bitboard::RANK1 << (8 * r); }
