@@ -92,12 +92,16 @@ struct Position
 	inline Piece piece_on(Square s) const;
 
 	template<Color C, PieceType Pt = ALL_PIECE_TYPES>
-	inline uint64_t bitboard() const;
+	force_inline uint64_t bitboard() const;
 
 	template<Color C, PieceType... Pts>
-	inline uint64_t bitboards() const { return (bitboard<C, Pts>() | ...); }
+	force_inline uint64_t bitboards() const { return (bitboard<C, Pts>() | ...); }
 
-	template<Color C> inline Square king_sq() const;
+	template<Color C>
+	force_inline uint64_t pawns() const { if constexpr (C == WHITE) return wp; else return bp; }
+
+	template<Color C>
+	inline Square king_sq() const;
 
 	inline uint8_t boardstate_pattern() const;
 }; // struct Position
@@ -316,7 +320,7 @@ inline Piece Position::piece_on(Square s) const
 }
 
 template<Color C, PieceType Pt>
-inline uint64_t Position::bitboard() const
+force_inline uint64_t Position::bitboard() const
 {
 	if constexpr (C == WHITE)
 	{
@@ -340,6 +344,14 @@ inline uint64_t Position::bitboard() const
 		if constexpr (Pt == ALL_PIECE_TYPES)
 			return b_pieces;
 	}
+	static_assert(C == WHITE || C == BLACK);
+	static_assert(Pt >= PAWN && Pt <= ALL_PIECE_TYPES);
+}
+
+template<Color C>
+force_inline uint64_t pawnsbb(const Position& restrict pos)
+{
+	if constexpr (C == WHITE) return pos.wp; return pos.bp;
 }
 
 template<Color C>

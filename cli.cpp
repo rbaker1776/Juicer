@@ -19,7 +19,6 @@ int main(int argc, char* argv[])
 {
 	Engine juicer;
 
-	std::cout << (500 >> 2) << std::endl;
 	std::string command = std::string();
 	std::string arg;
 

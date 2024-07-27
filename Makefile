@@ -1,6 +1,6 @@
 CXX = clang++
 STD = -std=c++20
-CFLAGS = -O3 -Wall -Wextra -pedantic 
+CFLAGS = -O3 -Wall -Wextra -pedantic -Rpass-missed=.* -mllvm -inline-threshold=65535
 
 SRC =
 TEST_SRC = $(SRC) testsuite.cpp
@@ -17,3 +17,9 @@ test: $(TEST_SRC)
 
 memcheck: $(TEST)
 	leaks --atExit -- ./testjuicer
+
+gvn: $(CLI_SRC)
+	$(CXX) $(STD) $(CFLAGS) -Rpass-missed=gvn $(CLI_SRC) -o $(CLI) 2> gvn_remarks.txt && grep 'load of type' gvn_remarks.txt | wc -l
+
+licm: $(CLI_SRC)
+	$(CXX) $(STD) $(CFLAGS) -Rpass-missed-licm $(CLI_SRC) -o $(CLI) 2> licm_remarks.txt && grep 'failed to hoist' licm_remarks.txt | wc -l

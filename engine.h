@@ -24,7 +24,7 @@ public:
 	inline void undo_move();
 	
 	template<bool IsRoot>
-	uint64_t perft(int depth);
+	inline uint64_t perft(int depth);
 
 	inline const Position& position() const { return this->positions.back(); }
 
@@ -34,7 +34,7 @@ private:
 
 
 template<bool IsRoot>
-uint64_t Engine::perft(int depth)
+inline uint64_t Engine::perft(int depth)
 {
 	uint64_t nodes = 0, count = 0;
 	const bool leaf = (depth == 2);

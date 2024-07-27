@@ -18,13 +18,13 @@ enum GenType: int
 };
 
 template<GenType Gt>
-inline Move* enumerate(const Position& pos, Move* moves);
+force_inline Move* enumerate(const Position& restrict pos, Move* moves);
 
 template<GenType Gt>
 struct MoveList
 {
 public:
-	explicit MoveList(const Position& pos): last(enumerate<Gt>(pos, moves)) {}
+	explicit MoveList(const Position& restrict pos): last(enumerate<Gt>(pos, moves)) {}
 
 	const Move* begin() const { return moves; }
 	const Move* end() const { return last; }
@@ -47,38 +47,38 @@ namespace Movegen
 	static constinit uint64_t checkmask;
 	static constinit uint64_t kingban;
 
-	inline void register_slider_check(Square ksq, Square ssq);
+	force_inline void register_slider_check(Square ksq, Square ssq);
 
 	template<Color Us, bool EnPassant>
-	inline void register_bishop_pin(const Position& pos, Square ksq, Square bsq);
+	force_inline void register_bishop_pin(const Position& restrict pos, Square ksq, Square bsq);
 
 	template<Color Us>
-	inline void register_rook_pin(const Position& pos, Square ksq, Square rsq);
+	force_inline void register_rook_pin(const Position& restrict pos, Square ksq, Square rsq);
 
 	template<Color Us>
-	inline void register_ep_pin(const Position& pos, Square ksq);
+	force_inline void register_ep_pin(const Position& restrict pos, Square ksq);
 		
 	template<GenType Gt, Color Us, bool EnPassant>
-	inline uint64_t king_attacks(const Position& pos);
+	force_inline uint64_t king_attacks(const Position& restrict pos);
+
+	template<bool IsCheck>
+	force_inline uint64_t const_checkmask(uint64_t checkmask);
+
+	template<Color C, GenType Gt>
+	force_inline uint64_t moveable_sqs(const Position& restrict pos, uint64_t checkmask);
 } // namespace Movegen
 
 
 template<GenType Gt, Boardstate State, bool IsCheck>
-inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
+force_inline Move* enumerate(const Position& restrict pos, uint64_t king_atk, Move* moves)
 {
 	constexpr Color Us = State.turn;
 	constexpr Color Them = ~Us;
 
-	if constexpr (!IsCheck)
-		Movegen::checkmask = Bitboard::BOARD;
-
-	uint64_t moveable_sqs;
-	if constexpr (Gt == LEGAL)
-		moveable_sqs = ~pos.bitboard<Us>() & Movegen::checkmask;
-	else if constexpr (Gt == CAPTURES)
-		moveable_sqs = pos.bitboard<Them>() & Movegen::checkmask;
-	else
-		moveable_sqs = 0;
+	const uint64_t rook_pins = Movegen::rook_pins;
+	const uint64_t bishop_pins = Movegen::bishop_pins;
+	const uint64_t checkmask = Movegen::const_checkmask<IsCheck>(Movegen::checkmask);
+	const uint64_t moveable_sqs = Movegen::moveable_sqs<Us, Gt>(pos, checkmask);
 
 	const Square ksq = pos.king_sq<Us>();
 
@@ -97,26 +97,26 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 
 	if constexpr (Gt == LEGAL)
 	{
-		const uint64_t vertical_pawns = pos.bitboard<Us, PAWN>() & ~Movegen::bishop_pins;
-		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
+		const uint64_t vertical_pawns = pos.bitboard<Us, PAWN>() & ~bishop_pins;
+		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~rook_pins;
 
-		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
-		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
+		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & checkmask);
+		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & checkmask);
 		uint64_t step_pawns = vertical_pawns & pawn_step_bb<Them>(~pos.pieces);
-		uint64_t push_pawns = step_pawns & Bitboard::rank_2<Us>() & pawn_push_bb<Them>(~pos.pieces & Movegen::checkmask);
-		step_pawns &= pawn_step_bb<Them>(Movegen::checkmask);
+		uint64_t push_pawns = step_pawns & Bitboard::rank_2<Us>() & pawn_push_bb<Them>(~pos.pieces & checkmask);
+		step_pawns &= pawn_step_bb<Them>(checkmask);
 
-		w_atk_pawns &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
-		e_atk_pawns &= pawn_atk_west_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
-		step_pawns &= pawn_step_bb<Them>(Movegen::rook_pins) | ~Movegen::rook_pins;
-		push_pawns &= pawn_push_bb<Them>(Movegen::rook_pins) | ~Movegen::rook_pins;
+		w_atk_pawns &= pawn_atk_east_bb<Them>(bishop_pins) | ~bishop_pins;
+		e_atk_pawns &= pawn_atk_west_bb<Them>(bishop_pins) | ~bishop_pins;
+		step_pawns &= pawn_step_bb<Them>(rook_pins) | ~rook_pins;
+		push_pawns &= pawn_push_bb<Them>(rook_pins) | ~rook_pins;
 
 		if constexpr (State.has_ep_pawn)
 		{
 			if (Movegen::ep_target != NO_SQUARE)
 			{
-				uint64_t ep_atk_west = diagonal_pawns & shift<E>(Movegen::checkmask & Movegen::ep_target);
-				uint64_t ep_atk_east = diagonal_pawns & shift<W>(Movegen::checkmask & Movegen::ep_target);
+				uint64_t ep_atk_west = diagonal_pawns & shift<E>(checkmask & Movegen::ep_target);
+				uint64_t ep_atk_east = diagonal_pawns & shift<W>(checkmask & Movegen::ep_target);
 
 				#if (DEBUG)
 					assert(Bitboard::rank_5<Us>() & Movegen::ep_target);
@@ -125,8 +125,8 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 
 				if (ep_atk_west | ep_atk_east)
 				{
-					ep_atk_west &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
-					ep_atk_east &= pawn_atk_west_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
+					ep_atk_west &= pawn_atk_east_bb<Them>(bishop_pins) | ~bishop_pins;
+					ep_atk_east &= pawn_atk_west_bb<Them>(bishop_pins) | ~bishop_pins;
 
 					if (ep_atk_west)
 						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), Movegen::ep_target + pawn_step<Us>(), PAWN);
@@ -199,19 +199,19 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 	}
 	else if constexpr (Gt == CAPTURES)
 	{
-		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
+		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~rook_pins;
 
-		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
-		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
-		w_atk_pawns &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
-		e_atk_pawns &= pawn_atk_west_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
+		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & checkmask);
+		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & checkmask);
+		w_atk_pawns &= pawn_atk_east_bb<Them>(bishop_pins) | ~bishop_pins;
+		e_atk_pawns &= pawn_atk_west_bb<Them>(bishop_pins) | ~bishop_pins;
 
 		if constexpr (State.has_ep_pawn)
 		{
 			if (Movegen::ep_target != NO_SQUARE)
 			{
-				uint64_t ep_atk_west = diagonal_pawns & shift<E>(Movegen::checkmask & Movegen::ep_target);
-				uint64_t ep_atk_east = diagonal_pawns & shift<W>(Movegen::checkmask & Movegen::ep_target);
+				uint64_t ep_atk_west = diagonal_pawns & shift<E>(checkmask & Movegen::ep_target);
+				uint64_t ep_atk_east = diagonal_pawns & shift<W>(checkmask & Movegen::ep_target);
 
 				#if (DEBUG)
 					assert(Bitboard::rank_5<Us>() & Movegen::ep_target);
@@ -220,8 +220,8 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 
 				if (ep_atk_west | ep_atk_east)
 				{
-					ep_atk_west &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
-					ep_atk_east &= pawn_atk_west_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
+					ep_atk_west &= pawn_atk_east_bb<Them>(bishop_pins) | ~bishop_pins;
+					ep_atk_east &= pawn_atk_west_bb<Them>(bishop_pins) | ~bishop_pins;
 
 					if (ep_atk_west)
 						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), Movegen::ep_target + pawn_step<Us>(), PAWN);
@@ -271,7 +271,7 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 	}
 
 	{
-		uint64_t knights = pos.bitboard<Us, KNIGHT>() & ~(Movegen::rook_pins | Movegen::bishop_pins);
+		uint64_t knights = pos.bitboard<Us, KNIGHT>() & ~(rook_pins | bishop_pins);
 		while (knights)
 		{
 			const Square from = pop_lsb(knights);
@@ -283,14 +283,14 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 	uint64_t queens = pos.bitboard<Us, QUEEN>();
 
 	{
-		uint64_t bishops = pos.bitboard<Us, BISHOP>() & ~Movegen::rook_pins;
-		uint64_t pinned_bishops = (bishops | queens) & Movegen::bishop_pins;
-		uint64_t unpinned_bishops = bishops & ~Movegen::bishop_pins;
+		uint64_t bishops = pos.bitboard<Us, BISHOP>() & ~rook_pins;
+		uint64_t pinned_bishops = (bishops | queens) & bishop_pins;
+		uint64_t unpinned_bishops = bishops & ~bishop_pins;
 
 		while (pinned_bishops)
 		{
 			const Square from = pop_lsb(pinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs & Movegen::bishop_pins;
+			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs & bishop_pins;
 			const PieceType slider = (queens & from ? QUEEN : BISHOP);
 
 			while (to)
@@ -308,14 +308,14 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 	}
 
 	{
-		uint64_t rooks = pos.bitboard<Us, ROOK>() & ~Movegen::bishop_pins;
-		uint64_t pinned_rooks = (rooks | queens) & Movegen::rook_pins;
-		uint64_t unpinned_rooks = rooks & ~Movegen::rook_pins;
+		uint64_t rooks = pos.bitboard<Us, ROOK>() & ~bishop_pins;
+		uint64_t pinned_rooks = (rooks | queens) & rook_pins;
+		uint64_t unpinned_rooks = rooks & ~rook_pins;
 
 		while (pinned_rooks)
 		{
 			const Square from = pop_lsb(pinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs & Movegen::rook_pins;
+			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs & rook_pins;
 			const PieceType slider = (queens & from ? QUEEN : ROOK);
 
 			while (to)
@@ -333,7 +333,7 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 	}
 
 	{
-		queens &= ~(Movegen::rook_pins | Movegen::bishop_pins);
+		queens &= ~(rook_pins | bishop_pins);
 		while (queens)
 		{
 			const Square from = pop_lsb(queens);
@@ -348,7 +348,7 @@ inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 }
 
 template<GenType Gt, Boardstate State>
-inline Move* enumerate(const Position& pos, Move* moves)
+inline Move* enumerate(const Position& restrict pos, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
@@ -369,7 +369,7 @@ inline Move* enumerate(const Position& pos, Move* moves)
 }
 
 
-inline void Movegen::register_slider_check(Square ksq, Square ssq)
+force_inline void Movegen::register_slider_check(Square ksq, Square ssq)
 {
 	if (Movegen::checkmask == Bitboard::BOARD) // no checks yet
 		Movegen::checkmask = BETWEEN_BB[ksq][ssq];
@@ -380,7 +380,7 @@ inline void Movegen::register_slider_check(Square ksq, Square ssq)
 }
 
 template<Color Us, bool EnPassant>
-inline void Movegen::register_bishop_pin(const Position& pos, Square ksq, Square bsq)
+force_inline void Movegen::register_bishop_pin(const Position& restrict pos, Square ksq, Square bsq)
 {
 	const uint64_t pinmask = BETWEEN_BB[ksq][bsq];
 
@@ -393,7 +393,7 @@ inline void Movegen::register_bishop_pin(const Position& pos, Square ksq, Square
 }
 
 template<Color Us>
-inline void Movegen::register_rook_pin(const Position& pos, Square ksq, Square rsq)
+force_inline void Movegen::register_rook_pin(const Position& restrict pos, Square ksq, Square rsq)
 {
 	const uint64_t pinmask = BETWEEN_BB[ksq][rsq];
 
@@ -402,7 +402,7 @@ inline void Movegen::register_rook_pin(const Position& pos, Square ksq, Square r
 }
 
 template<Color Us>
-inline void Movegen::register_ep_pin(const Position& pos, Square ksq)
+force_inline void Movegen::register_ep_pin(const Position& restrict pos, Square ksq)
 {
 	constexpr Color Them = ~Us;
 
@@ -421,7 +421,7 @@ inline void Movegen::register_ep_pin(const Position& pos, Square ksq)
 }
 
 template<GenType Gt, Color Us, bool EnPassant>
-inline uint64_t Movegen::king_attacks(const Position& pos)
+force_inline uint64_t Movegen::king_attacks(const Position& restrict pos)
 {
 	constexpr Color Them = ~Us;
 
@@ -504,9 +504,29 @@ inline uint64_t Movegen::king_attacks(const Position& pos)
 	return king_moves & ~Movegen::kingban;
 }
 
+template<bool IsCheck>
+force_inline uint64_t Movegen::const_checkmask(uint64_t checkmask)
+{
+	if constexpr (IsCheck)
+		return checkmask;
+	else
+		return Bitboard::BOARD;
+}
+
+template<Color C, GenType Gt>
+force_inline uint64_t Movegen::moveable_sqs(const Position& restrict pos, uint64_t checkmask)
+{
+	static_assert(Gt == LEGAL || Gt == CAPTURES);
+	if constexpr (Gt == LEGAL)
+		return ~pos.bitboard<C>() & checkmask;
+	if constexpr (Gt == CAPTURES)
+		return pos.bitboard<~C>() & checkmask;
+}
+
+
 
 template<GenType Gt>
-inline Move* enumerate(const Position& pos, Move* moves)
+force_inline Move* enumerate(const Position& restrict pos, Move* moves)
 {
 	Movegen::ep_target = pos.ep_target;
 	switch (pos.boardstate_pattern())
