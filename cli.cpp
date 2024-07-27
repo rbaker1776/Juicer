@@ -37,9 +37,9 @@ int main(int argc, char* argv[])
 		std::istringstream ss(command);
 		ss >> arg;
 
-		if (arg == "show")
-			std::cout << juicer.board().to_string() << std::endl;
-		else if (arg == "move")
+		//if (arg == "show")
+		//	std::cout << juicer.board().to_string() << std::endl;
+		if (arg == "move")
 			while (ss >> arg)
 				juicer.make_move(UCI::string_to_move(juicer.position(), arg));
 		else if (arg == "perft")
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 			std::cout << std::endl << "Nodes searched: " << perft << std::endl << std::endl;
 		}
 		else if (arg == "eval")
-			std::cout << pcsq_evaluate(juicer.board()) << std::endl;
+			std::cout << pcsq_evaluate(juicer.position()) << std::endl;
 
 		command = "";
 

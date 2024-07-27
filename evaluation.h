@@ -309,23 +309,23 @@ namespace Eval
 } // namespace Eval
 
 
-inline int pcsq_evaluate(const Board& board)
+inline int pcsq_evaluate(const Position& pos)
 {
 	int value = 0;
-	const int phase = popcount(board.pieces);
+	const int phase = popcount(pos.pieces);
 
-	value += phase *   Eval::MG_PAWN_VALUE[WHITE][board.wp] + (32 - phase) *   Eval::EG_PAWN_VALUE[WHITE][board.wp];
-	value += phase *   Eval::MG_PAWN_VALUE[BLACK][board.bp] + (32 - phase) *   Eval::EG_PAWN_VALUE[BLACK][board.bp];
-	value += phase * Eval::MG_KNIGHT_VALUE[WHITE][board.wn] + (32 - phase) * Eval::EG_KNIGHT_VALUE[WHITE][board.wn];
-	value += phase * Eval::MG_KNIGHT_VALUE[BLACK][board.bn] + (32 - phase) * Eval::EG_KNIGHT_VALUE[BLACK][board.bn];
-	value += phase * Eval::MG_BISHOP_VALUE[WHITE][board.wb] + (32 - phase) * Eval::EG_BISHOP_VALUE[WHITE][board.wb];
-	value += phase * Eval::MG_BISHOP_VALUE[BLACK][board.bb] + (32 - phase) * Eval::EG_BISHOP_VALUE[BLACK][board.bb];
-	value += phase *   Eval::MG_ROOK_VALUE[WHITE][board.wr] + (32 - phase) *   Eval::EG_ROOK_VALUE[WHITE][board.wr];
-	value += phase *   Eval::MG_ROOK_VALUE[BLACK][board.br] + (32 - phase) *   Eval::EG_ROOK_VALUE[BLACK][board.br];
-	value += phase *  Eval::MG_QUEEN_VALUE[WHITE][board.wq] + (32 - phase) *  Eval::EG_QUEEN_VALUE[WHITE][board.wq];
-	value += phase *  Eval::MG_QUEEN_VALUE[BLACK][board.bq] + (32 - phase) *  Eval::EG_QUEEN_VALUE[BLACK][board.bq];
-	value += phase *   Eval::MG_KING_VALUE[WHITE][board.wk] + (32 - phase) *   Eval::EG_KING_VALUE[WHITE][board.wk];
-	value += phase *   Eval::MG_KING_VALUE[BLACK][board.bk] + (32 - phase) *   Eval::EG_KING_VALUE[BLACK][board.bk];
+	value += phase *   Eval::MG_PAWN_VALUE[WHITE][pos.wp] + (32 - phase) *   Eval::EG_PAWN_VALUE[WHITE][pos.wp];
+	value += phase *   Eval::MG_PAWN_VALUE[BLACK][pos.bp] + (32 - phase) *   Eval::EG_PAWN_VALUE[BLACK][pos.bp];
+	value += phase * Eval::MG_KNIGHT_VALUE[WHITE][pos.wn] + (32 - phase) * Eval::EG_KNIGHT_VALUE[WHITE][pos.wn];
+	value += phase * Eval::MG_KNIGHT_VALUE[BLACK][pos.bn] + (32 - phase) * Eval::EG_KNIGHT_VALUE[BLACK][pos.bn];
+	value += phase * Eval::MG_BISHOP_VALUE[WHITE][pos.wb] + (32 - phase) * Eval::EG_BISHOP_VALUE[WHITE][pos.wb];
+	value += phase * Eval::MG_BISHOP_VALUE[BLACK][pos.bb] + (32 - phase) * Eval::EG_BISHOP_VALUE[BLACK][pos.bb];
+	value += phase *   Eval::MG_ROOK_VALUE[WHITE][pos.wr] + (32 - phase) *   Eval::EG_ROOK_VALUE[WHITE][pos.wr];
+	value += phase *   Eval::MG_ROOK_VALUE[BLACK][pos.br] + (32 - phase) *   Eval::EG_ROOK_VALUE[BLACK][pos.br];
+	value += phase *  Eval::MG_QUEEN_VALUE[WHITE][pos.wq] + (32 - phase) *  Eval::EG_QUEEN_VALUE[WHITE][pos.wq];
+	value += phase *  Eval::MG_QUEEN_VALUE[BLACK][pos.bq] + (32 - phase) *  Eval::EG_QUEEN_VALUE[BLACK][pos.bq];
+	value += phase *   Eval::MG_KING_VALUE[WHITE][pos.wk] + (32 - phase) *   Eval::EG_KING_VALUE[WHITE][pos.wk];
+	value += phase *   Eval::MG_KING_VALUE[BLACK][pos.bk] + (32 - phase) *   Eval::EG_KING_VALUE[BLACK][pos.bk];
 
 	return (+value >> 5) * (value >= 0 ? 1 : -1);
 }

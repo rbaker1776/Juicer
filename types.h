@@ -123,19 +123,19 @@ constexpr Color color_of(Piece pc) { return Color(pc >> 3); }
 constexpr Piece make_piece(Color c, PieceType pt) { return Piece((c << 3) | pt); }
 
 
-enum Castling: int
+namespace Castling
 {
-	NO_CASTLES = 0,
-	WHITE_OOO = 8,
-	WHITE_OO  = 4,
-	BLACK_OOO = 2,
-	BLACK_OO  = 1,
-	WHITE_CASTLES = WHITE_OOO | WHITE_OO,
-	BLACK_CASTLES = BLACK_OOO | BLACK_OO,
-	KING_SIDE = WHITE_OO | BLACK_OO,
-	QUEEN_SIDE = WHITE_OOO | BLACK_OOO,
-	ALL_CASTLES = KING_SIDE | QUEEN_SIDE,
-};
+	static constexpr uint64_t W_OOO {1ull << A1};
+	static constexpr uint64_t W_OO  {1ull << H1};
+	static constexpr uint64_t B_OOO {1ull << A8};
+	static constexpr uint64_t B_OO  {1ull << H8};
+
+	static constexpr uint64_t W_CASTLES {W_OOO | W_OO};
+	static constexpr uint64_t B_CASTLES {B_OOO | B_OO};
+	
+	static constexpr uint64_t QUEENSIDE {W_OOO | B_OOO};
+	static constexpr uint64_t KINGSIDE  {W_OO | B_OO};
+}
 
 
 enum MoveType
@@ -155,9 +155,9 @@ struct Move
 	int promise;
 
 	constexpr Move() = default;
+	constexpr Move(uint32_t data): type(MoveType(data >> 16)), from(Square(data & 63)), to(Square((data >> 6) & 63)), piece(PieceType((data >> 12) & 15)) {}
 	constexpr Move(MoveType mt, Square from, Square to, PieceType pt = KNIGHT): type(mt), from(from), to(to), piece(pt) {}
 }; // struct Move
-
 
 
 #endif // TYPES_H_8D2FD9177A41

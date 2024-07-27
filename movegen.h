@@ -26,7 +26,6 @@ struct MoveList
 public:
 	explicit MoveList(const Position& pos): last(enumerate<Gt>(pos, moves)) {}
 
-
 	const Move* begin() const { return moves; }
 	const Move* end() const { return last; }
 	size_t size() const { return last - moves; }
@@ -51,21 +50,21 @@ namespace Movegen
 	inline void register_slider_check(Square ksq, Square ssq);
 
 	template<Color Us, bool EnPassant>
-	inline void register_bishop_pin(const Board& board, Square ksq, Square bsq);
+	inline void register_bishop_pin(const Position& pos, Square ksq, Square bsq);
 
 	template<Color Us>
-	inline void register_rook_pin(const Board& board, Square ksq, Square rsq);
+	inline void register_rook_pin(const Position& pos, Square ksq, Square rsq);
 
 	template<Color Us>
-	inline void register_ep_pin(const Board& board, Square ksq);
+	inline void register_ep_pin(const Position& pos, Square ksq);
 		
 	template<GenType Gt, Color Us, bool EnPassant>
-	inline uint64_t king_attacks(const Board& board);
+	inline uint64_t king_attacks(const Position& pos);
 } // namespace Movegen
 
 
 template<GenType Gt, Boardstate State, bool IsCheck>
-inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
+inline Move* enumerate(const Position& pos, uint64_t king_atk, Move* moves)
 {
 	constexpr Color Us = State.turn;
 	constexpr Color Them = ~Us;
@@ -75,36 +74,36 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 
 	uint64_t moveable_sqs;
 	if constexpr (Gt == LEGAL)
-		moveable_sqs = ~board.bitboard<Us>() & Movegen::checkmask;
+		moveable_sqs = ~pos.bitboard<Us>() & Movegen::checkmask;
 	else if constexpr (Gt == CAPTURES)
-		moveable_sqs = board.bitboard<Them>() & Movegen::checkmask;
+		moveable_sqs = pos.bitboard<Them>() & Movegen::checkmask;
 	else
 		moveable_sqs = 0;
 
-	const Square ksq = board.king_sq<Us>();
+	const Square ksq = pos.king_sq<Us>();
 
 	{
 		while (king_atk)
 			*moves++ = Move(NORMAL, ksq, pop_lsb(king_atk), KING);
 
 		if constexpr (!IsCheck && State.can_castle_queenside())
-			if (State.can_castle_queenside(Movegen::kingban, board.pieces, board.bitboard<Us, ROOK>()))
+			if (State.can_castle_queenside(Movegen::kingban, pos.pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::W, KING);
 
 		if constexpr (!IsCheck && State.can_castle_kingside())
-			if (State.can_castle_kingside(Movegen::kingban, board.pieces, board.bitboard<Us, ROOK>()))
+			if (State.can_castle_kingside(Movegen::kingban, pos.pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::E, KING);
 	}
 
 	if constexpr (Gt == LEGAL)
 	{
-		const uint64_t vertical_pawns = board.bitboard<Us, PAWN>() & ~Movegen::bishop_pins;
-		const uint64_t diagonal_pawns = board.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
+		const uint64_t vertical_pawns = pos.bitboard<Us, PAWN>() & ~Movegen::bishop_pins;
+		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
 
-		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(board.bitboard<Them>() & Movegen::checkmask);
-		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(board.bitboard<Them>() & Movegen::checkmask);
-		uint64_t step_pawns = vertical_pawns & pawn_step_bb<Them>(board.empty());
-		uint64_t push_pawns = step_pawns & Bitboard::rank_2<Us>() & pawn_push_bb<Them>(board.empty() & Movegen::checkmask);
+		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
+		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
+		uint64_t step_pawns = vertical_pawns & pawn_step_bb<Them>(~pos.pieces);
+		uint64_t push_pawns = step_pawns & Bitboard::rank_2<Us>() & pawn_push_bb<Them>(~pos.pieces & Movegen::checkmask);
 		step_pawns &= pawn_step_bb<Them>(Movegen::checkmask);
 
 		w_atk_pawns &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
@@ -200,10 +199,10 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 	}
 	else if constexpr (Gt == CAPTURES)
 	{
-		const uint64_t diagonal_pawns = board.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
+		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~Movegen::rook_pins;
 
-		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(board.bitboard<Them>() & Movegen::checkmask);
-		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(board.bitboard<Them>() & Movegen::checkmask);
+		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
+		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & Movegen::checkmask);
 		w_atk_pawns &= pawn_atk_east_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
 		e_atk_pawns &= pawn_atk_west_bb<Them>(Movegen::bishop_pins) | ~Movegen::bishop_pins;
 
@@ -272,7 +271,7 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 	}
 
 	{
-		uint64_t knights = board.bitboard<Us, KNIGHT>() & ~(Movegen::rook_pins | Movegen::bishop_pins);
+		uint64_t knights = pos.bitboard<Us, KNIGHT>() & ~(Movegen::rook_pins | Movegen::bishop_pins);
 		while (knights)
 		{
 			const Square from = pop_lsb(knights);
@@ -281,17 +280,17 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 		}
 	}
 
-	uint64_t queens = board.bitboard<Us, QUEEN>();
+	uint64_t queens = pos.bitboard<Us, QUEEN>();
 
 	{
-		uint64_t bishops = board.bitboard<Us, BISHOP>() & ~Movegen::rook_pins;
+		uint64_t bishops = pos.bitboard<Us, BISHOP>() & ~Movegen::rook_pins;
 		uint64_t pinned_bishops = (bishops | queens) & Movegen::bishop_pins;
 		uint64_t unpinned_bishops = bishops & ~Movegen::bishop_pins;
 
 		while (pinned_bishops)
 		{
 			const Square from = pop_lsb(pinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][board.pieces] & moveable_sqs & Movegen::bishop_pins;
+			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs & Movegen::bishop_pins;
 			const PieceType slider = (queens & from ? QUEEN : BISHOP);
 
 			while (to)
@@ -301,7 +300,7 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 		while (unpinned_bishops)
 		{
 			const Square from = pop_lsb(unpinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][board.pieces] & moveable_sqs;
+			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs;
 			
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), BISHOP);
@@ -309,14 +308,14 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 	}
 
 	{
-		uint64_t rooks = board.bitboard<Us, ROOK>() & ~Movegen::bishop_pins;
+		uint64_t rooks = pos.bitboard<Us, ROOK>() & ~Movegen::bishop_pins;
 		uint64_t pinned_rooks = (rooks | queens) & Movegen::rook_pins;
 		uint64_t unpinned_rooks = rooks & ~Movegen::rook_pins;
 
 		while (pinned_rooks)
 		{
 			const Square from = pop_lsb(pinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][board.pieces] & moveable_sqs & Movegen::rook_pins;
+			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs & Movegen::rook_pins;
 			const PieceType slider = (queens & from ? QUEEN : ROOK);
 
 			while (to)
@@ -326,7 +325,7 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 		while (unpinned_rooks)
 		{
 			const Square from = pop_lsb(unpinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][board.pieces] & moveable_sqs;
+			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs;
 
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), ROOK);
@@ -338,7 +337,7 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 		while (queens)
 		{
 			const Square from = pop_lsb(queens);
-			uint64_t to = attacks_bb<QUEEN>(from, board.pieces) & moveable_sqs;
+			uint64_t to = attacks_bb<QUEEN>(from, pos.pieces) & moveable_sqs;
 
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), QUEEN);
@@ -349,19 +348,19 @@ inline Move* enumerate(const Board& board, uint64_t king_atk, Move* moves)
 }
 
 template<GenType Gt, Boardstate State>
-inline Move* enumerate(const Board& board, Move* moves)
+inline Move* enumerate(const Position& pos, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
-	uint64_t king_atk = Movegen::king_attacks<Gt, Us, State.has_ep_pawn>(board);
+	uint64_t king_atk = Movegen::king_attacks<Gt, Us, State.has_ep_pawn>(pos);
 
 	if (Movegen::checkmask == Bitboard::BOARD) // not in check
-		moves = enumerate<Gt, State, false>(board, king_atk, moves);
+		moves = enumerate<Gt, State, false>(pos, king_atk, moves);
 	else if (Movegen::checkmask != 0) // single check
-		moves = enumerate<Gt, State, true>(board, king_atk, moves);
+		moves = enumerate<Gt, State, true>(pos, king_atk, moves);
 	else
 	{
-		const Square ksq = board.king_sq<Us>();
+		const Square ksq = pos.king_sq<Us>();
 		while (king_atk)
 			*moves++ = Move(NORMAL, ksq, pop_lsb(king_atk), KING);
 	}
@@ -381,7 +380,7 @@ inline void Movegen::register_slider_check(Square ksq, Square ssq)
 }
 
 template<Color Us, bool EnPassant>
-inline void Movegen::register_bishop_pin(const Board& board, Square ksq, Square bsq)
+inline void Movegen::register_bishop_pin(const Position& pos, Square ksq, Square bsq)
 {
 	const uint64_t pinmask = BETWEEN_BB[ksq][bsq];
 
@@ -389,40 +388,40 @@ inline void Movegen::register_bishop_pin(const Board& board, Square ksq, Square 
 		if (pinmask & (Movegen::ep_target))
 			Movegen::ep_target = NO_SQUARE;
 
-	if (pinmask & board.bitboard<Us>()) // there lies a friendly piece in the enemy bishop's path
+	if (pinmask & pos.bitboard<Us>()) // there lies a friendly piece in the enemy bishop's path
 		Movegen::bishop_pins |= pinmask;
 }
 
 template<Color Us>
-inline void Movegen::register_rook_pin(const Board& board, Square ksq, Square rsq)
+inline void Movegen::register_rook_pin(const Position& pos, Square ksq, Square rsq)
 {
 	const uint64_t pinmask = BETWEEN_BB[ksq][rsq];
 
-	if (pinmask & board.bitboard<Us>()) // there lies a friendly piece in the enemy rook's path
+	if (pinmask & pos.bitboard<Us>()) // there lies a friendly piece in the enemy rook's path
 		Movegen::rook_pins |= pinmask;
 }
 
 template<Color Us>
-inline void Movegen::register_ep_pin(const Board& board, Square ksq)
+inline void Movegen::register_ep_pin(const Position& pos, Square ksq)
 {
 	constexpr Color Them = ~Us;
 
-	const uint64_t pawns = board.bitboard<Us, PAWN>();
-	const uint64_t enemy_rq = board.bitboards<Them, ROOK, QUEEN>();
+	const uint64_t pawns = pos.bitboard<Us, PAWN>();
+	const uint64_t enemy_rq = pos.bitboards<Them, ROOK, QUEEN>();
 
 	if ((Bitboard::rank_5<Us>() & ksq) && (Bitboard::rank_5<Us>() & enemy_rq) && (Bitboard::rank_5<Us>() & pawns))
 	{
 		uint64_t ep_atk_west = pawns & shift<E>(square_to_bb(Movegen::ep_target));
 		uint64_t ep_atk_east = pawns & shift<W>(square_to_bb(Movegen::ep_target));
 
-		if ((ep_atk_west && (ROOK_MAGICS[ksq][board.pieces & ~(ep_atk_west | Movegen::ep_target)] & Bitboard::rank_5<Us>()) & enemy_rq)
-		 || (ep_atk_east && (ROOK_MAGICS[ksq][board.pieces & ~(ep_atk_east | Movegen::ep_target)] & Bitboard::rank_5<Us>()) & enemy_rq))
+		if ((ep_atk_west && (ROOK_MAGICS[ksq][pos.pieces & ~(ep_atk_west | Movegen::ep_target)] & Bitboard::rank_5<Us>()) & enemy_rq)
+		 || (ep_atk_east && (ROOK_MAGICS[ksq][pos.pieces & ~(ep_atk_east | Movegen::ep_target)] & Bitboard::rank_5<Us>()) & enemy_rq))
 			Movegen::ep_target = NO_SQUARE;
 	}
 }
 
 template<GenType Gt, Color Us, bool EnPassant>
-inline uint64_t Movegen::king_attacks(const Board& board)
+inline uint64_t Movegen::king_attacks(const Position& pos)
 {
 	constexpr Color Them = ~Us;
 
@@ -430,13 +429,13 @@ inline uint64_t Movegen::king_attacks(const Board& board)
 	Movegen::kingban = 0;
 	Movegen::bishop_pins = Movegen::rook_pins = 0;
 
-	const Square ksq = board.king_sq<Us>();
-	const uint64_t king_bb = board.bitboard<Us, KING>();
+	const Square ksq = pos.king_sq<Us>();
+	const uint64_t king_bb = pos.bitboard<Us, KING>();
 
 	// pawn checks
 	{
-		const uint64_t w_pawn_atk = pawn_atk_west_bb<Them>(board.bitboard<Them, PAWN>());
-		const uint64_t e_pawn_atk = pawn_atk_east_bb<Them>(board.bitboard<Them, PAWN>());
+		const uint64_t w_pawn_atk = pawn_atk_west_bb<Them>(pos.bitboard<Them, PAWN>());
+		const uint64_t e_pawn_atk = pawn_atk_east_bb<Them>(pos.bitboard<Them, PAWN>());
 		
 		if (w_pawn_atk & king_bb)
 			Movegen::checkmask = pawn_atk_east_bb<Us>(king_bb);
@@ -446,61 +445,61 @@ inline uint64_t Movegen::king_attacks(const Board& board)
 
 	// knight checks
 	{
-		const uint64_t knight_atk = PIECE_ATTACKS[KNIGHT][ksq] & board.bitboard<Them, KNIGHT>();
+		const uint64_t knight_atk = PIECE_ATTACKS[KNIGHT][ksq] & pos.bitboard<Them, KNIGHT>();
 		if (knight_atk)
 			Movegen::checkmask = knight_atk;
 	}
 
 	// bishop checks and pins
 	{
-		if (PIECE_ATTACKS[BISHOP][ksq] & board.bitboards<Them, BISHOP, QUEEN>())
+		if (PIECE_ATTACKS[BISHOP][ksq] & pos.bitboards<Them, BISHOP, QUEEN>())
 		{
-			uint64_t bishop_atk = BISHOP_MAGICS[ksq][board.pieces] & board.bitboards<Them, BISHOP, QUEEN>();
+			uint64_t bishop_atk = BISHOP_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
 			while (bishop_atk)
 				Movegen::register_slider_check(ksq, pop_lsb(bishop_atk));
 
-			uint64_t bishop_pin = BISHOP_XRAY_MAGICS[ksq][board.pieces] & board.bitboards<Them, BISHOP, QUEEN>();
+			uint64_t bishop_pin = BISHOP_XRAY_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
 			while (bishop_pin)
-				Movegen::register_bishop_pin<Us, EnPassant>(board, ksq, pop_lsb(bishop_pin));
+				Movegen::register_bishop_pin<Us, EnPassant>(pos, ksq, pop_lsb(bishop_pin));
 		}
 	}
 
 	// rook checks and pins
 	{
-		if (PIECE_ATTACKS[ROOK][ksq] & board.bitboards<Them, ROOK, QUEEN>())
+		if (PIECE_ATTACKS[ROOK][ksq] & pos.bitboards<Them, ROOK, QUEEN>())
 		{
-			uint64_t rook_atk = ROOK_MAGICS[ksq][board.pieces] & board.bitboards<Them, ROOK, QUEEN>();
+			uint64_t rook_atk = ROOK_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, ROOK, QUEEN>();
 			while (rook_atk)
 				Movegen::register_slider_check(ksq, pop_lsb(rook_atk));
 
-			uint64_t rook_pin = ROOK_XRAY_MAGICS[ksq][board.pieces] & board.bitboards<Them, ROOK, QUEEN>();
+			uint64_t rook_pin = ROOK_XRAY_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, ROOK, QUEEN>();
 			while (rook_pin)
-				Movegen::register_rook_pin<Us>(board, ksq, pop_lsb(rook_pin));
+				Movegen::register_rook_pin<Us>(pos, ksq, pop_lsb(rook_pin));
 		}
 	}
 
 	if constexpr (EnPassant)
-		register_ep_pin<Us>(board, ksq);
+		register_ep_pin<Us>(pos, ksq);
 
-	uint64_t king_moves = PIECE_ATTACKS[KING][ksq] & ~board.bitboard<Us>() & ~Movegen::kingban;
+	uint64_t king_moves = PIECE_ATTACKS[KING][ksq] & ~pos.bitboard<Us>() & ~Movegen::kingban;
 	if (king_moves == 0) // the king has no legal moves, no sense in updating kingban any further
 		return 0;
 
-	for (uint64_t enemy_knights = board.bitboard<Them, KNIGHT>(); enemy_knights; )
+	for (uint64_t enemy_knights = pos.bitboard<Them, KNIGHT>(); enemy_knights; )
 		Movegen::kingban |= PIECE_ATTACKS[KNIGHT][pop_lsb(enemy_knights)];
 
-	Movegen::kingban |= pawn_atk_bb<Them>(board.bitboard<Them, PAWN>());
+	Movegen::kingban |= pawn_atk_bb<Them>(pos.bitboard<Them, PAWN>());
 
-	for (uint64_t enemy_bishops = board.bitboards<Them, BISHOP, QUEEN>(); enemy_bishops; )
-		Movegen::kingban |= BISHOP_MAGICS[pop_lsb(enemy_bishops)][board.pieces];
+	for (uint64_t enemy_bishops = pos.bitboards<Them, BISHOP, QUEEN>(); enemy_bishops; )
+		Movegen::kingban |= BISHOP_MAGICS[pop_lsb(enemy_bishops)][pos.pieces];
 	
-	for (uint64_t enemy_rooks = board.bitboards<Them, ROOK, QUEEN>(); enemy_rooks; )
-		Movegen::kingban |= ROOK_MAGICS[pop_lsb(enemy_rooks)][board.pieces];
+	for (uint64_t enemy_rooks = pos.bitboards<Them, ROOK, QUEEN>(); enemy_rooks; )
+		Movegen::kingban |= ROOK_MAGICS[pop_lsb(enemy_rooks)][pos.pieces];
 
-	Movegen::kingban |= PIECE_ATTACKS[KING][board.king_sq<Them>()];
+	Movegen::kingban |= PIECE_ATTACKS[KING][pos.king_sq<Them>()];
 
 	if constexpr (Gt == CAPTURES)
-		Movegen::kingban |= ~board.bitboard<Them>();
+		Movegen::kingban |= ~pos.bitboard<Them>();
 
 	return king_moves & ~Movegen::kingban;
 }
@@ -509,75 +508,75 @@ inline uint64_t Movegen::king_attacks(const Board& board)
 template<GenType Gt>
 inline Move* enumerate(const Position& pos, Move* moves)
 {
-	Movegen::ep_target = pos.gamestate.ep_target;
-	switch (pos.boardstate.pattern())
+	Movegen::ep_target = pos.ep_target;
+	switch (pos.boardstate_pattern())
 	{
-		case 0:  return enumerate<Gt, 0>(pos.board, moves);
-		case 1:  return enumerate<Gt, 1>(pos.board, moves);
-		case 2:  return enumerate<Gt, 2>(pos.board, moves);
-		case 3:  return enumerate<Gt, 3>(pos.board, moves);
-		case 4:  return enumerate<Gt, 4>(pos.board, moves);
-		case 5:  return enumerate<Gt, 5>(pos.board, moves);
-		case 6:  return enumerate<Gt, 6>(pos.board, moves);
-		case 7:  return enumerate<Gt, 7>(pos.board, moves);
-		case 8:  return enumerate<Gt, 8>(pos.board, moves);
-		case 9:  return enumerate<Gt, 9>(pos.board, moves);
-		case 10: return enumerate<Gt, 10>(pos.board, moves);
-		case 11: return enumerate<Gt, 11>(pos.board, moves);
-		case 12: return enumerate<Gt, 12>(pos.board, moves);
-		case 13: return enumerate<Gt, 13>(pos.board, moves);
-		case 14: return enumerate<Gt, 14>(pos.board, moves);
-		case 15: return enumerate<Gt, 15>(pos.board, moves);
-		case 16: return enumerate<Gt, 16>(pos.board, moves);
-		case 17: return enumerate<Gt, 17>(pos.board, moves);
-		case 18: return enumerate<Gt, 18>(pos.board, moves);
-		case 19: return enumerate<Gt, 19>(pos.board, moves);
-		case 20: return enumerate<Gt, 20>(pos.board, moves);
-		case 21: return enumerate<Gt, 21>(pos.board, moves);
-		case 22: return enumerate<Gt, 22>(pos.board, moves);
-		case 23: return enumerate<Gt, 23>(pos.board, moves);
-		case 24: return enumerate<Gt, 24>(pos.board, moves);
-		case 25: return enumerate<Gt, 25>(pos.board, moves);
-		case 26: return enumerate<Gt, 26>(pos.board, moves);
-		case 27: return enumerate<Gt, 27>(pos.board, moves);
-		case 28: return enumerate<Gt, 28>(pos.board, moves);
-		case 29: return enumerate<Gt, 29>(pos.board, moves);
-		case 30: return enumerate<Gt, 30>(pos.board, moves);
-		case 31: return enumerate<Gt, 31>(pos.board, moves);
-		case 32: return enumerate<Gt, 32>(pos.board, moves);
-		case 33: return enumerate<Gt, 33>(pos.board, moves);
-		case 34: return enumerate<Gt, 34>(pos.board, moves);
-		case 35: return enumerate<Gt, 35>(pos.board, moves);
-		case 36: return enumerate<Gt, 36>(pos.board, moves);
-		case 37: return enumerate<Gt, 37>(pos.board, moves);
-		case 38: return enumerate<Gt, 38>(pos.board, moves);
-		case 39: return enumerate<Gt, 39>(pos.board, moves);
-		case 40: return enumerate<Gt, 40>(pos.board, moves);
-		case 41: return enumerate<Gt, 41>(pos.board, moves);
-		case 42: return enumerate<Gt, 42>(pos.board, moves);
-		case 43: return enumerate<Gt, 43>(pos.board, moves);
-		case 44: return enumerate<Gt, 44>(pos.board, moves);
-		case 45: return enumerate<Gt, 45>(pos.board, moves);
-		case 46: return enumerate<Gt, 46>(pos.board, moves);
-		case 47: return enumerate<Gt, 47>(pos.board, moves);
-		case 48: return enumerate<Gt, 48>(pos.board, moves);
-		case 49: return enumerate<Gt, 49>(pos.board, moves);
-		case 50: return enumerate<Gt, 50>(pos.board, moves);
-		case 51: return enumerate<Gt, 51>(pos.board, moves);
-		case 52: return enumerate<Gt, 52>(pos.board, moves);
-		case 53: return enumerate<Gt, 53>(pos.board, moves);
-		case 54: return enumerate<Gt, 54>(pos.board, moves);
-		case 55: return enumerate<Gt, 55>(pos.board, moves);
-		case 56: return enumerate<Gt, 56>(pos.board, moves);
-		case 57: return enumerate<Gt, 57>(pos.board, moves);
-		case 58: return enumerate<Gt, 58>(pos.board, moves);
-		case 59: return enumerate<Gt, 59>(pos.board, moves);
-		case 60: return enumerate<Gt, 60>(pos.board, moves);
-		case 61: return enumerate<Gt, 61>(pos.board, moves);
-		case 62: return enumerate<Gt, 62>(pos.board, moves);
-		case 63: return enumerate<Gt, 63>(pos.board, moves);
+		case 0:  return enumerate<Gt, 0>(pos, moves);
+		case 1:  return enumerate<Gt, 1>(pos, moves);
+		case 2:  return enumerate<Gt, 2>(pos, moves);
+		case 3:  return enumerate<Gt, 3>(pos, moves);
+		case 4:  return enumerate<Gt, 4>(pos, moves);
+		case 5:  return enumerate<Gt, 5>(pos, moves);
+		case 6:  return enumerate<Gt, 6>(pos, moves);
+		case 7:  return enumerate<Gt, 7>(pos, moves);
+		case 8:  return enumerate<Gt, 8>(pos, moves);
+		case 9:  return enumerate<Gt, 9>(pos, moves);
+		case 10: return enumerate<Gt, 10>(pos, moves);
+		case 11: return enumerate<Gt, 11>(pos, moves);
+		case 12: return enumerate<Gt, 12>(pos, moves);
+		case 13: return enumerate<Gt, 13>(pos, moves);
+		case 14: return enumerate<Gt, 14>(pos, moves);
+		case 15: return enumerate<Gt, 15>(pos, moves);
+		case 16: return enumerate<Gt, 16>(pos, moves);
+		case 17: return enumerate<Gt, 17>(pos, moves);
+		case 18: return enumerate<Gt, 18>(pos, moves);
+		case 19: return enumerate<Gt, 19>(pos, moves);
+		case 20: return enumerate<Gt, 20>(pos, moves);
+		case 21: return enumerate<Gt, 21>(pos, moves);
+		case 22: return enumerate<Gt, 22>(pos, moves);
+		case 23: return enumerate<Gt, 23>(pos, moves);
+		case 24: return enumerate<Gt, 24>(pos, moves);
+		case 25: return enumerate<Gt, 25>(pos, moves);
+		case 26: return enumerate<Gt, 26>(pos, moves);
+		case 27: return enumerate<Gt, 27>(pos, moves);
+		case 28: return enumerate<Gt, 28>(pos, moves);
+		case 29: return enumerate<Gt, 29>(pos, moves);
+		case 30: return enumerate<Gt, 30>(pos, moves);
+		case 31: return enumerate<Gt, 31>(pos, moves);
+		case 32: return enumerate<Gt, 32>(pos, moves);
+		case 33: return enumerate<Gt, 33>(pos, moves);
+		case 34: return enumerate<Gt, 34>(pos, moves);
+		case 35: return enumerate<Gt, 35>(pos, moves);
+		case 36: return enumerate<Gt, 36>(pos, moves);
+		case 37: return enumerate<Gt, 37>(pos, moves);
+		case 38: return enumerate<Gt, 38>(pos, moves);
+		case 39: return enumerate<Gt, 39>(pos, moves);
+		case 40: return enumerate<Gt, 40>(pos, moves);
+		case 41: return enumerate<Gt, 41>(pos, moves);
+		case 42: return enumerate<Gt, 42>(pos, moves);
+		case 43: return enumerate<Gt, 43>(pos, moves);
+		case 44: return enumerate<Gt, 44>(pos, moves);
+		case 45: return enumerate<Gt, 45>(pos, moves);
+		case 46: return enumerate<Gt, 46>(pos, moves);
+		case 47: return enumerate<Gt, 47>(pos, moves);
+		case 48: return enumerate<Gt, 48>(pos, moves);
+		case 49: return enumerate<Gt, 49>(pos, moves);
+		case 50: return enumerate<Gt, 50>(pos, moves);
+		case 51: return enumerate<Gt, 51>(pos, moves);
+		case 52: return enumerate<Gt, 52>(pos, moves);
+		case 53: return enumerate<Gt, 53>(pos, moves);
+		case 54: return enumerate<Gt, 54>(pos, moves);
+		case 55: return enumerate<Gt, 55>(pos, moves);
+		case 56: return enumerate<Gt, 56>(pos, moves);
+		case 57: return enumerate<Gt, 57>(pos, moves);
+		case 58: return enumerate<Gt, 58>(pos, moves);
+		case 59: return enumerate<Gt, 59>(pos, moves);
+		case 60: return enumerate<Gt, 60>(pos, moves);
+		case 61: return enumerate<Gt, 61>(pos, moves);
+		case 62: return enumerate<Gt, 62>(pos, moves);
+		case 63: return enumerate<Gt, 63>(pos, moves);
 		default:
-			std::cerr << "Error, unrecognizable Boardstate pattern: " << pos.boardstate.pattern() << '.' << std::endl;
+			std::cerr << "Error, unrecognizable Boardstate pattern: " << pos.boardstate_pattern() << '.' << std::endl;
 			return nullptr;
 	}
 }

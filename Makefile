@@ -1,6 +1,6 @@
 CXX = clang++
 STD = -std=c++20
-CFLAGS = -O3 -Wall -Wextra -pedantic
+CFLAGS = -O3 -Wall -Wextra -pedantic 
 
 SRC =
 TEST_SRC = $(SRC) testsuite.cpp

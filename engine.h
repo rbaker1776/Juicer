@@ -16,8 +16,9 @@ class Engine
 public:
 	constexpr Engine();
 	constexpr Engine(std::string_view fen);
-	inline void seed(std::string_view fen);
 	~Engine() = default;
+
+	inline void seed(std::string_view fen);
 
 	inline void make_move(const Move& m);
 	inline void undo_move();
@@ -25,17 +26,9 @@ public:
 	template<bool IsRoot>
 	uint64_t perft(int depth);
 
-	inline const Board& board() const { return this->positions.back().board; }
-	inline const Boardstate& boardstate() const { return this->positions.back().boardstate; }
-	inline const Gamestate& gamestate() const { return this->positions.back().gamestate; }
 	inline const Position& position() const { return this->positions.back(); }
 
 private:
-	template<PieceType Pt> inline void make_move(Square from, Square to);
-	template<PieceType Pt> inline void promote(Square from, Square to);
-	template<Castling Cr>  inline void castle();
-	inline void ep_capture(Square from, Square to);
-
 	std::vector<Position> positions;
 }; // class Engine
 

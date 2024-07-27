@@ -6,7 +6,7 @@
 
 namespace xrs
 {
-static uint64_t rand64()
+static inline uint64_t rand64()
 {
 	static constinit uint64_t seed = 1234568909876543210;
 	seed ^= seed >> 12;
@@ -16,15 +16,15 @@ static uint64_t rand64()
 }
 
 template<typename T>
-static T rand() requires std::is_convertible_v<uint64_t, T>
+static inline T rand() requires std::is_convertible_v<uint64_t, T>
 { return static_cast<T>(xrs::rand64()); }
 
 template<typename T>
-static T sparse_rand() requires std::is_convertible_v<uint64_t, T>
+static inline T sparse_rand() requires std::is_convertible_v<uint64_t, T>
 { return static_cast<T>(xrs::rand64() & xrs::rand64() & xrs::rand64()); }
 
 template<typename T>
-static T dense_rand() requires std::is_convertible_v<uint64_t, T>
+static inline T dense_rand() requires std::is_convertible_v<uint64_t, T>
 { return static_cast<T>(xrs::rand64() | xrs::rand64()); }
 }
 
