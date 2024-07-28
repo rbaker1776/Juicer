@@ -349,12 +349,6 @@ force_inline uint64_t Position::bitboard() const
 }
 
 template<Color C>
-force_inline uint64_t pawnsbb(const Position& restrict pos)
-{
-	if constexpr (C == WHITE) return pos.wp; return pos.bp;
-}
-
-template<Color C>
 inline Square Position::king_sq() const
 {
 	if constexpr (C == WHITE)

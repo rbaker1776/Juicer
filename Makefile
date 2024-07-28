@@ -22,4 +22,4 @@ gvn: $(CLI_SRC)
 	$(CXX) $(STD) $(CFLAGS) -Rpass-missed=gvn $(CLI_SRC) -o $(CLI) 2> gvn_remarks.txt && grep 'load of type' gvn_remarks.txt | wc -l
 
 licm: $(CLI_SRC)
-	$(CXX) $(STD) $(CFLAGS) -Rpass-missed-licm $(CLI_SRC) -o $(CLI) 2> licm_remarks.txt && grep 'failed to hoist' licm_remarks.txt | wc -l
+	$(CXX) $(STD) $(CFLAGS) -Rpass-missed-licm $(CLI_SRC) -o $(CLI) 2> licm_remarks.txt && grep 'remark' licm_remarks.txt | wc -l

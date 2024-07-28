@@ -1882,6 +1882,562 @@ In file included from ./movegen.h:6:
 ./position.h:327:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
 ./position.h:327:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
 ./position.h:327:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return wn;
+                                                   ^
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return wq;
+                                                   ^
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return wb;
+                                                   ^
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return wr;
+                                                   ^
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return wn;
+                                                   ^
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return wq;
+                                                   ^
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return wb;
+                                                   ^
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return wr;
+                                                   ^
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return wn;
+                                                   ^
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return wq;
+                                                   ^
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return wb;
+                                                   ^
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return wr;
+                                                   ^
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return wn;
+                                                   ^
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:328:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return wq;
+                                                   ^
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:331:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return wb;
+                                                   ^
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:329:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return wr;
+                                                   ^
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:330:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == KNIGHT) return bn;
+                                                   ^
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:339:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == QUEEN)  return bq;
+                                                   ^
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:342:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == BISHOP) return bb;
+                                                   ^
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:340:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+                if constexpr (Pt == ROOK)   return br;
+                                                   ^
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:341:38: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
 In file included from cli.cpp:1:
 In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
 In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
@@ -2361,18 +2917,18 @@ In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOS
 In file included from cli.cpp:4:
 In file included from ./engine.h:7:
 In file included from ./movegen.h:6:
-./position.h:368:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:362:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
         return ((turn == BLACK) << 5)
                  ^
-./position.h:368:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
-./position.h:369:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:362:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:363:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
                  | ((ep_target != NO_SQUARE) << 4)
                      ^
-./position.h:369:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
-./position.h:370:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:363:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:364:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
                  | (bool(castling & Castling::W_OOO) << 3)
                          ^
-./position.h:370:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:364:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
 In file included from cli.cpp:1:
 In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
 In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
@@ -2743,18 +3299,18 @@ In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOS
 In file included from cli.cpp:4:
 In file included from ./engine.h:7:
 In file included from ./movegen.h:6:
-./position.h:368:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:362:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
         return ((turn == BLACK) << 5)
                  ^
-./position.h:368:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
-./position.h:369:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:362:11: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:363:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
                  | ((ep_target != NO_SQUARE) << 4)
                      ^
-./position.h:369:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
-./position.h:370:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:363:8: remark: load of type i32 not eliminated [-Rpass-missed=gvn]
+./position.h:364:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
                  | (bool(castling & Castling::W_OOO) << 3)
                          ^
-./position.h:370:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
+./position.h:364:12: remark: load of type i64 not eliminated [-Rpass-missed=gvn]
 In file included from cli.cpp:1:
 In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
 In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
