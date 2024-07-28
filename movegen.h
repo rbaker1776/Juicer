@@ -18,7 +18,7 @@ enum GenType: int
 };
 
 template<GenType Gt>
-force_inline Move* enumerate(const Position& restrict pos, Move* moves);
+force_inline Move* enumerate(const Position& restrict pos, Move* moves) __attribute__((const));
 
 template<GenType Gt>
 struct MoveList
@@ -61,10 +61,10 @@ struct GenData
 	force_inline uint64_t king_attacks(const Position& restrict pos);
 
 	template<bool IsCheck>
-	force_inline uint64_t const_checkmask() const;
+	force_inline uint64_t const_checkmask() const __attribute__((const));
 
 	template<Color Us, GenType Gt>
-	force_inline uint64_t moveable_sqs(const Position& restrict pos, uint64_t cm) const;
+	force_inline uint64_t moveable_sqs(const Position& restrict pos, uint64_t cm) const __attribute__((const));
 
 }; // struct GenData
 
@@ -261,6 +261,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 
 	const uint64_t checkmask = gen_data.const_checkmask<IsCheck>();
 	const uint64_t moveable_sqs = gen_data.moveable_sqs<Us, Gt>(pos, checkmask);
+
 	const uint64_t pieces = pos.pieces;
 
 	const Square ksq = pos.king_sq<Us>();

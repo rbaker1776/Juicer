@@ -22,7 +22,6 @@ else
 	#define restrict
 #endif
 
-
 #define MANUAL 0
 #define BUILTIN 1
 

@@ -31,8 +31,8 @@ public:
 	consteval bool can_castle_queenside() const { return turn == WHITE ? w_castle_ooo : b_castle_ooo; }
 	consteval bool can_castle_kingside()  const { return turn == WHITE ? w_castle_oo : b_castle_oo; }
 
-	inline bool can_castle_queenside(uint64_t seen, uint64_t occupied, uint64_t rook) const;
-	inline bool can_castle_kingside(uint64_t seen, uint64_t occupied, uint64_t rook) const;
+	inline bool can_castle_queenside(uint64_t seen, uint64_t occupied, uint64_t rook) const __attribute__((const));
+	inline bool can_castle_kingside(uint64_t seen, uint64_t occupied, uint64_t rook) const __attribute__((const));
 
 private:
 	static constexpr uint64_t W_EMPTY_OOO = B1 | C1 | D1;
@@ -81,29 +81,26 @@ struct Position
 
 	static consteval Position startpos() { return Position(FEN::STARTPOS); }
 
-	inline Position make_move(const Move& m) const;
+	inline Position make_move(const Move& m) const __attribute__((const));
 
 	template<PieceType Pt>
-	inline Position make_move(Square from, Square to) const;
+	inline Position make_move(Square from, Square to) const __attribute__((const));
 
 	template<PieceType Pt>
-	inline Position make_promotion(Square from, Square to) const;
+	inline Position make_promotion(Square from, Square to) const __attribute__((const));
 
-	inline Piece piece_on(Square s) const;
+	inline Piece piece_on(Square s) const __attribute__((const));
 
 	template<Color C, PieceType Pt = ALL_PIECE_TYPES>
-	force_inline uint64_t bitboard() const;
+	force_inline uint64_t bitboard() const __attribute__((const));
 
 	template<Color C, PieceType... Pts>
-	force_inline uint64_t bitboards() const { return (bitboard<C, Pts>() | ...); }
+	force_inline uint64_t bitboards() const __attribute__((const)) { return (bitboard<C, Pts>() | ...); }
 
 	template<Color C>
-	force_inline uint64_t pawns() const { if constexpr (C == WHITE) return wp; else return bp; }
+	inline Square king_sq() const __attribute__((const));
 
-	template<Color C>
-	inline Square king_sq() const;
-
-	inline uint8_t boardstate_pattern() const;
+	inline uint8_t boardstate_pattern() const __attribute__((const));
 }; // struct Position
 
 

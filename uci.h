@@ -26,8 +26,8 @@ inline std::string UCI::sq_to_string(Square s)
 
 inline std::string UCI::move_to_string(const Move& m)
 {
-	Square from = lsb(m.from);
-	Square to = lsb(m.to);
+	Square from = m.from;
+	Square to = m.to;
 
 	if (m.type == CASTLING) to = make_square(to > from ? FILE_G : FILE_C, rank_of(from));
 
