@@ -18,7 +18,7 @@ enum GenType: int
 };
 
 template<GenType Gt>
-force_inline Move* enumerate(const Position& restrict pos, Move* moves) __attribute__((pure));
+force_inline Move* enumerate(const Position& restrict pos, Move* moves);
 
 template<GenType Gt>
 struct MoveList
@@ -61,15 +61,15 @@ struct GenData
 	force_inline uint64_t king_attacks(const Position& restrict pos);
 
 	template<bool IsCheck>
-	force_inline uint64_t const_checkmask() const __attribute__((pure));
+	force_inline uint64_t const_checkmask() const;
 
 	template<Color Us, GenType Gt>
-	force_inline uint64_t moveable_sqs(const Position& restrict pos, uint64_t cm) const __attribute__((pure));
+	force_inline uint64_t moveable_sqs(const Position& restrict pos, uint64_t cm) const;
 
 }; // struct GenData
 
 
-template<GenType Gt, Color Us, bool HasEP> 
+template<GenType Gt, Color Us, bool HasEP>
 force_inline Move* enumerate_pawn_moves(const Position& restrict pos, const GenData& restrict gen_data, uint64_t checkmask, Move* moves)
 {
 	constexpr Color Them = ~Us;
@@ -279,7 +279,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 	}
 
 	moves = enumerate_pawn_moves<Gt, Us, State.has_ep_pawn>(pos, gen_data, checkmask, moves);
-	
+
 	{
 		uint64_t knights = pos.bitboard<Us, KNIGHT>() & ~(gen_data.rook_pins | gen_data.bishop_pins);
 		while (knights)
