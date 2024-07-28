@@ -74,8 +74,6 @@ force_inline Move* enumerate_pawn_moves(const Position& restrict pos, const GenD
 {
 	constexpr Color Them = ~Us;
 
-	const uint64_t pieces = pos.pieces;
-
 	if constexpr (Gt == LEGAL)
 	{
 		const uint64_t vertical_pawns = pos.bitboard<Us, PAWN>() & ~gen_data.bishop_pins;
@@ -83,8 +81,8 @@ force_inline Move* enumerate_pawn_moves(const Position& restrict pos, const GenD
 
 		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & checkmask);
 		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & checkmask);
-		uint64_t step_pawns = vertical_pawns & pawn_step_bb<Them>(~pieces);
-		uint64_t push_pawns = step_pawns & Bitboard::rank_2<Us>() & pawn_push_bb<Them>(~pieces & checkmask);
+		uint64_t step_pawns = vertical_pawns & pawn_step_bb<Them>(~pos.pieces);
+		uint64_t push_pawns = step_pawns & Bitboard::rank_2<Us>() & pawn_push_bb<Them>(~pos.pieces & checkmask);
 		step_pawns &= pawn_step_bb<Them>(checkmask);
 
 		w_atk_pawns &= pawn_atk_east_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
@@ -262,8 +260,6 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 	const uint64_t checkmask = gen_data.const_checkmask<IsCheck>();
 	const uint64_t moveable_sqs = gen_data.moveable_sqs<Us, Gt>(pos, checkmask);
 
-	const uint64_t pieces = pos.pieces;
-
 	const Square ksq = pos.king_sq<Us>();
 
 	{
@@ -271,11 +267,11 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 			*moves++ = Move(NORMAL, ksq, pop_lsb(king_atk), KING);
 
 		if constexpr (!IsCheck && State.can_castle_queenside())
-			if (State.can_castle_queenside(gen_data.kingban, pieces, pos.bitboard<Us, ROOK>()))
+			if (State.can_castle_queenside(gen_data.kingban, pos.pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::W, KING);
 
 		if constexpr (!IsCheck && State.can_castle_kingside())
-			if (State.can_castle_kingside(gen_data.kingban, pieces, pos.bitboard<Us, ROOK>()))
+			if (State.can_castle_kingside(gen_data.kingban, pos.pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::E, KING);
 	}
 
@@ -301,7 +297,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (pinned_bishops)
 		{
 			const Square from = pop_lsb(pinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs & gen_data.bishop_pins;
+			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs & gen_data.bishop_pins;
 			const PieceType slider = (queens & from ? QUEEN : BISHOP);
 
 			while (to)
@@ -311,7 +307,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (unpinned_bishops)
 		{
 			const Square from = pop_lsb(unpinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs;
+			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs;
 			
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), BISHOP);
@@ -326,7 +322,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (pinned_rooks)
 		{
 			const Square from = pop_lsb(pinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs & gen_data.rook_pins;
+			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs & gen_data.rook_pins;
 			const PieceType slider = (queens & from ? QUEEN : ROOK);
 
 			while (to)
@@ -336,7 +332,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (unpinned_rooks)
 		{
 			const Square from = pop_lsb(unpinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs;
+			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs;
 
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), ROOK);
@@ -348,7 +344,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (queens)
 		{
 			const Square from = pop_lsb(queens);
-			uint64_t to = attacks_bb<QUEEN>(from, pieces) & moveable_sqs;
+			uint64_t to = attacks_bb<QUEEN>(from, pos.pieces) & moveable_sqs;
 
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), QUEEN);

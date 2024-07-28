@@ -49,6 +49,8 @@ int main(int argc, char* argv[])
 		}
 		else if (arg == "eval")
 			std::cout << pcsq_evaluate(juicer.position()) << std::endl;
+		else if (arg == "quit")
+			break;
 
 		command = "";
 
