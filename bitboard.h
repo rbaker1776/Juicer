@@ -115,7 +115,7 @@ static constexpr std::array<uint8_t, 65536> POPCOUNT16 = fill_popcount();
 #endif // (POPCOUNT == MANUAL)
 
 
-static constexpr size_t popcount(uint64_t bb)
+force_inline constexpr size_t popcount(uint64_t bb)
 {
 	#if (POPCOUNT == MANUAL)
 		union
@@ -134,7 +134,7 @@ static constexpr size_t popcount(uint64_t bb)
 }
 
 
-static constexpr Square lsb(uint64_t bb)
+force_inline constexpr Square lsb(uint64_t bb)
 {
 	#if (DEBUG)
 		assert(bb);
@@ -169,7 +169,7 @@ static constexpr Square lsb(uint64_t bb)
 	#endif
 }
 
-static constexpr Square pop_lsb(uint64_t& bb)
+force_inline constexpr Square pop_lsb(uint64_t& bb)
 {
 	#if (DEBUG)
 		assert(bb);

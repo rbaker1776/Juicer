@@ -261,6 +261,9 @@ force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos
 	const uint64_t moveable_sqs = gen_data.moveable_sqs<Us, Gt>(pos, checkmask);
 
 	const Square ksq = pos.king_sq<Us>();
+
+	// copying this var to local boosts NPS by ~4,000,000
+	// compiler cannot eliminate load when we access pos.pieces
 	const uint64_t pieces = pos.pieces;
 
 	{
@@ -438,6 +441,9 @@ force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
 
 	const Square ksq = pos.king_sq<Us>();
 	const uint64_t king_bb = pos.bitboard<Us, KING>();
+
+	// copying this var to local boosts NPS by ~4,000,000
+	// compiler cannot eliminate load when we access pos.pieces
 	const uint64_t pieces = pos.pieces;
 
 	// pawn checks
