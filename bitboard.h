@@ -11,23 +11,23 @@
 #include "juicer.h"
 
 
-constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
-constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
+force_inline constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
+force_inline constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
 
-constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
-constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
-constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
+force_inline constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
+force_inline constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
+force_inline constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
 
-constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
-constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
-constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
+force_inline constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
+force_inline constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
+force_inline constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
 
-constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & s2; }
-constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
-constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
+force_inline constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & s2; }
+force_inline constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
+force_inline constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
 
-constexpr File file_of(Square s) { return File(s & 7); }
-constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
+force_inline constexpr File file_of(Square s) { return File(s & 7); }
+force_inline constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
 
 
 namespace Bitboard

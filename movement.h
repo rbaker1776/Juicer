@@ -116,7 +116,7 @@ struct Magic
 	const uint64_t* attacks;
 	uint32_t shift;
 
-	constexpr uint64_t operator[](uint64_t occupied) const 
+	force_inline constexpr uint64_t operator[](uint64_t occupied) const 
 	{ 
 		return attacks[(occupied & mask) * magic >> shift]; 
 	}
@@ -3546,7 +3546,7 @@ static constexpr Magic BISHOP_XRAY_MAGICS[64]
 
 
 template<PieceType Pt>
-static constexpr uint64_t attacks_bb(Square s, uint64_t occupied = 0ull)
+force_inline constexpr uint64_t attacks_bb(Square s, uint64_t occupied = 0ull)
 {
 	#if (DEBUG)
 		assert(Pt != PAWN);
@@ -3562,7 +3562,7 @@ static constexpr uint64_t attacks_bb(Square s, uint64_t occupied = 0ull)
 		return PIECE_ATTACKS[Pt][s];
 }
 
-static constexpr uint64_t attacks_bb(PieceType pt, Square s, uint64_t occupied = 0ull)
+force_inline constexpr uint64_t attacks_bb(PieceType pt, Square s, uint64_t occupied = 0ull)
 {
 	#if (DEBUG)
 		assert(pt != PAWN);
@@ -3579,7 +3579,7 @@ static constexpr uint64_t attacks_bb(PieceType pt, Square s, uint64_t occupied =
 
 
 template<Direction D>
-static constexpr uint64_t shift(uint64_t bb)
+force_inline constexpr uint64_t shift(uint64_t bb)
 {
 	if constexpr (D == Direction::N)
 		return bb << 8;
@@ -3640,7 +3640,7 @@ consteval Direction pawn_atk_east()
 }
 
 template<Color C>
-constexpr uint64_t pawn_step_bb(uint64_t bb)
+force_inline constexpr uint64_t pawn_step_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE)
 		return shift<N>(bb);
@@ -3649,7 +3649,7 @@ constexpr uint64_t pawn_step_bb(uint64_t bb)
 }
 
 template<Color C>
-constexpr uint64_t pawn_push_bb(uint64_t bb)
+force_inline constexpr uint64_t pawn_push_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE)
 		return shift<NN>(bb);
@@ -3658,7 +3658,7 @@ constexpr uint64_t pawn_push_bb(uint64_t bb)
 }
 
 template<Color C>
-constexpr uint64_t pawn_atk_bb(uint64_t bb)
+force_inline constexpr uint64_t pawn_atk_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE) 
 		return shift<NW>(bb) | shift<NE>(bb);
@@ -3667,7 +3667,7 @@ constexpr uint64_t pawn_atk_bb(uint64_t bb)
 }
 
 template<Color C>
-constexpr uint64_t pawn_atk_west_bb(uint64_t bb)
+force_inline constexpr uint64_t pawn_atk_west_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE)
 		return shift<NW>(bb);
@@ -3676,7 +3676,7 @@ constexpr uint64_t pawn_atk_west_bb(uint64_t bb)
 }
 
 template<Color C>
-constexpr uint64_t pawn_atk_east_bb(uint64_t bb)
+force_inline constexpr uint64_t pawn_atk_east_bb(uint64_t bb)
 {
 	if constexpr (C == WHITE)
 		return shift<NE>(bb);

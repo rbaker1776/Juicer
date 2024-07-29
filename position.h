@@ -31,8 +31,8 @@ public:
 	consteval bool can_castle_queenside() const { return turn == WHITE ? w_castle_ooo : b_castle_ooo; }
 	consteval bool can_castle_kingside()  const { return turn == WHITE ? w_castle_oo : b_castle_oo; }
 
-	inline bool can_castle_queenside(uint64_t seen, uint64_t occupied, uint64_t rook) const __attribute__((const));
-	inline bool can_castle_kingside(uint64_t seen, uint64_t occupied, uint64_t rook) const __attribute__((const));
+	force_inline bool can_castle_queenside(uint64_t seen, uint64_t occupied, uint64_t rook) const __attribute__((const));
+	force_inline bool can_castle_kingside(uint64_t seen, uint64_t occupied, uint64_t rook) const __attribute__((const));
 
 private:
 	static constexpr uint64_t W_EMPTY_OOO = B1 | C1 | D1;
