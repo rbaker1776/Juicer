@@ -103,7 +103,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 
 				#if (DEBUG)
 					assert(Bitboard::rank_5<Us>() & gendata.ep_target);
-					assert(Bitboard::rank_6<Us>() & (lsb(gendata.ep_target) + pawn_step<Us>()));
+					assert(Bitboard::rank_6<Us>() & (square_of(gendata.ep_target) + pawn_step<Us>()));
 				#endif
 
 				if (ep_atk_west | ep_atk_east)
@@ -112,9 +112,9 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 					ep_atk_east &= pawn_atk_west_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
 
 					if (ep_atk_west)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, square_of(ep_atk_west), square_of(gendata.ep_target) + pawn_step<Us>(), PAWN);
 					if (ep_atk_east)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_east), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, square_of(ep_atk_east), square_of(gendata.ep_target) + pawn_step<Us>(), PAWN);
 				}
 			}
 		}
@@ -123,7 +123,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 		{
 			for (uint64_t w_promote_pawns = w_atk_pawns & Bitboard::rank_7<Us>(); w_promote_pawns; )
 			{
-				const Square from = pop_lsb(w_promote_pawns);
+				const Square from = pop_square(w_promote_pawns);
 				const Square to = from + pawn_atk_west<Us>();
 				*moves++ = Move(PROMOTION, from, to, QUEEN); 
 				*moves++ = Move(PROMOTION, from, to, KNIGHT); 
@@ -133,7 +133,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 
 			for (uint64_t e_promote_pawns = e_atk_pawns & Bitboard::rank_7<Us>(); e_promote_pawns; )
 			{
-				const Square from = pop_lsb(e_promote_pawns);
+				const Square from = pop_square(e_promote_pawns);
 				const Square to = from + pawn_atk_east<Us>();
 				*moves++ = Move(PROMOTION, from, to, QUEEN); 
 				*moves++ = Move(PROMOTION, from, to, KNIGHT);
@@ -143,7 +143,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 
 			for (uint64_t s_promote_pawns = step_pawns & Bitboard::rank_7<Us>(); s_promote_pawns; )
 			{
-				const Square from = pop_lsb(s_promote_pawns);
+				const Square from = pop_square(s_promote_pawns);
 				const Square to = from + pawn_step<Us>();
 				*moves++ = Move(PROMOTION, from, to, QUEEN); 
 				*moves++ = Move(PROMOTION, from, to, KNIGHT); 
@@ -158,25 +158,25 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 
 		while (w_atk_pawns)
 		{
-			const Square s = pop_lsb(w_atk_pawns);
+			const Square s = pop_square(w_atk_pawns);
 			*moves++ = Move(NORMAL, s, s + pawn_atk_west<Us>(), PAWN);
 		}
 
 		while (e_atk_pawns)
 		{
-			const Square s = pop_lsb(e_atk_pawns);
+			const Square s = pop_square(e_atk_pawns);
 			*moves++ = Move(NORMAL, s, s + pawn_atk_east<Us>(), PAWN);
 		}
 
 		while (step_pawns)
 		{
-			const Square s = pop_lsb(step_pawns);
+			const Square s = pop_square(step_pawns);
 			*moves++ = Move(NORMAL, s, s + pawn_step<Us>(), PAWN);
 		}
 
 		while (push_pawns)
 		{
-			const Square s = pop_lsb(push_pawns);
+			const Square s = pop_square(push_pawns);
 			*moves++ = Move(NORMAL, s, s + pawn_push<Us>(), PAWN);
 		}
 	}
@@ -198,7 +198,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 
 				#if (DEBUG)
 					assert(Bitboard::rank_5<Us>() & gendata.ep_target);
-					assert(Bitboard::rank_6<Us>() & (lsb(gendata.ep_target) + pawn_step<Us>()));
+					assert(Bitboard::rank_6<Us>() & (square_of(gendata.ep_target) + pawn_step<Us>()));
 				#endif
 
 				if (ep_atk_west | ep_atk_east)
@@ -207,9 +207,9 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 					ep_atk_east &= pawn_atk_west_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
 
 					if (ep_atk_west)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, square_of(ep_atk_west), square_of(gendata.ep_target) + pawn_step<Us>(), PAWN);
 					if (ep_atk_east)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_east), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, square_of(ep_atk_east), square_of(gendata.ep_target) + pawn_step<Us>(), PAWN);
 				}
 			}
 		}
@@ -218,7 +218,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 		{
 			for (uint64_t w_promote_pawns = w_atk_pawns & Bitboard::rank_7<Us>(); w_promote_pawns; )
 			{
-				const Square from = pop_lsb(w_promote_pawns);
+				const Square from = pop_square(w_promote_pawns);
 				const Square to = from + pawn_atk_west<Us>();
 				*moves++ = Move(PROMOTION, from, to, QUEEN); 
 				*moves++ = Move(PROMOTION, from, to, KNIGHT); 
@@ -228,7 +228,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 
 			for (uint64_t e_promote_pawns = e_atk_pawns & Bitboard::rank_7<Us>(); e_promote_pawns; )
 			{
-				const Square from = pop_lsb(e_promote_pawns);
+				const Square from = pop_square(e_promote_pawns);
 				const Square to = from + pawn_atk_east<Us>();
 				*moves++ = Move(PROMOTION, from, to, QUEEN); 
 				*moves++ = Move(PROMOTION, from, to, KNIGHT);
@@ -242,13 +242,13 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 
 		while (w_atk_pawns)
 		{
-			const Square s = pop_lsb(w_atk_pawns);
+			const Square s = pop_square(w_atk_pawns);
 			*moves++ = Move(NORMAL, s, s + pawn_atk_west<Us>(), PAWN);
 		}
 
 		while (e_atk_pawns)
 		{
-			const Square s = pop_lsb(e_atk_pawns);
+			const Square s = pop_square(e_atk_pawns);
 			*moves++ = Move(NORMAL, s, s + pawn_atk_east<Us>(), PAWN);
 		}
 	}
@@ -278,7 +278,7 @@ forceinline constfunc Move* enumerate(const Position& restrict pos, const GenDat
 
 	{
 		while (king_atk)
-			*moves++ = Move(NORMAL, ksq, pop_lsb(king_atk), KING);
+			*moves++ = Move(NORMAL, ksq, pop_square(king_atk), KING);
 
 		if constexpr (!IsCheck && State.can_castle_queenside())
 			if (State.can_castle_queenside(gendata.kingban, pieces, pos.bitboard<Us, ROOK>()))
@@ -295,9 +295,9 @@ forceinline constfunc Move* enumerate(const Position& restrict pos, const GenDat
 		uint64_t knights = pos.bitboard<Us, KNIGHT>() & ~(gendata.rook_pins | gendata.bishop_pins);
 		while (knights)
 		{
-			const Square from = pop_lsb(knights);
+			const Square from = pop_square(knights);
 			for (uint64_t to = PIECE_ATTACKS[KNIGHT][from] & moveable_sqs; to; )
-				*moves++ = Move(NORMAL, from, pop_lsb(to), KNIGHT);
+				*moves++ = Move(NORMAL, from, pop_square(to), KNIGHT);
 		}
 	}
 
@@ -310,21 +310,21 @@ forceinline constfunc Move* enumerate(const Position& restrict pos, const GenDat
 
 		while (pinned_bishops)
 		{
-			const Square from = pop_lsb(pinned_bishops);
+			const Square from = pop_square(pinned_bishops);
 			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs & gendata.bishop_pins;
 			const PieceType slider = (queens & from ? QUEEN : BISHOP);
 
 			while (to)
-				*moves++ = Move(NORMAL, from, pop_lsb(to), slider);
+				*moves++ = Move(NORMAL, from, pop_square(to), slider);
 		}
 
 		while (unpinned_bishops)
 		{
-			const Square from = pop_lsb(unpinned_bishops);
+			const Square from = pop_square(unpinned_bishops);
 			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs;
 			
 			while (to)
-				*moves++ = Move(NORMAL, from, pop_lsb(to), BISHOP);
+				*moves++ = Move(NORMAL, from, pop_square(to), BISHOP);
 		}
 	}
 
@@ -335,33 +335,31 @@ forceinline constfunc Move* enumerate(const Position& restrict pos, const GenDat
 
 		while (pinned_rooks)
 		{
-			const Square from = pop_lsb(pinned_rooks);
+			const Square from = pop_square(pinned_rooks);
 			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs & gendata.rook_pins;
 			const PieceType slider = (queens & from ? QUEEN : ROOK);
 
 			while (to)
-				*moves++ = Move(NORMAL, from, pop_lsb(to), slider);
+				*moves++ = Move(NORMAL, from, pop_square(to), slider);
 		}
 
 		while (unpinned_rooks)
 		{
-			const Square from = pop_lsb(unpinned_rooks);
+			const Square from = pop_square(unpinned_rooks);
 			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs;
 
 			while (to)
-				*moves++ = Move(NORMAL, from, pop_lsb(to), ROOK);
+				*moves++ = Move(NORMAL, from, pop_square(to), ROOK);
 		}
 	}
 
 	{
-		queens &= ~(gendata.rook_pins | gendata.bishop_pins);
-		while (queens)
+		for (queens &= ~(gendata.rook_pins | gendata.bishop_pins); queens; )
 		{
-			const Square from = pop_lsb(queens);
-			uint64_t to = attacks_bb<QUEEN>(from, pieces) & moveable_sqs;
+			const Square from = pop_square(queens);
 
-			while (to)
-				*moves++ = Move(NORMAL, from, pop_lsb(to), QUEEN);
+			for (uint64_t to = attacks_bb<QUEEN>(from, pieces) & moveable_sqs; to; )
+				*moves++ = Move(NORMAL, from, pop_square(to), QUEEN);
 		}
 	}
 
@@ -387,7 +385,7 @@ inline Move* enumerate(const Position& restrict pos, Move* moves)
 	{
 		const Square ksq = pos.king_sq<Us>();
 		while (king_atk)
-			*moves++ = Move(NORMAL, ksq, pop_lsb(king_atk), KING);
+			*moves++ = Move(NORMAL, ksq, pop_square(king_atk), KING);
 	}
 
 	return moves;
@@ -485,11 +483,11 @@ forceinline constfunc uint64_t GenData::king_attacks(const Position& restrict po
 		{
 			uint64_t bishop_atk = BISHOP_MAGICS[ksq][pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
 			while (bishop_atk)
-				register_slider_check(ksq, pop_lsb(bishop_atk));
+				register_slider_check(ksq, pop_square(bishop_atk));
 
 			uint64_t bishop_pin = BISHOP_XRAY_MAGICS[ksq][pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
 			while (bishop_pin)
-				register_bishop_pin<Us, EnPassant>(pos, ksq, pop_lsb(bishop_pin));
+				register_bishop_pin<Us, EnPassant>(pos, ksq, pop_square(bishop_pin));
 		}
 	}
 
@@ -499,11 +497,11 @@ forceinline constfunc uint64_t GenData::king_attacks(const Position& restrict po
 		{
 			uint64_t rook_atk = ROOK_MAGICS[ksq][pieces] & pos.bitboards<Them, ROOK, QUEEN>();
 			while (rook_atk)
-				register_slider_check(ksq, pop_lsb(rook_atk));
+				register_slider_check(ksq, pop_square(rook_atk));
 
 			uint64_t rook_pin = ROOK_XRAY_MAGICS[ksq][pieces] & pos.bitboards<Them, ROOK, QUEEN>();
 			while (rook_pin)
-				register_rook_pin<Us>(pos, ksq, pop_lsb(rook_pin));
+				register_rook_pin<Us>(pos, ksq, pop_square(rook_pin));
 		}
 	}
 
@@ -514,15 +512,15 @@ forceinline constfunc uint64_t GenData::king_attacks(const Position& restrict po
 	if (king_moves != 0)
 	{
 		for (uint64_t enemy_knights = pos.bitboard<Them, KNIGHT>(); enemy_knights; )
-		kingban |= PIECE_ATTACKS[KNIGHT][pop_lsb(enemy_knights)];
+		kingban |= PIECE_ATTACKS[KNIGHT][pop_square(enemy_knights)];
 
 		kingban |= pawn_atk_bb<Them>(pos.bitboard<Them, PAWN>());
 
 		for (uint64_t enemy_bishops = pos.bitboards<Them, BISHOP, QUEEN>(); enemy_bishops; )
-			kingban |= BISHOP_MAGICS[pop_lsb(enemy_bishops)][pieces];
+			kingban |= BISHOP_MAGICS[pop_square(enemy_bishops)][pieces];
 			
 		for (uint64_t enemy_rooks = pos.bitboards<Them, ROOK, QUEEN>(); enemy_rooks; )
-			kingban |= ROOK_MAGICS[pop_lsb(enemy_rooks)][pieces];
+			kingban |= ROOK_MAGICS[pop_square(enemy_rooks)][pieces];
 
 		kingban |= PIECE_ATTACKS[KING][pos.king_sq<Them>()];
 

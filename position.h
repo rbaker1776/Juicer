@@ -353,9 +353,9 @@ template<Color C>
 inline Square Position::king_sq() const
 {
 	if constexpr (C == WHITE)
-		return lsb(wk);
+		return square_of(wk);
 	else
-		return lsb(bk);
+		return square_of(bk);
 }
 
 inline uint8_t Position::boardstate_pattern() const

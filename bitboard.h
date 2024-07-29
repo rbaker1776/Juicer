@@ -134,7 +134,7 @@ static constexpr size_t popcount(uint64_t bb)
 }
 
 
-static constexpr Square lsb(uint64_t bb)
+static constexpr Square square_of(uint64_t bb)
 {
 	#if (DEBUG)
 		assert(bb);
@@ -169,15 +169,35 @@ static constexpr Square lsb(uint64_t bb)
 	#endif
 }
 
-static constexpr Square pop_lsb(uint64_t& bb)
+static constexpr Square pop_square(uint64_t& bb)
 {
 	#if (DEBUG)
 		assert(bb);
 	#endif
 
-	const Square s = lsb(bb);
+	const Square s = square_of(bb);
 	bb &= bb - 1;
 	return s;
+}
+
+static constexpr uint64_t lsb(uint64_t bb)
+{
+	#if (DEBUG)
+		assert(bb);
+	#endif
+
+	return bb & -bb;
+}
+
+static constexpr uint64_t pop_lsb(uint64_t& bb)
+{
+	#if (DEBUG)
+		assert(bb);
+	#endif
+
+	const uint64_t b = lsb(bb);
+	bb &= bb - 1;
+	return b;
 }
 
 
