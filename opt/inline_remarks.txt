@@ -1,0 +1,1285 @@
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:744:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEEC2B8ue170006Ev' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        __compressed_pair<pointer, allocator_type>(nullptr, __default_init_tag());
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1084:12: remark: '__clang_call_terminate' not inlined into '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE8max_sizeEv' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    return std::min<size_type>(__alloc_traits::max_size(this->__alloc()),
+           ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:54:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stdexcept:261:11: remark: '_ZNSt12length_errorC1B8ue170006EPKc' not inlined into '_ZNSt3__120__throw_length_errorB8ue170006EPKc' because too costly to inline (cost=5, threshold=0) [-Rpass-missed=inline]
+    throw length_error(__msg);
+          ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:963:7: remark: '_ZNSt3__120__throw_length_errorB8ue170006EPKc' not inlined into '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' because too costly to inline (cost=130, threshold=0) [-Rpass-missed=inline]
+      std::__throw_length_error("vector");
+      ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__19allocatorI8PositionE8allocateB8ue170006Em' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__119__allocate_at_leastB8ue170006INS_9allocatorI8PositionEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__114__split_bufferI8PositionRNS_9allocatorIS1_EEEC2EmmS4_' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__114__split_bufferI8PositionRNS_9allocatorIS1_EEEC1EmmS4_' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:22:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocation_guard.h:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator_traits.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/pointer_traits.h:213:40: remark: '__clang_call_terminate' not inlined into '_ZNSt3__119__to_address_helperINS_16reverse_iteratorIP8PositionEEvE6__callB8ue170006ERKS4_' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        return _VSTD::__to_address(__p.operator->());
+                                       ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/pointer_traits.h:213:40: remark: '__clang_call_terminate' not inlined into '_ZNSt3__119__to_address_helperINS_16reverse_iteratorINS1_IP8PositionEEEEvE6__callB8ue170006ERKS5_' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:30:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uninitialized_algorithms.h:36:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__utility/exception_guard.h:86:7: remark: '__clang_call_terminate' not inlined into '_ZNSt3__128__exception_guard_exceptionsINS_29_AllocatorDestroyRangeReverseINS_9allocatorI8PositionEENS_16reverse_iteratorIPS3_EEEEED2B8ue170006Ev' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+      __rollback_();
+      ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:342:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__split_buffer:359:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__114__split_bufferI8PositionRNS_9allocatorIS1_EEE17__destruct_at_endB8ue170006EPS1_NS_17integral_constantIbLb0EEE' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        __alloc_traits::destroy(__alloc(), _VSTD::__to_address(--__end_));
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:130:13: remark: '__clang_call_terminate' not inlined into '_ZNSt3__19allocatorI8PositionE10deallocateB8ue170006EPS1_m' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+            _VSTD::__libcpp_deallocate((void*)__p, __n * sizeof(_Tp), _LIBCPP_ALIGNOF(_Tp));
+            ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1579:19: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE7reserveEm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+            this->__throw_length_error();
+                  ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1583:5: remark: '_ZNSt3__114__split_bufferI8PositionRNS_9allocatorIS1_EEED1Ev' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE7reserveEm' because too costly to inline (cost=45, threshold=45) [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE7reserveEm' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE11__recommendB8ue170006Em' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1663:1: remark: '_ZNSt3__114__split_bufferI8PositionRNS_9allocatorIS1_EEED1Ev' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE24__emplace_back_slow_pathIJS1_EEEvDpOT_' because too costly to inline (cost=45, threshold=45) [-Rpass-missed=inline]
+}
+^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE24__emplace_back_slow_pathIJS1_EEEvDpOT_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE24__emplace_back_slow_pathIJS1_EEEvDpOT_' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE12emplace_backIJS1_EEERS1_DpOT_' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE12emplace_backIJS1_EEERS1_DpOT_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:944:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEE22__base_destruct_at_endB8ue170006EPS1_' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        __alloc_traits::destroy(__alloc(), std::__to_address(--__soon_to_be_end));
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:500:67: remark: '__clang_call_terminate' not inlined into '_ZNSt3__16vectorI8PositionNS_9allocatorIS1_EEED2B8ue170006Ev' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+  _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_HIDE_FROM_ABI ~vector() { __destroy_vector(*this)(); }
+                                                                  ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZN6EngineC2Ev' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6EngineC2Ev' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:882:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ue170006Ev' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+      : __r_(__default_init_tag(), __default_init_tag()) {
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:622:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string_view:1059:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/algorithm:1960:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iterator:706:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/ostreambuf_iterator.h:52:23: remark: '__clang_call_terminate' not inlined into '_ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC2B8ue170006ERNS_13basic_ostreamIcS2_EE' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        : __sbuf_(__s.rdbuf()) {}
+                      ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2046:9: remark: '_ZNSt3__120__throw_length_errorB8ue170006EPKc' not inlined into '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' because too costly to inline (cost=130, threshold=0) [-Rpass-missed=inline]
+        std::__throw_length_error("basic_string");
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZNSt3__19allocatorIcE8allocateB8ue170006Em' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:596:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__string/char_traits.h:248:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__111char_traitsIcE6assignB8ue170006EPcmc' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        std::fill_n(__s, __n, __a);
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ue170006Emc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC1B8ue170006Emc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:130:13: remark: '__clang_call_terminate' not inlined into '_ZNSt3__19allocatorIcE10deallocateB8ue170006EPcm' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+            _VSTD::__libcpp_deallocate((void*)__p, __n * sizeof(_Tp), _LIBCPP_ALIGNOF(_Tp));
+            ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__116__pad_and_outputB8ue170006IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNSt3__124__put_character_sequenceB8ue170006IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__124__put_character_sequenceB8ue170006IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNSt3__1lsB8ue170006IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_NS_17basic_string_viewIS4_S5_EE' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1lsB8ue170006IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_NS_17basic_string_viewIS4_S5_EE' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:596:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__string/char_traits.h:242:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__111char_traitsIcE4copyB8ue170006EPcPKcm' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        std::copy_n(__s2, __n, __s1);
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2152:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEPKcm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2152:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ue170006ILi0EEEPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2152:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC1B8ue170006ILi0EEEPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE21__grow_by_and_replaceEmmmmmmPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6appendEPKcm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6appendEPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1plB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEENS_12basic_stringIT_T0_T1_EEOS9_PKS6_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6appendB8ue170006ERKS5_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEpLB8ue170006ERKS5_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:622:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string_view:483:28: remark: '__clang_call_terminate' not inlined into '_ZNKSt3__117basic_string_viewIcNS_11char_traitsIcEEE7compareES3_' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        size_type __rlen = _VSTD::min(size(), __sv.size());
+                           ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:3932:57: remark: '__clang_call_terminate' not inlined into '_ZNSt3__1eqB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEEbRKNS_12basic_stringIT_T0_T1_EEPKS6_' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    return basic_string_view<_CharT, _Traits>(__lhs) == basic_string_view<_CharT, _Traits>(__rhs);
+                                                        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__grow_byEmmmmmm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE25__grow_by_without_replaceB8ue170006Emmmmmm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9push_backEc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:1551:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__17getlineB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EES6_' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        }
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__17getlineB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EES6_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:1551:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__17getlineB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EE' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        }
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__17getlineB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EE' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:892:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ue170006ERKS4_' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+      : __r_(__default_init_tag(), __a) {
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE17__assign_no_aliasILb1EEERS5_PKcm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE17__assign_no_aliasILb0EEERS5_PKcm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEaSERKS5_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEaSERKS5_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6appendEmc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6resizeEmc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6resizeB8ue170006Em' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE15__init_buf_ptrsB8ue170006Ev' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE3strERKNS_12basic_stringIcS2_S4_EE' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE3strERKNS_12basic_stringIcS2_S4_EE' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ue170006ERKNS_12basic_stringIcS2_S4_EEj' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ue170006ERKNS_12basic_stringIcS2_S4_EEj' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEC1B8ue170006ERKNS_12basic_stringIcS2_S4_EEj' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__119basic_istringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEC1B8ue170006ERKNS_12basic_stringIcS2_S4_EEj' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:1498:9: remark: '__clang_call_terminate' not inlined into '_ZNSt3__1rsB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EE' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        }
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1rsB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EE' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_h' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_h' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_c' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_c' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:547:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateEEEP4MoveRK8PositionS3_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5005, threshold=45) [-Rpass-missed=inline]
+                case 0:  return enumerate<Gt, 0>(pos, moves);
+                                ^
+./movegen.h:548:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb0ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5005, threshold=45) [-Rpass-missed=inline]
+                case 1:  return enumerate<Gt, 1>(pos, moves);
+                                ^
+./movegen.h:549:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5005, threshold=45) [-Rpass-missed=inline]
+                case 2:  return enumerate<Gt, 2>(pos, moves);
+                                ^
+./movegen.h:550:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb0ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5005, threshold=45) [-Rpass-missed=inline]
+                case 3:  return enumerate<Gt, 3>(pos, moves);
+                                ^
+./movegen.h:551:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 4:  return enumerate<Gt, 4>(pos, moves);
+                                ^
+./movegen.h:552:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb0ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 5:  return enumerate<Gt, 5>(pos, moves);
+                                ^
+./movegen.h:553:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 6:  return enumerate<Gt, 6>(pos, moves);
+                                ^
+./movegen.h:554:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb0ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 7:  return enumerate<Gt, 7>(pos, moves);
+                                ^
+./movegen.h:555:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 8:  return enumerate<Gt, 8>(pos, moves);
+                                ^
+./movegen.h:556:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 9:  return enumerate<Gt, 9>(pos, moves);
+                                ^
+./movegen.h:557:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 10: return enumerate<Gt, 10>(pos, moves);
+                                ^
+./movegen.h:558:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5070, threshold=45) [-Rpass-missed=inline]
+                case 11: return enumerate<Gt, 11>(pos, moves);
+                                ^
+./movegen.h:559:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5135, threshold=45) [-Rpass-missed=inline]
+                case 12: return enumerate<Gt, 12>(pos, moves);
+                                ^
+./movegen.h:560:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5135, threshold=45) [-Rpass-missed=inline]
+                case 13: return enumerate<Gt, 13>(pos, moves);
+                                ^
+./movegen.h:561:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5135, threshold=45) [-Rpass-missed=inline]
+                case 14: return enumerate<Gt, 14>(pos, moves);
+                                ^
+./movegen.h:562:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb0ELb1ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5135, threshold=45) [-Rpass-missed=inline]
+                case 15: return enumerate<Gt, 15>(pos, moves);
+                                ^
+./movegen.h:563:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5655, threshold=45) [-Rpass-missed=inline]
+                case 16: return enumerate<Gt, 16>(pos, moves);
+                                ^
+./movegen.h:564:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb0ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5655, threshold=45) [-Rpass-missed=inline]
+                case 17: return enumerate<Gt, 17>(pos, moves);
+                                ^
+./movegen.h:565:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5655, threshold=45) [-Rpass-missed=inline]
+                case 18: return enumerate<Gt, 18>(pos, moves);
+                                ^
+./movegen.h:566:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb0ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5655, threshold=45) [-Rpass-missed=inline]
+                case 19: return enumerate<Gt, 19>(pos, moves);
+                                ^
+./movegen.h:567:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 20: return enumerate<Gt, 20>(pos, moves);
+                                ^
+./movegen.h:568:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb0ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 21: return enumerate<Gt, 21>(pos, moves);
+                                ^
+./movegen.h:569:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 22: return enumerate<Gt, 22>(pos, moves);
+                                ^
+./movegen.h:570:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb0ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 23: return enumerate<Gt, 23>(pos, moves);
+                                ^
+./movegen.h:571:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 24: return enumerate<Gt, 24>(pos, moves);
+                                ^
+./movegen.h:572:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 25: return enumerate<Gt, 25>(pos, moves);
+                                ^
+./movegen.h:573:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 26: return enumerate<Gt, 26>(pos, moves);
+                                ^
+./movegen.h:574:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5720, threshold=45) [-Rpass-missed=inline]
+                case 27: return enumerate<Gt, 27>(pos, moves);
+                                ^
+./movegen.h:575:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5785, threshold=45) [-Rpass-missed=inline]
+                case 28: return enumerate<Gt, 28>(pos, moves);
+                                ^
+./movegen.h:576:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5785, threshold=45) [-Rpass-missed=inline]
+                case 29: return enumerate<Gt, 29>(pos, moves);
+                                ^
+./movegen.h:577:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5785, threshold=45) [-Rpass-missed=inline]
+                case 30: return enumerate<Gt, 30>(pos, moves);
+                                ^
+./movegen.h:578:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color0ELb1ELb1ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5785, threshold=45) [-Rpass-missed=inline]
+                case 31: return enumerate<Gt, 31>(pos, moves);
+                                ^
+./movegen.h:579:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5015, threshold=45) [-Rpass-missed=inline]
+                case 32: return enumerate<Gt, 32>(pos, moves);
+                                ^
+./movegen.h:580:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb0ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5075, threshold=45) [-Rpass-missed=inline]
+                case 33: return enumerate<Gt, 33>(pos, moves);
+                                ^
+./movegen.h:581:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5080, threshold=45) [-Rpass-missed=inline]
+                case 34: return enumerate<Gt, 34>(pos, moves);
+                                ^
+./movegen.h:582:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb0ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5140, threshold=45) [-Rpass-missed=inline]
+                case 35: return enumerate<Gt, 35>(pos, moves);
+                                ^
+./movegen.h:583:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5015, threshold=45) [-Rpass-missed=inline]
+                case 36: return enumerate<Gt, 36>(pos, moves);
+                                ^
+./movegen.h:584:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb0ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5075, threshold=45) [-Rpass-missed=inline]
+                case 37: return enumerate<Gt, 37>(pos, moves);
+                                ^
+./movegen.h:585:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5080, threshold=45) [-Rpass-missed=inline]
+                case 38: return enumerate<Gt, 38>(pos, moves);
+                                ^
+./movegen.h:586:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb0ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5140, threshold=45) [-Rpass-missed=inline]
+                case 39: return enumerate<Gt, 39>(pos, moves);
+                                ^
+./movegen.h:587:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5015, threshold=45) [-Rpass-missed=inline]
+                case 40: return enumerate<Gt, 40>(pos, moves);
+                                ^
+./movegen.h:588:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5075, threshold=45) [-Rpass-missed=inline]
+                case 41: return enumerate<Gt, 41>(pos, moves);
+                                ^
+./movegen.h:589:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5080, threshold=45) [-Rpass-missed=inline]
+                case 42: return enumerate<Gt, 42>(pos, moves);
+                                ^
+./movegen.h:590:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5140, threshold=45) [-Rpass-missed=inline]
+                case 43: return enumerate<Gt, 43>(pos, moves);
+                                ^
+./movegen.h:591:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5015, threshold=45) [-Rpass-missed=inline]
+                case 44: return enumerate<Gt, 44>(pos, moves);
+                                ^
+./movegen.h:592:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5075, threshold=45) [-Rpass-missed=inline]
+                case 45: return enumerate<Gt, 45>(pos, moves);
+                                ^
+./movegen.h:593:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5080, threshold=45) [-Rpass-missed=inline]
+                case 46: return enumerate<Gt, 46>(pos, moves);
+                                ^
+./movegen.h:594:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb0ELb1ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5140, threshold=45) [-Rpass-missed=inline]
+                case 47: return enumerate<Gt, 47>(pos, moves);
+                                ^
+./movegen.h:595:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5665, threshold=45) [-Rpass-missed=inline]
+                case 48: return enumerate<Gt, 48>(pos, moves);
+                                ^
+./movegen.h:596:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb0ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5725, threshold=45) [-Rpass-missed=inline]
+                case 49: return enumerate<Gt, 49>(pos, moves);
+                                ^
+./movegen.h:597:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5730, threshold=45) [-Rpass-missed=inline]
+                case 50: return enumerate<Gt, 50>(pos, moves);
+                                ^
+./movegen.h:598:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb0ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5790, threshold=45) [-Rpass-missed=inline]
+                case 51: return enumerate<Gt, 51>(pos, moves);
+                                ^
+./movegen.h:599:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5665, threshold=45) [-Rpass-missed=inline]
+                case 52: return enumerate<Gt, 52>(pos, moves);
+                                ^
+./movegen.h:600:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb0ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5725, threshold=45) [-Rpass-missed=inline]
+                case 53: return enumerate<Gt, 53>(pos, moves);
+                                ^
+./movegen.h:601:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5730, threshold=45) [-Rpass-missed=inline]
+                case 54: return enumerate<Gt, 54>(pos, moves);
+                                ^
+./movegen.h:602:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb0ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5790, threshold=45) [-Rpass-missed=inline]
+                case 55: return enumerate<Gt, 55>(pos, moves);
+                                ^
+./movegen.h:603:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5665, threshold=45) [-Rpass-missed=inline]
+                case 56: return enumerate<Gt, 56>(pos, moves);
+                                ^
+./movegen.h:604:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1ELb0ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5725, threshold=45) [-Rpass-missed=inline]
+                case 57: return enumerate<Gt, 57>(pos, moves);
+                                ^
+./movegen.h:605:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5730, threshold=45) [-Rpass-missed=inline]
+                case 58: return enumerate<Gt, 58>(pos, moves);
+                                ^
+./movegen.h:606:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1ELb0ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5790, threshold=45) [-Rpass-missed=inline]
+                case 59: return enumerate<Gt, 59>(pos, moves);
+                                ^
+./movegen.h:607:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5665, threshold=45) [-Rpass-missed=inline]
+                case 60: return enumerate<Gt, 60>(pos, moves);
+                                ^
+./movegen.h:608:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1ELb1ELb0ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5725, threshold=45) [-Rpass-missed=inline]
+                case 61: return enumerate<Gt, 61>(pos, moves);
+                                ^
+./movegen.h:609:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5730, threshold=45) [-Rpass-missed=inline]
+                case 62: return enumerate<Gt, 62>(pos, moves);
+                                ^
+./movegen.h:610:19: remark: '_Z9enumerateIL7GenType0EXtl10BoardstateL5Color1ELb1ELb1ELb1ELb1ELb1EEEEP4MoveRK8PositionS4_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=5790, threshold=45) [-Rpass-missed=inline]
+                case 63: return enumerate<Gt, 63>(pos, moves);
+                                ^
+./movegen.h:612:14: remark: '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=1105, threshold=45) [-Rpass-missed=inline]
+                        std::cerr << "Error, unrecognizable Boardstate pattern: " << pos.boardstate_pattern() << '.' << std::endl;
+                                  ^
+./movegen.h:612:62: remark: '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_h' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=1080, threshold=45) [-Rpass-missed=inline]
+                        std::cerr << "Error, unrecognizable Boardstate pattern: " << pos.boardstate_pattern() << '.' << std::endl;
+                                                                                  ^
+./movegen.h:612:90: remark: '_ZNSt3__1lsB8ue170006INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_c' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=1080, threshold=45) [-Rpass-missed=inline]
+                        std::cerr << "Error, unrecognizable Boardstate pattern: " << pos.boardstate_pattern() << '.' << std::endl;
+                                                                                                              ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:230:14: remark: '_ZNSt3__14endlB8ue170006IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_' not inlined into '_Z9enumerateIL7GenType0EEP4MoveRK8PositionS2_' because too costly to inline (cost=240, threshold=45) [-Rpass-missed=inline]
+    { return __pf(*this); }
+             ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN8MoveListIL7GenType0EEC2ERK8Position' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN8MoveListIL7GenType0EEC2ERK8Position' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN8MoveListIL7GenType0EEC2ERK8Position' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN8MoveListIL7GenType0EEC2ERK8Position' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN8MoveListIL7GenType0EEC2ERK8Position' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN8MoveListIL7GenType0EEC2ERK8Position' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into '_ZN8MoveListIL7GenType0EEC1ERK8Position' because too costly to inline (cost=351940, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2152:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN3UCI12sq_to_stringE6Square' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2152:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN3UCI12sq_to_stringE6Square' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1plB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEENS_12basic_stringIT_T0_T1_EEOS9_SA_' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEpLB8ue170006Ec' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN3UCI14move_to_stringERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN3UCI14move_to_stringERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into '_ZN3UCI14string_to_moveERK8PositionRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEE' because too costly to inline (cost=351935, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN3UCI14string_to_moveERK8PositionRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEE' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNK8Position9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNK8Position9make_moveERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNK8Position9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNK8Position9make_moveERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNK8Position9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNK8Position9make_moveERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNK8Position9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNK8Position9make_moveERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine9make_moveERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine9make_moveERK4Move' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZN6Engine9make_moveERK4Move' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine9make_moveERK4Move' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE17__assign_externalEPKcm' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE17__assign_externalEPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6assignEPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6assignEPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEaSB8ue170006EPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEaSB8ue170006EPKc' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+./engine.h:52:62: remark: _ZN6Engine5perftILb0EEEyi is recursive and allocates too much stack space. Cost is not fully computed [-Rpass-missed=inline-cost]
+                        count = leaf ? MoveList<LEGAL>(positions.back()).size() : perft<false>(depth - 1);
+                                                                                  ^
+./engine.h:52:62: remark: '_ZN6Engine5perftILb0EEEyi' not inlined into '_ZN6Engine5perftILb0EEEyi' because it should never be inlined (cost=never): recursive and allocates too much stack space [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into '_ZN6Engine5perftILb0EEEyi' because too costly to inline (cost=351935, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZN6Engine5perftILb0EEEyi' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine5perftILb0EEEyi' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb0EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb0EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine5perftILb0EEEyi' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb0EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb0EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into '_ZN6Engine5perftILb0EEEyi' because too costly to inline (cost=351935, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZNSt3__1lsB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_ostreamIT_T0_EES9_RKNS_12basic_stringIS6_S7_T1_EE' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZNSt3__1lsB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_ostreamIT_T0_EES9_RKNS_12basic_stringIS6_S7_T1_EE' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:4:
+./engine.h:52:62: remark: _ZN6Engine5perftILb0EEEyi has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+                        count = leaf ? MoveList<LEGAL>(positions.back()).size() : perft<false>(depth - 1);
+                                                                                  ^
+./engine.h:52:62: remark: '_ZN6Engine5perftILb0EEEyi' not inlined into '_ZN6Engine5perftILb1EEEyi' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=351935, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb1EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb1EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb1EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb1EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=351935, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb1EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into '_ZN6Engine5perftILb1EEEyi' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into '_ZN6Engine5perftILb1EEEyi' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+cli.cpp:42:14: remark: '_ZNSt3__1rsB8ue170006IcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EE' not inlined into 'main' because too costly to inline (cost=1090, threshold=525) [-Rpass-missed=inline]
+                        while (ss >> arg)
+                                  ^
+cli.cpp:43:22: remark: '_ZN3UCI14string_to_moveERK8PositionRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEE' not inlined into 'main' because too costly to inline (cost=885, threshold=525) [-Rpass-missed=inline]
+                                juicer.make_move(UCI::string_to_move(juicer.position(), arg));
+                                                 ^
+cli.cpp:43:12: remark: '_ZN6Engine9make_moveERK4Move' not inlined into 'main' because too costly to inline (cost=12855, threshold=525) [-Rpass-missed=inline]
+                                juicer.make_move(UCI::string_to_move(juicer.position(), arg));
+                                       ^
+cli.cpp:59:2: remark: '_ZNSt3__119basic_istringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev' not inlined into 'main' because too costly to inline (cost=160, threshold=45) [-Rpass-missed=inline]
+        }
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2152:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:1551:9: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        }
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:1498:9: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        }
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:1498:9: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+        }
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2361:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:4:
+./engine.h:52:62: remark: _ZN6Engine5perftILb0EEEyi has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+                        count = leaf ? MoveList<LEGAL>(positions.back()).size() : perft<false>(depth - 1);
+                                                                                  ^
+./engine.h:52:62: remark: '_ZN6Engine5perftILb0EEEyi' not inlined into 'main' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into 'main' because too costly to inline (cost=351935, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:15:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/shared_ptr.h:23:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/allocator.h:110:13: remark: '_ZSt28__throw_bad_array_new_lengthB8ue170006v' not inlined into 'main' because too costly to inline (cost=85, threshold=0) [-Rpass-missed=inline]
+            __throw_bad_array_new_length();
+            ^
+In file included from cli.cpp:4:
+In file included from ./engine.h:4:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector:1097:15: remark: '_ZNKSt3__16vectorI8PositionNS_9allocatorIS1_EEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        this->__throw_length_error();
+              ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+In file included from cli.cpp:4:
+In file included from ./engine.h:7:
+./movegen.h:27:87: remark: '_ZN8MoveListIL7GenType0EEC2ERK8Position' not inlined into 'main' because too costly to inline (cost=351935, threshold=65535) [-Rpass-missed=inline]
+        explicit MoveList(const Position& /*restrict*/ pos): last(enumerate<Gt>(pos, moves)) {}
+                                                                                             ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:44:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/istream:170:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream:785:5: remark: '__clang_call_terminate' not inlined into 'main' because it should never be inlined (cost=never): noinline function attribute [-Rpass-missed=inline]
+    }
+    ^
+In file included from cli.cpp:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream:43:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/ios:222:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale:21:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex:192:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__mutex/unique_lock.h:17:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/system_error.h:14:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__system_error/error_category.h:15:
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2205:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/string:2320:9: remark: '_ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE20__throw_length_errorB8ue170006Ev' not inlined into 'main' because too costly to inline (cost=0, threshold=0) [-Rpass-missed=inline]
+        __throw_length_error();
+        ^

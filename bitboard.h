@@ -11,23 +11,23 @@
 #include "juicer.h"
 
 
-force_inline constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
-force_inline constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
+static constexpr uint64_t square_to_bb(Square s) { return 1ull << s; }
+static constexpr Square make_square(File f, Rank r) { return Square((r << 3) + f); }
 
-force_inline constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
-force_inline constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
-force_inline constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
+static constexpr uint64_t operator&(uint64_t bb, Square s) { return bb & square_to_bb(s); }
+static constexpr uint64_t operator|(uint64_t bb, Square s) { return bb | square_to_bb(s); }
+static constexpr uint64_t operator^(uint64_t bb, Square s) { return bb ^ square_to_bb(s); }
 
-force_inline constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
-force_inline constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
-force_inline constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
+static constexpr uint64_t operator&=(uint64_t& bb, Square s) { return bb &= square_to_bb(s); }
+static constexpr uint64_t operator|=(uint64_t& bb, Square s) { return bb |= square_to_bb(s); }
+static constexpr uint64_t operator^=(uint64_t& bb, Square s) { return bb ^= square_to_bb(s); }
 
-force_inline constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & s2; }
-force_inline constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
-force_inline constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
+static constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(s1) & s2; }
+static constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
+static constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
 
-force_inline constexpr File file_of(Square s) { return File(s & 7); }
-force_inline constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
+static constexpr File file_of(Square s) { return File(s & 7); }
+static constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
 
 
 namespace Bitboard
@@ -115,7 +115,7 @@ static constexpr std::array<uint8_t, 65536> POPCOUNT16 = fill_popcount();
 #endif // (POPCOUNT == MANUAL)
 
 
-force_inline constexpr size_t popcount(uint64_t bb)
+static constexpr size_t popcount(uint64_t bb)
 {
 	#if (POPCOUNT == MANUAL)
 		union
@@ -134,7 +134,7 @@ force_inline constexpr size_t popcount(uint64_t bb)
 }
 
 
-force_inline constexpr Square lsb(uint64_t bb)
+static constexpr Square lsb(uint64_t bb)
 {
 	#if (DEBUG)
 		assert(bb);
@@ -169,7 +169,7 @@ force_inline constexpr Square lsb(uint64_t bb)
 	#endif
 }
 
-force_inline constexpr Square pop_lsb(uint64_t& bb)
+static constexpr Square pop_lsb(uint64_t& bb)
 {
 	#if (DEBUG)
 		assert(bb);

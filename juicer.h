@@ -3,14 +3,14 @@
 
 
 #if defined(__GUNC__) || defined(__clang__)
-	#define force_inline __attribute__((always_inline)) inline
-	#define no_inline __attribute__((noinline))
+	#define forceinline __attribute__((always_inline)) inline
+	#define noinline __attribute__((noinline))
 #elif defined(_MSC_VER)
-	#define force_inline __forceinline
-	#define no_inline __declspec(noinline)
+	#define forceinline __forceinline
+	#define noinline __declspec(noinline)
 #else
-	#define force_inline inline
-	#define no_inline
+	#define forceinline inline
+	#define noinline
 #endif
 
 
@@ -18,9 +18,26 @@
 	#define restrict __restrict__
 #elif defined (_MSC_VER)
 	#define restrict _restrict
-else
+#else
 	#define restrict
 #endif
+
+
+#if defined(__GUNC__) || defined(__clang__)
+	#define pure __attribute__((pure))
+#elif defined(_MSC_VER)
+	#define pure __declspec(noalias) // not quite the name as pure but similar
+#else
+	#define pure
+#endif
+
+
+#if defined(__GNUC__) || defined(__clang__)
+	#define constfunc __attribute__((const))
+#else
+	#define constfunc
+#endif
+
 
 #define MANUAL 0
 #define BUILTIN 1

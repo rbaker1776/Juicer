@@ -18,12 +18,13 @@ enum GenType: int
 };
 
 template<GenType Gt>
-force_inline Move* enumerate(const Position& restrict pos, Move* moves) __attribute__((const));
+forceinline Move* enumerate(const Position& restrict pos, Move* moves) constfunc;
 
 template<GenType Gt>
 struct MoveList
 {
 public:
+	// restricting Position& eliminates ~1500 missed gvn (global value numbering) optimizations for +1'100'000 NPS
 	explicit MoveList(const Position& restrict pos): last(enumerate<Gt>(pos, moves)) {}
 
 	const Move* begin() const { return moves; }
@@ -46,38 +47,41 @@ struct GenData
 	uint64_t bishop_pins = 0;
 	uint64_t rook_pins = 0;
 
-	force_inline void register_slider_check(Square ksq, Square ssq);
+	inline void register_slider_check(Square ksq, Square ssq);
 
 	template<Color Us, bool EnPassant>
-	force_inline void register_bishop_pin(const Position& restrict pos, Square ksq, Square bsq);
+	inline void register_bishop_pin(const Position& restrict pos, Square ksq, Square bsq);
 	
 	template<Color Us>
-	force_inline void register_rook_pin(const Position& restrict pos, Square ksq, Square rsq);
+	inline void register_rook_pin(const Position& restrict pos, Square ksq, Square rsq);
 
 	template<Color Us>
-	force_inline void register_ep_pin(const Position& restrict pos, Square ksq);
+	inline void register_ep_pin(const Position& restrict pos, Square ksq);
 
 	template<GenType Gt, Color Us, bool EnPassant>
-	force_inline uint64_t king_attacks(const Position& restrict pos);
+	forceinline uint64_t king_attacks(const Position& restrict pos) constfunc;
 
 	template<bool IsCheck>
-	force_inline uint64_t const_checkmask() const __attribute__((const));
+	inline uint64_t const_checkmask() const constfunc;
 
 	template<Color Us, GenType Gt>
-	force_inline uint64_t moveable_sqs(const Position& restrict pos, uint64_t cm) const __attribute__((const));
+	inline uint64_t moveable_sqs(const Position& restrict pos, uint64_t cm) const constfunc;
 
 }; // struct GenData
 
 
+// forceinlining enumerate_pawn_moves eliminates ~800 missed gvn (global value numbering) optimizations from -Rpass
+// similarly to enumerate(), the compiler deems this funciton too costly to inline, however I do not
+// constfunc and both restrictions have no measurable benefits on clang 15 -O3, but are kept incase other compilers would see a gain
 template<GenType Gt, Color Us, bool HasEP>
-force_inline __attribute__((const)) Move* enumerate_pawn_moves(const Position& restrict pos, const GenData& restrict gen_data, uint64_t checkmask, Move* moves)
+forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, const GenData& restrict gendata, uint64_t checkmask, Move* moves)
 {
 	constexpr Color Them = ~Us;
 
 	if constexpr (Gt == LEGAL)
 	{
-		const uint64_t vertical_pawns = pos.bitboard<Us, PAWN>() & ~gen_data.bishop_pins;
-		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~gen_data.rook_pins;
+		const uint64_t vertical_pawns = pos.bitboard<Us, PAWN>() & ~gendata.bishop_pins;
+		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~gendata.rook_pins;
 
 		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & checkmask);
 		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & checkmask);
@@ -85,32 +89,32 @@ force_inline __attribute__((const)) Move* enumerate_pawn_moves(const Position& r
 		uint64_t push_pawns = step_pawns & Bitboard::rank_2<Us>() & pawn_push_bb<Them>(~pos.pieces & checkmask);
 		step_pawns &= pawn_step_bb<Them>(checkmask);
 
-		w_atk_pawns &= pawn_atk_east_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
-		e_atk_pawns &= pawn_atk_west_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
-		step_pawns &= pawn_step_bb<Them>(gen_data.rook_pins) | ~gen_data.rook_pins;
-		push_pawns &= pawn_push_bb<Them>(gen_data.rook_pins) | ~gen_data.rook_pins;
+		w_atk_pawns &= pawn_atk_east_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
+		e_atk_pawns &= pawn_atk_west_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
+		step_pawns &= pawn_step_bb<Them>(gendata.rook_pins) | ~gendata.rook_pins;
+		push_pawns &= pawn_push_bb<Them>(gendata.rook_pins) | ~gendata.rook_pins;
 
 		if constexpr (HasEP)
 		{
-			if (gen_data.ep_target != 0)
+			if (gendata.ep_target != 0)
 			{
-				uint64_t ep_atk_west = diagonal_pawns & shift<E>(checkmask & gen_data.ep_target);
-				uint64_t ep_atk_east = diagonal_pawns & shift<W>(checkmask & gen_data.ep_target);
+				uint64_t ep_atk_west = diagonal_pawns & shift<E>(checkmask & gendata.ep_target);
+				uint64_t ep_atk_east = diagonal_pawns & shift<W>(checkmask & gendata.ep_target);
 
 				#if (DEBUG)
-					assert(Bitboard::rank_5<Us>() & gen_data.ep_target);
-					assert(Bitboard::rank_6<Us>() & (lsb(gen_data.ep_target) + pawn_step<Us>()));
+					assert(Bitboard::rank_5<Us>() & gendata.ep_target);
+					assert(Bitboard::rank_6<Us>() & (lsb(gendata.ep_target) + pawn_step<Us>()));
 				#endif
 
 				if (ep_atk_west | ep_atk_east)
 				{
-					ep_atk_west &= pawn_atk_east_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
-					ep_atk_east &= pawn_atk_west_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
+					ep_atk_west &= pawn_atk_east_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
+					ep_atk_east &= pawn_atk_west_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
 
 					if (ep_atk_west)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), lsb(gen_data.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
 					if (ep_atk_east)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_east), lsb(gen_data.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, lsb(ep_atk_east), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
 				}
 			}
 		}
@@ -178,34 +182,34 @@ force_inline __attribute__((const)) Move* enumerate_pawn_moves(const Position& r
 	}
 	else if constexpr (Gt == CAPTURES)
 	{
-		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~gen_data.rook_pins;
+		const uint64_t diagonal_pawns = pos.bitboard<Us, PAWN>() & ~gendata.rook_pins;
 
 		uint64_t w_atk_pawns = diagonal_pawns & pawn_atk_east_bb<Them>(pos.bitboard<Them>() & checkmask);
 		uint64_t e_atk_pawns = diagonal_pawns & pawn_atk_west_bb<Them>(pos.bitboard<Them>() & checkmask);
-		w_atk_pawns &= pawn_atk_east_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
-		e_atk_pawns &= pawn_atk_west_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
+		w_atk_pawns &= pawn_atk_east_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
+		e_atk_pawns &= pawn_atk_west_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
 
 		if constexpr (HasEP)
 		{
-			if (gen_data.ep_target != 0)
+			if (gendata.ep_target != 0)
 			{
-				uint64_t ep_atk_west = diagonal_pawns & shift<E>(checkmask & gen_data.ep_target);
-				uint64_t ep_atk_east = diagonal_pawns & shift<W>(checkmask & gen_data.ep_target);
+				uint64_t ep_atk_west = diagonal_pawns & shift<E>(checkmask & gendata.ep_target);
+				uint64_t ep_atk_east = diagonal_pawns & shift<W>(checkmask & gendata.ep_target);
 
 				#if (DEBUG)
-					assert(Bitboard::rank_5<Us>() & gen_data.ep_target);
-					assert(Bitboard::rank_6<Us>() & (lsb(gen_data.ep_target) + pawn_step<Us>()));
+					assert(Bitboard::rank_5<Us>() & gendata.ep_target);
+					assert(Bitboard::rank_6<Us>() & (lsb(gendata.ep_target) + pawn_step<Us>()));
 				#endif
 
 				if (ep_atk_west | ep_atk_east)
 				{
-					ep_atk_west &= pawn_atk_east_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
-					ep_atk_east &= pawn_atk_west_bb<Them>(gen_data.bishop_pins) | ~gen_data.bishop_pins;
+					ep_atk_west &= pawn_atk_east_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
+					ep_atk_east &= pawn_atk_west_bb<Them>(gendata.bishop_pins) | ~gendata.bishop_pins;
 
 					if (ep_atk_west)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), lsb(gen_data.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, lsb(ep_atk_west), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
 					if (ep_atk_east)
-						*moves++ = Move(EN_PASSANT, lsb(ep_atk_east), lsb(gen_data.ep_target) + pawn_step<Us>(), PAWN);
+						*moves++ = Move(EN_PASSANT, lsb(ep_atk_east), lsb(gendata.ep_target) + pawn_step<Us>(), PAWN);
 				}
 			}
 		}
@@ -252,13 +256,19 @@ force_inline __attribute__((const)) Move* enumerate_pawn_moves(const Position& r
 	return moves;
 }
 
+// forceinlining enumerate removes a great deal of missed gvn (global value numbering) and licm remarks resulting in +200'000 NPS
+// clang 15's inlining heuristic simply deemed it too costly to inline, however I am willing to pay an extra
+// few dozen milliseconds of compile time. executable size does not change
+// restricting Position& and GenData& have no measurable benefits with clang 15 -O3...
+// however they are kept incase another compiler cannot make the same assumptions
+// __attribute__((const)) i.e. constfunc also has no measurable gain but is kept for the same reason
 template<GenType Gt, Boardstate State, bool IsCheck>
-force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos, const GenData& restrict gen_data, uint64_t king_atk, Move* moves)
+forceinline constfunc Move* enumerate(const Position& restrict pos, const GenData& restrict gendata, uint64_t king_atk, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
-	const uint64_t checkmask = gen_data.const_checkmask<IsCheck>();
-	const uint64_t moveable_sqs = gen_data.moveable_sqs<Us, Gt>(pos, checkmask);
+	const uint64_t checkmask = gendata.const_checkmask<IsCheck>();
+	const uint64_t moveable_sqs = gendata.moveable_sqs<Us, Gt>(pos, checkmask);
 
 	const Square ksq = pos.king_sq<Us>();
 
@@ -271,18 +281,18 @@ force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos
 			*moves++ = Move(NORMAL, ksq, pop_lsb(king_atk), KING);
 
 		if constexpr (!IsCheck && State.can_castle_queenside())
-			if (State.can_castle_queenside(gen_data.kingban, pieces, pos.bitboard<Us, ROOK>()))
+			if (State.can_castle_queenside(gendata.kingban, pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::W, KING);
 
 		if constexpr (!IsCheck && State.can_castle_kingside())
-			if (State.can_castle_kingside(gen_data.kingban, pieces, pos.bitboard<Us, ROOK>()))
+			if (State.can_castle_kingside(gendata.kingban, pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::E, KING);
 	}
 
-	moves = enumerate_pawn_moves<Gt, Us, State.has_ep_pawn>(pos, gen_data, checkmask, moves);
+	moves = enumerate_pawn_moves<Gt, Us, State.has_ep_pawn>(pos, gendata, checkmask, moves);
 
 	{
-		uint64_t knights = pos.bitboard<Us, KNIGHT>() & ~(gen_data.rook_pins | gen_data.bishop_pins);
+		uint64_t knights = pos.bitboard<Us, KNIGHT>() & ~(gendata.rook_pins | gendata.bishop_pins);
 		while (knights)
 		{
 			const Square from = pop_lsb(knights);
@@ -294,14 +304,14 @@ force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos
 	uint64_t queens = pos.bitboard<Us, QUEEN>();
 
 	{
-		uint64_t bishops = pos.bitboard<Us, BISHOP>() & ~gen_data.rook_pins;
-		uint64_t pinned_bishops = (bishops | queens) & gen_data.bishop_pins;
-		uint64_t unpinned_bishops = bishops & ~gen_data.bishop_pins;
+		uint64_t bishops = pos.bitboard<Us, BISHOP>() & ~gendata.rook_pins;
+		uint64_t pinned_bishops = (bishops | queens) & gendata.bishop_pins;
+		uint64_t unpinned_bishops = bishops & ~gendata.bishop_pins;
 
 		while (pinned_bishops)
 		{
 			const Square from = pop_lsb(pinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs & gen_data.bishop_pins;
+			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs & gendata.bishop_pins;
 			const PieceType slider = (queens & from ? QUEEN : BISHOP);
 
 			while (to)
@@ -319,14 +329,14 @@ force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos
 	}
 
 	{
-		uint64_t rooks = pos.bitboard<Us, ROOK>() & ~gen_data.bishop_pins;
-		uint64_t pinned_rooks = (rooks | queens) & gen_data.rook_pins;
-		uint64_t unpinned_rooks = rooks & ~gen_data.rook_pins;
+		uint64_t rooks = pos.bitboard<Us, ROOK>() & ~gendata.bishop_pins;
+		uint64_t pinned_rooks = (rooks | queens) & gendata.rook_pins;
+		uint64_t unpinned_rooks = rooks & ~gendata.rook_pins;
 
 		while (pinned_rooks)
 		{
 			const Square from = pop_lsb(pinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs & gen_data.rook_pins;
+			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs & gendata.rook_pins;
 			const PieceType slider = (queens & from ? QUEEN : ROOK);
 
 			while (to)
@@ -344,7 +354,7 @@ force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos
 	}
 
 	{
-		queens &= ~(gen_data.rook_pins | gen_data.bishop_pins);
+		queens &= ~(gendata.rook_pins | gendata.bishop_pins);
 		while (queens)
 		{
 			const Square from = pop_lsb(queens);
@@ -358,20 +368,21 @@ force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos
 	return moves;
 }
 
+// restriction Position& results in -9,600 missed gvn optimizations but +48 slp-vectorizer optimizations
 template<GenType Gt, Boardstate State>
-inline Move* __attribute__((const)) enumerate(const Position& restrict pos, Move* moves)
+inline Move* enumerate(const Position& restrict pos, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
-	GenData gen_data;
-	gen_data.ep_target = square_to_bb(pos.ep_target);
+	GenData gendata;
+	gendata.ep_target = square_to_bb(pos.ep_target);
 
-	uint64_t king_atk = gen_data.king_attacks<Gt, Us, State.has_ep_pawn>(pos);
+	uint64_t king_atk = gendata.king_attacks<Gt, Us, State.has_ep_pawn>(pos);
 
-	if (gen_data.checkmask == Bitboard::BOARD) // not in check
-		moves = enumerate<Gt, State, false>(pos, gen_data, king_atk, moves);
-	else if (gen_data.checkmask != 0) // single check
-		moves = enumerate<Gt, State, true>(pos, gen_data, king_atk, moves);
+	if (gendata.checkmask == Bitboard::BOARD) // not in check
+		moves = enumerate<Gt, State, false>(pos, gendata, king_atk, moves);
+	else if (gendata.checkmask != 0) // single check
+		moves = enumerate<Gt, State, true>(pos, gendata, king_atk, moves);
 	else // double check, only enumerate king moves
 	{
 		const Square ksq = pos.king_sq<Us>();
@@ -383,7 +394,7 @@ inline Move* __attribute__((const)) enumerate(const Position& restrict pos, Move
 }
 
 
-force_inline void GenData::register_slider_check(Square ksq, Square ssq)
+inline void GenData::register_slider_check(Square ksq, Square ssq)
 {
 	if (checkmask == Bitboard::BOARD) // no checks found yet
 		checkmask = BETWEEN_BB[ksq][ssq];
@@ -394,7 +405,7 @@ force_inline void GenData::register_slider_check(Square ksq, Square ssq)
 }
 
 template<Color Us, bool EnPassant>
-force_inline void GenData::register_bishop_pin(const Position& restrict pos, Square ksq, Square bsq)
+inline void GenData::register_bishop_pin(const Position& restrict pos, Square ksq, Square bsq)
 {
 	const uint64_t pinmask = BETWEEN_BB[ksq][bsq];
 
@@ -407,7 +418,7 @@ force_inline void GenData::register_bishop_pin(const Position& restrict pos, Squ
 }
 
 template<Color Us>
-force_inline void GenData::register_rook_pin(const Position& restrict pos, Square ksq, Square rsq)
+inline void GenData::register_rook_pin(const Position& restrict pos, Square ksq, Square rsq)
 {
 	const uint64_t pinmask = BETWEEN_BB[ksq][rsq];
 
@@ -416,7 +427,7 @@ force_inline void GenData::register_rook_pin(const Position& restrict pos, Squar
 }
 
 template<Color Us>
-force_inline void GenData::register_ep_pin(const Position& restrict pos, Square ksq)
+inline void GenData::register_ep_pin(const Position& restrict pos, Square ksq)
 {
 	constexpr Color Them = ~Us;
 
@@ -434,8 +445,12 @@ force_inline void GenData::register_ep_pin(const Position& restrict pos, Square 
 	}
 }
 
+// forceinlining GenData::king_attacks seems to eliminate 84 -Rpass-missed=licm (loop invariant code motion) missed optimizations
+// These occur inside the scope of "if (king_moves != 0)" reading from global arrays
+// __attribute__((const)) and __restrict__ seem to have no measurable effect with clang 15 -O3... 
+// however I keep them incase another compiler cannot make the same logical assumptions as clang
 template<GenType Gt, Color Us, bool EnPassant>
-force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
+forceinline constfunc uint64_t GenData::king_attacks(const Position& restrict pos)
 {
 	constexpr Color Them = ~Us;
 
@@ -443,7 +458,7 @@ force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
 	const uint64_t king_bb = pos.bitboard<Us, KING>();
 
 	// copying this var to local boosts NPS by ~4,000,000
-	// compiler cannot eliminate load when we access pos.pieces
+	// clang cannot eliminate load when we access pos.pieces
 	const uint64_t pieces = pos.pieces;
 
 	// pawn checks
@@ -496,30 +511,32 @@ force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
 		register_ep_pin<Us>(pos, ksq);
 
 	uint64_t king_moves = PIECE_ATTACKS[KING][ksq] & ~pos.bitboard<Us>() & ~kingban;
-	if (king_moves == 0) // the king has no legal moves, no sense in updating kingban any further
-		return 0;
-
-	for (uint64_t enemy_knights = pos.bitboard<Them, KNIGHT>(); enemy_knights; )
+	if (king_moves != 0)
+	{
+		for (uint64_t enemy_knights = pos.bitboard<Them, KNIGHT>(); enemy_knights; )
 		kingban |= PIECE_ATTACKS[KNIGHT][pop_lsb(enemy_knights)];
 
-	kingban |= pawn_atk_bb<Them>(pos.bitboard<Them, PAWN>());
+		kingban |= pawn_atk_bb<Them>(pos.bitboard<Them, PAWN>());
 
-	for (uint64_t enemy_bishops = pos.bitboards<Them, BISHOP, QUEEN>(); enemy_bishops; )
-		kingban |= BISHOP_MAGICS[pop_lsb(enemy_bishops)][pieces];
-	
-	for (uint64_t enemy_rooks = pos.bitboards<Them, ROOK, QUEEN>(); enemy_rooks; )
-		kingban |= ROOK_MAGICS[pop_lsb(enemy_rooks)][pieces];
+		for (uint64_t enemy_bishops = pos.bitboards<Them, BISHOP, QUEEN>(); enemy_bishops; )
+			kingban |= BISHOP_MAGICS[pop_lsb(enemy_bishops)][pieces];
+			
+		for (uint64_t enemy_rooks = pos.bitboards<Them, ROOK, QUEEN>(); enemy_rooks; )
+			kingban |= ROOK_MAGICS[pop_lsb(enemy_rooks)][pieces];
 
-	kingban |= PIECE_ATTACKS[KING][pos.king_sq<Them>()];
+		kingban |= PIECE_ATTACKS[KING][pos.king_sq<Them>()];
 
-	if constexpr (Gt == CAPTURES)
-		kingban |= ~pos.bitboard<Them>();
+		if constexpr (Gt == CAPTURES)
+			kingban |= ~pos.bitboard<Them>();
 
-	return king_moves & ~kingban;
+		king_moves &= ~kingban;
+	}
+
+	return king_moves;
 }
 
 template<bool IsCheck>
-force_inline uint64_t GenData::const_checkmask() const
+inline constfunc uint64_t GenData::const_checkmask() const
 {
 	if constexpr (IsCheck)
 		return checkmask;
@@ -528,7 +545,7 @@ force_inline uint64_t GenData::const_checkmask() const
 }
 
 template<Color Us, GenType Gt>
-force_inline uint64_t GenData::moveable_sqs(const Position& restrict pos, uint64_t cm) const
+inline constfunc uint64_t GenData::moveable_sqs(const Position& restrict pos, uint64_t cm) const
 {
 	if constexpr (Gt == LEGAL)
 		return ~pos.bitboard<Us>() & cm;
@@ -539,8 +556,12 @@ force_inline uint64_t GenData::moveable_sqs(const Position& restrict pos, uint64
 }
 
 
+// clang simply deems this function too costly to inline howver with no increase to executable size and minimal 
+// increase in compile time, I do not. +100,000 NPS
+// once again, restrict and constfunc produce no measurable gain on clang 15 -O3... but are kept incase other 
+// compilers would benefit
 template<GenType Gt>
-force_inline Move* enumerate(const Position& restrict pos, Move* moves)
+forceinline constfunc Move* enumerate(const Position& restrict pos, Move* moves)
 {
 	switch (pos.boardstate_pattern())
 	{
