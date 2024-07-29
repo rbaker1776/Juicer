@@ -70,7 +70,7 @@ struct GenData
 
 
 template<GenType Gt, Color Us, bool HasEP>
-force_inline Move* enumerate_pawn_moves(const Position& restrict pos, const GenData& restrict gen_data, uint64_t checkmask, Move* moves)
+force_inline __attribute__((const)) Move* enumerate_pawn_moves(const Position& restrict pos, const GenData& restrict gen_data, uint64_t checkmask, Move* moves)
 {
 	constexpr Color Them = ~Us;
 
@@ -253,7 +253,7 @@ force_inline Move* enumerate_pawn_moves(const Position& restrict pos, const GenD
 }
 
 template<GenType Gt, Boardstate State, bool IsCheck>
-force_inline Move* enumerate(const Position& restrict pos, const GenData& restrict gen_data, uint64_t king_atk, Move* moves)
+force_inline __attribute__((const)) Move* enumerate(const Position& restrict pos, const GenData& restrict gen_data, uint64_t king_atk, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
@@ -261,17 +261,18 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 	const uint64_t moveable_sqs = gen_data.moveable_sqs<Us, Gt>(pos, checkmask);
 
 	const Square ksq = pos.king_sq<Us>();
+	const uint64_t pieces = pos.pieces;
 
 	{
 		while (king_atk)
 			*moves++ = Move(NORMAL, ksq, pop_lsb(king_atk), KING);
 
 		if constexpr (!IsCheck && State.can_castle_queenside())
-			if (State.can_castle_queenside(gen_data.kingban, pos.pieces, pos.bitboard<Us, ROOK>()))
+			if (State.can_castle_queenside(gen_data.kingban, pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::W, KING);
 
 		if constexpr (!IsCheck && State.can_castle_kingside())
-			if (State.can_castle_kingside(gen_data.kingban, pos.pieces, pos.bitboard<Us, ROOK>()))
+			if (State.can_castle_kingside(gen_data.kingban, pieces, pos.bitboard<Us, ROOK>()))
 				*moves++ = Move(CASTLING, ksq, ksq + 2 * Direction::E, KING);
 	}
 
@@ -297,7 +298,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (pinned_bishops)
 		{
 			const Square from = pop_lsb(pinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs & gen_data.bishop_pins;
+			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs & gen_data.bishop_pins;
 			const PieceType slider = (queens & from ? QUEEN : BISHOP);
 
 			while (to)
@@ -307,7 +308,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (unpinned_bishops)
 		{
 			const Square from = pop_lsb(unpinned_bishops);
-			uint64_t to = BISHOP_MAGICS[from][pos.pieces] & moveable_sqs;
+			uint64_t to = BISHOP_MAGICS[from][pieces] & moveable_sqs;
 			
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), BISHOP);
@@ -322,7 +323,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (pinned_rooks)
 		{
 			const Square from = pop_lsb(pinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs & gen_data.rook_pins;
+			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs & gen_data.rook_pins;
 			const PieceType slider = (queens & from ? QUEEN : ROOK);
 
 			while (to)
@@ -332,7 +333,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (unpinned_rooks)
 		{
 			const Square from = pop_lsb(unpinned_rooks);
-			uint64_t to = ROOK_MAGICS[from][pos.pieces] & moveable_sqs;
+			uint64_t to = ROOK_MAGICS[from][pieces] & moveable_sqs;
 
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), ROOK);
@@ -344,7 +345,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 		while (queens)
 		{
 			const Square from = pop_lsb(queens);
-			uint64_t to = attacks_bb<QUEEN>(from, pos.pieces) & moveable_sqs;
+			uint64_t to = attacks_bb<QUEEN>(from, pieces) & moveable_sqs;
 
 			while (to)
 				*moves++ = Move(NORMAL, from, pop_lsb(to), QUEEN);
@@ -355,7 +356,7 @@ force_inline Move* enumerate(const Position& restrict pos, const GenData& restri
 }
 
 template<GenType Gt, Boardstate State>
-inline Move* enumerate(const Position& restrict pos, Move* moves)
+inline Move* __attribute__((const)) enumerate(const Position& restrict pos, Move* moves)
 {
 	constexpr Color Us = State.turn;
 
@@ -437,6 +438,7 @@ force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
 
 	const Square ksq = pos.king_sq<Us>();
 	const uint64_t king_bb = pos.bitboard<Us, KING>();
+	const uint64_t pieces = pos.pieces;
 
 	// pawn checks
 	{
@@ -460,11 +462,11 @@ force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
 	{
 		if (PIECE_ATTACKS[BISHOP][ksq] & pos.bitboards<Them, BISHOP, QUEEN>())
 		{
-			uint64_t bishop_atk = BISHOP_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
+			uint64_t bishop_atk = BISHOP_MAGICS[ksq][pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
 			while (bishop_atk)
 				register_slider_check(ksq, pop_lsb(bishop_atk));
 
-			uint64_t bishop_pin = BISHOP_XRAY_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
+			uint64_t bishop_pin = BISHOP_XRAY_MAGICS[ksq][pieces] & pos.bitboards<Them, BISHOP, QUEEN>();
 			while (bishop_pin)
 				register_bishop_pin<Us, EnPassant>(pos, ksq, pop_lsb(bishop_pin));
 		}
@@ -474,11 +476,11 @@ force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
 	{
 		if (PIECE_ATTACKS[ROOK][ksq] & pos.bitboards<Them, ROOK, QUEEN>())
 		{
-			uint64_t rook_atk = ROOK_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, ROOK, QUEEN>();
+			uint64_t rook_atk = ROOK_MAGICS[ksq][pieces] & pos.bitboards<Them, ROOK, QUEEN>();
 			while (rook_atk)
 				register_slider_check(ksq, pop_lsb(rook_atk));
 
-			uint64_t rook_pin = ROOK_XRAY_MAGICS[ksq][pos.pieces] & pos.bitboards<Them, ROOK, QUEEN>();
+			uint64_t rook_pin = ROOK_XRAY_MAGICS[ksq][pieces] & pos.bitboards<Them, ROOK, QUEEN>();
 			while (rook_pin)
 				register_rook_pin<Us>(pos, ksq, pop_lsb(rook_pin));
 		}
@@ -497,10 +499,10 @@ force_inline uint64_t GenData::king_attacks(const Position& restrict pos)
 	kingban |= pawn_atk_bb<Them>(pos.bitboard<Them, PAWN>());
 
 	for (uint64_t enemy_bishops = pos.bitboards<Them, BISHOP, QUEEN>(); enemy_bishops; )
-		kingban |= BISHOP_MAGICS[pop_lsb(enemy_bishops)][pos.pieces];
+		kingban |= BISHOP_MAGICS[pop_lsb(enemy_bishops)][pieces];
 	
 	for (uint64_t enemy_rooks = pos.bitboards<Them, ROOK, QUEEN>(); enemy_rooks; )
-		kingban |= ROOK_MAGICS[pop_lsb(enemy_rooks)][pos.pieces];
+		kingban |= ROOK_MAGICS[pop_lsb(enemy_rooks)][pieces];
 
 	kingban |= PIECE_ATTACKS[KING][pos.king_sq<Them>()];
 
