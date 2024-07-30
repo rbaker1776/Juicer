@@ -17,7 +17,7 @@ namespace CLI
 
 int main(int argc, char* argv[])
 {
-	Engine juicer;
+	Engine juicer("8/8/8/5kp1/r7/3R1PK1/6P1/8 w - - 9 71");
 
 	std::string command = std::string();
 	std::string arg;

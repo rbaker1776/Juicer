@@ -1,6 +1,7 @@
-CXX = clang++
+CXX = g++
 STD = -std=c++20
-CFLAGS = -O3 -Wall -Wextra -pedantic -mllvm -inline-threshold=65535
+CFLAGS = -O3 -Wall -Wextra -pedantic
+PRODUCTION_FLAGS = -O3 -mllvm -inline-threshold=65535
 
 SRC =
 CLI_SRC = $(SRC) cli.cpp
@@ -11,8 +12,14 @@ CLI = juicer
 cli: $(CLI_SRC)
 	$(CXX) $(STD) $(CFLAGS) $(CLI_SRC) -o $(CLI) && ./$(CLI)
 
-perft:
-	$(CXX) $(STD) $(CFLAGS) bench_perft.cpp -o benchperft
+production: $(CLI_SRC)
+	$(CXX) $(STD) $(PRODUCTION_FLAGS) $(CLI_SRC) -o $(CLI)
+
+bench-perft:
+	$(CXX) $(STD) $(PRODUCTION_FLAGS) ./bench/perft.cpp -o ./bench/perft && ./bench/perft && rm ./bench/perft
+
+test-perft:
+	$(CXX) $(STD) $(CFLAGS) ./test/perft.cpp -o ./test/perft && ./test/perft && rm ./test/perft
 
 memcheck: $(TEST)
 	leaks --atExit -- ./juicer

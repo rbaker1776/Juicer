@@ -84,15 +84,15 @@ struct Position
 	forceinline Position make_move(const Move& m) const;
 
 	template<PieceType Pt>
-	forceinline Position make_move(Square from, Square to) const;
+	inline Position make_move(Square from, Square to) const;
 
 	template<PieceType Pt>
-	forceinline Position make_promotion(Square from, Square to) const;
+	inline Position make_promotion(Square from, Square to) const;
 
 	inline Piece piece_on(Square s) const;
 
 	template<Color C, PieceType Pt = ALL_PIECE_TYPES>
-	forceinline uint64_t bitboard() const;
+	inline uint64_t bitboard() const;
 
 	template<Color C, PieceType... Pts>
 	inline uint64_t bitboards() const { return (bitboard<C, Pts>() | ...); }
@@ -144,7 +144,7 @@ inline bool Boardstate::can_castle_kingside(uint64_t seen, uint64_t occupied, ui
 
 
 // forceinlining Position::make_move results in eliminating ~400 missed gvn remarks
-forceinline Position Position::make_move(const Move& m) const
+inline Position Position::make_move(const Move& m) const
 {
 	switch (m.type)
 	{
@@ -164,7 +164,7 @@ forceinline Position Position::make_move(const Move& m) const
 			switch (m.to)
 			{
 				case C1: return Position(wp, wn, wb, wr ^ (A1 | D1), wq, wk ^ (E1 | C1), bp, bn, bb, br, bq, bk, BLACK, castling & Castling::B_CASTLES, NO_SQUARE, 0);
-				case G1: return Position(wp, wn, wb, wr ^ (H1 | F1), wq, wk ^ (E1 | G1), bp, bn, bb, br, bq, bk, WHITE, castling & Castling::B_CASTLES, NO_SQUARE, 0);
+				case G1: return Position(wp, wn, wb, wr ^ (H1 | F1), wq, wk ^ (E1 | G1), bp, bn, bb, br, bq, bk, BLACK, castling & Castling::B_CASTLES, NO_SQUARE, 0);
 				case C8: return Position(wp, wn, wb, wr, wq, wk, bp, bn, bb, br ^ (A8 | D8), bq, bk ^ (E8 | C8), WHITE, castling & Castling::W_CASTLES, NO_SQUARE, 0);
 				case G8: return Position(wp, wn, wb, wr, wq, wk, bp, bn, bb, br ^ (H8 | F8), bq, bk ^ (E8 | G8), WHITE, castling & Castling::W_CASTLES, NO_SQUARE, 0);
 				default:
@@ -191,7 +191,7 @@ forceinline Position Position::make_move(const Move& m) const
 
 // forceinlining Position::make_move results in eliminating ~400 missed gvn remarks
 template<PieceType Pt>
-forceinline Position Position::make_move(Square from, Square to) const
+inline Position Position::make_move(Square from, Square to) const
 {
 	const uint64_t sqs = from | to;
 	const bool is_capture = pieces & to;
@@ -252,7 +252,7 @@ forceinline Position Position::make_move(Square from, Square to) const
 
 // forceinlining Position::make_promotions adds ~50 missed gvn optimizations but removes 6 slp-vectorizer misses
 template<PieceType Pt>
-forceinline Position Position::make_promotion(Square from, Square to) const
+inline Position Position::make_promotion(Square from, Square to) const
 {
 	const bool is_capture = pieces & to;
 
@@ -269,10 +269,10 @@ forceinline Position Position::make_promotion(Square from, Square to) const
 		}
 		else // (turn == BLACK)
 		{
-			if constexpr (Pt == QUEEN)  return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn, bb, br, bq ^ to, wk, WHITE, castling & rem, NO_SQUARE, 0);
-			if constexpr (Pt == KNIGHT) return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn ^ to, bb, br, bq, wk, WHITE, castling & rem, NO_SQUARE, 0);
-			if constexpr (Pt == ROOK)   return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn, bb, br ^ to, bq, wk, WHITE, castling & rem, NO_SQUARE, 0);
-			if constexpr (Pt == BISHOP) return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn, bb ^ to, br, bq, wk, WHITE, castling & rem, NO_SQUARE, 0);
+			if constexpr (Pt == QUEEN)  return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn, bb, br, bq ^ to, bk, WHITE, castling & rem, NO_SQUARE, 0);
+			if constexpr (Pt == KNIGHT) return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn ^ to, bb, br, bq, bk, WHITE, castling & rem, NO_SQUARE, 0);
+			if constexpr (Pt == ROOK)   return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn, bb, br ^ to, bq, bk, WHITE, castling & rem, NO_SQUARE, 0);
+			if constexpr (Pt == BISHOP) return Position(wp, wn & rem, wb & rem, wr & rem, wq & rem, wk, bp ^ from, bn, bb ^ to, br, bq, bk, WHITE, castling & rem, NO_SQUARE, 0);
 		}
 	}
 	else // (!is_capture)
@@ -286,10 +286,10 @@ forceinline Position Position::make_promotion(Square from, Square to) const
 		}
 		else // (turn == BLACK)
 		{
-			if constexpr (Pt == QUEEN)  return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn, bb, br, bq ^ to, wk, WHITE, castling, NO_SQUARE, 0);
-			if constexpr (Pt == KNIGHT) return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn ^ to, bb, br, bq, wk, WHITE, castling, NO_SQUARE, 0);
-			if constexpr (Pt == ROOK)   return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn, bb, br ^ to, bq, wk, WHITE, castling, NO_SQUARE, 0);
-			if constexpr (Pt == BISHOP) return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn, bb ^ to, br, bq, wk, WHITE, castling, NO_SQUARE, 0);
+			if constexpr (Pt == QUEEN)  return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn, bb, br, bq ^ to, bk, WHITE, castling, NO_SQUARE, 0);
+			if constexpr (Pt == KNIGHT) return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn ^ to, bb, br, bq, bk, WHITE, castling, NO_SQUARE, 0);
+			if constexpr (Pt == ROOK)   return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn, bb, br ^ to, bq, bk, WHITE, castling, NO_SQUARE, 0);
+			if constexpr (Pt == BISHOP) return Position(wp, wn, wb, wr, wq, wk, bp ^ from, bn, bb ^ to, br, bq, bk, WHITE, castling, NO_SQUARE, 0);
 		}
 
 	}
