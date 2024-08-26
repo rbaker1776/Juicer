@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 		if (arg == "show")
 		{
 			std::cout << "Fen: " << FEN::string(juicer.position()) << std::endl;
-			std::cout << "Key: " << Zobrist::hash(juicer.position()) << std::endl;
+			std::cout << "Key: " << juicer.position().key << std::endl;
 		}
 		else if (arg == "move")
 			while (ss >> arg)

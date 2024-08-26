@@ -43,16 +43,6 @@ enum File: int
 	NO_FILE = 8,
 };
 
-constexpr Square& operator++(Square& s) { return s = Square(int(s) + 1); }
-constexpr Square& operator--(Square& s) { return s = Square(int(s) - 1); }
-
-constexpr Rank& operator++(Rank& r) { return r = Rank(int(r) + 1); }
-constexpr Rank& operator--(Rank& r) { return r = Rank(int(r) - 1); }
-
-constexpr File& operator++(File& f) { return f = File(int(f) + 1); }
-constexpr File& operator--(File& f) { return f = File(int(f) - 1); }
-
-
 // value corresponds to the bitshift associated with a step in a given direction
 // one step north (ex. f4->f5) is a bitshift right by 8
 enum Direction: int
@@ -69,16 +59,6 @@ enum Direction: int
 	SS = S + S,
 	NO_DIRECTION = 0,
 };
-
-constexpr Square operator+(Square s, Direction d) { return Square(int(s) + int(d)); }
-constexpr Square operator-(Square s, Direction d) { return Square(int(s) - int(d)); }
-
-constexpr Square operator+(Square s, int d) { return Square(int(s) + d); }
-constexpr Square operator-(Square s, int d) { return Square(int(s) - d); }
-
-constexpr Square& operator+=(Square& s, Direction d) { return s = s + d; }
-constexpr Square& operator-=(Square& s, Direction d) { return s = s - d; }
-
 
 enum PieceType: int
 {
@@ -109,6 +89,13 @@ enum Piece: int
 	B_KING,
 };
 
+enum MoveType
+{
+	NORMAL,
+	CASTLING,
+	EN_PASSANT,
+	PROMOTION,
+};
 
 // type bool instead of type int to ensure reduced template instantiations
 enum Color: int
@@ -117,11 +104,45 @@ enum Color: int
 	BLACK = true,
 };
 
+constexpr Square& operator++(Square& s) { return s = Square(int(s) + 1); }
+constexpr Square& operator--(Square& s) { return s = Square(int(s) - 1); }
+
+constexpr Rank& operator++(Rank& r) { return r = Rank(int(r) + 1); }
+constexpr Rank& operator--(Rank& r) { return r = Rank(int(r) - 1); }
+
+constexpr File& operator++(File& f) { return f = File(int(f) + 1); }
+constexpr File& operator--(File& f) { return f = File(int(f) - 1); }
+
+
+
+constexpr Square operator+(Square s, Direction d) { return Square(int(s) + int(d)); }
+constexpr Square operator-(Square s, Direction d) { return Square(int(s) - int(d)); }
+
+constexpr Square operator+(Square s, int d) { return Square(int(s) + d); }
+constexpr Square operator-(Square s, int d) { return Square(int(s) - d); }
+
+constexpr Square& operator+=(Square& s, Direction d) { return s = s + d; }
+constexpr Square& operator-=(Square& s, Direction d) { return s = s - d; }
+
 constexpr Color operator~(Color c) { return Color(!bool(c)); }
 
 constexpr PieceType type_of(Piece pc) { return PieceType(pc & 7); }
 constexpr Color color_of(Piece pc) { return Color(pc >> 3); }
 constexpr Piece make_piece(Color c, PieceType pt) { return Piece((c << 3) | pt); }
+
+
+struct Move
+{
+	MoveType type;
+	Square from;
+	Square to;
+	PieceType piece;
+	int promise;
+
+	constexpr Move() = default;
+	constexpr Move(uint32_t data): type(MoveType(data >> 16)), from(Square(data & 63)), to(Square((data >> 6) & 63)), piece(PieceType((data >> 12) & 15)) {}
+	constexpr Move(MoveType mt, Square from, Square to, PieceType pt = KNIGHT): type(mt), from(from), to(to), piece(pt) {}
+}; // struct Move
 
 
 namespace Castling
@@ -141,26 +162,13 @@ namespace Castling
 }
 
 
-enum MoveType
-{
-	NORMAL,
-	CASTLING,
-	EN_PASSANT,
-	PROMOTION,
-};
+using value_t = int;
 
-struct Move
+namespace Value
 {
-	MoveType type;
-	Square from;
-	Square to;
-	PieceType piece;
-	int promise;
-
-	constexpr Move() = default;
-	constexpr Move(uint32_t data): type(MoveType(data >> 16)), from(Square(data & 63)), to(Square((data >> 6) & 63)), piece(PieceType((data >> 12) & 15)) {}
-	constexpr Move(MoveType mt, Square from, Square to, PieceType pt = KNIGHT): type(mt), from(from), to(to), piece(pt) {}
-}; // struct Move
+	static constexpr value_t DRAW = 0;
+	static constexpr value_t MATE = 0xffff;
+}
 
 
 #endif // TYPES_H_8D2FD9177A41

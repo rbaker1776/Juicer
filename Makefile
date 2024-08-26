@@ -1,6 +1,6 @@
 CXX = clang++
 STD = -std=c++20
-CFLAGS = -O0 -Wall -Wextra -pedantic
+CFLAGS = -O3 -Wall -Wextra -pedantic
 PRODUCTION_FLAGS = -O3 -mllvm -inline-threshold=65535
 
 SRC =
@@ -34,7 +34,7 @@ memcheck: $(TEST)
 	leaks --atExit -- ./juicer
 
 opt: $(CLI_SRC)
-	$(CXX) $(STD) $(CFLAGS) -Rpass-missed=.* -mllvm -inline-threshold=65535 $(CLI_SRC) -o $(CLI) 2> ./opt/opt_remarks.txt && python3 ./opt/analyzer.py ./opt/opt_remarks.txt
+	$(CXX) $(STD) $(CFLAGS) -Rpass-missed=.* -mllvm -inline-threshold=65535 $(CLI_SRC) -o $(CLI) 2> ./opt/opt_remarks.txt
 
 gvn: $(CLI_SRC)
 	$(CXX) $(STD) $(CFLAGS) -Rpass-missed=gvn $(CLI_SRC) -o $(CLI) 2> ./opt/gvn_remarks.txt && grep 'remark' ./opt/gvn_remarks.txt | wc -l
