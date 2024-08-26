@@ -1,7 +1,6 @@
 #include <string>
 #include <string_view>
 #include <vector>
-#include <cassert>
 #include <iostream>
 #include "../engine.h"
 #include "minunit.h"

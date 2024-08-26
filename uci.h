@@ -33,7 +33,7 @@ inline std::string UCI::move_to_string(const Move& m)
 
 	std::string move = UCI::sq_to_string(from) + UCI::sq_to_string(to);
 
-	if (m.type == PROMOTION) move += " pnbrqk"[m.piece];
+	if (m.type == PROMOTION) move += "__nbrq"[m.piece];
 
 	return move;
 }

@@ -26,7 +26,14 @@ static constexpr uint64_t operator&(Square s1, Square s2) { return square_to_bb(
 static constexpr uint64_t operator|(Square s1, Square s2) { return square_to_bb(s1) | s2; }
 static constexpr uint64_t operator^(Square s1, Square s2) { return square_to_bb(s1) ^ s2; }
 
-static constexpr File file_of(Square s) { return File(s & 7); }
+static constexpr File file_of(Square s)
+{
+	if (s == NO_SQUARE)
+		return NO_FILE;
+	else
+		return File(s & 7); 
+}
+
 static constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
 
 

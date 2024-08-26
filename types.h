@@ -40,6 +40,7 @@ enum File: int
 	FILE_F,
 	FILE_G,
 	FILE_H,
+	NO_FILE = 8,
 };
 
 constexpr Square& operator++(Square& s) { return s = Square(int(s) + 1); }
@@ -135,6 +136,8 @@ namespace Castling
 	
 	static constexpr uint64_t QUEENSIDE {W_OOO | B_OOO};
 	static constexpr uint64_t KINGSIDE  {W_OO | B_OO};
+	
+	static constexpr uint64_t ANY {KINGSIDE | QUEENSIDE};
 }
 
 

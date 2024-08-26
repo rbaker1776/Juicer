@@ -3603,6 +3603,14 @@ static constexpr uint64_t shift(uint64_t bb)
 		return (bb & ~Bitboard::FILEA) >> 9;
 }
 
+constexpr Direction pawn_step(Color c)
+{
+	if (c == WHITE)
+		return Direction::N;
+	else
+		return Direction::S;
+}
+
 template<Color C>
 consteval Direction pawn_step()
 {

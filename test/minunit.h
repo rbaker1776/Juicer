@@ -56,7 +56,7 @@ do {\
 		mu_failure_line = __LINE__;\
 		mu_error_message = message;\
 		mu_status = mu_Status::FAILURE;\
-	} else {\
+	} else if (condition) {\
 		++mu_positive_assertion_count;\
 	}\
 )

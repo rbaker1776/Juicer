@@ -1,6 +1,6 @@
-CXX = g++
+CXX = clang++
 STD = -std=c++20
-CFLAGS = -O3 -Wall -Wextra -pedantic
+CFLAGS = -O0 -Wall -Wextra -pedantic
 PRODUCTION_FLAGS = -O3 -mllvm -inline-threshold=65535
 
 SRC =
@@ -18,8 +18,17 @@ production: $(CLI_SRC)
 bench-perft:
 	$(CXX) $(STD) $(PRODUCTION_FLAGS) ./bench/perft.cpp -o ./bench/perft && ./bench/perft && rm ./bench/perft
 
+bench-hash:
+	$(CXX) $(STD) $(PRODUCTION_FLAGS) ./bench/hash.cpp -o ./bench/hash && ./bench/hash && rm ./bench/hash
+
 test-perft:
 	$(CXX) $(STD) $(CFLAGS) ./test/perft.cpp -o ./test/perft && ./test/perft && rm ./test/perft
+
+test-fen:
+	$(CXX) $(STD) $(CFLAGS) ./test/fen.cpp -o ./test/fen && ./test/fen && rm ./test/fen
+
+test-zobrist:
+	$(CXX) $(STD) $(CFLAGS) ./test/zobrist.cpp -o ./test/zobrist && ./test/zobrist && rm ./test/zobrist
 
 memcheck: $(TEST)
 	leaks --atExit -- ./juicer

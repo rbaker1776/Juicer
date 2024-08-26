@@ -17,7 +17,7 @@ namespace CLI
 
 int main(int argc, char* argv[])
 {
-	Engine juicer("8/8/8/5kp1/r7/3R1PK1/6P1/8 w - - 9 71");
+	Engine juicer;
 
 	std::string command = std::string();
 	std::string arg;
@@ -36,9 +36,12 @@ int main(int argc, char* argv[])
 		std::istringstream ss(command);
 		ss >> arg;
 
-		//if (arg == "show")
-		//	std::cout << juicer.board().to_string() << std::endl;
-		if (arg == "move")
+		if (arg == "show")
+		{
+			std::cout << "Fen: " << FEN::string(juicer.position()) << std::endl;
+			std::cout << "Key: " << Zobrist::hash(juicer.position()) << std::endl;
+		}
+		else if (arg == "move")
 			while (ss >> arg)
 				juicer.make_move(UCI::string_to_move(juicer.position(), arg));
 		else if (arg == "perft")
@@ -47,8 +50,6 @@ int main(int argc, char* argv[])
 			uint64_t perft = juicer.perft<true>(std::stoi(arg));
 			std::cout << std::endl << "Nodes searched: " << perft << std::endl << std::endl;
 		}
-		else if (arg == "eval")
-			std::cout << pcsq_evaluate(juicer.position()) << std::endl;
 		else if (arg == "quit")
 			break;
 
