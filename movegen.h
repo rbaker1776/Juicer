@@ -74,7 +74,7 @@ struct GenData
 // similarly to enumerate(), the compiler deems this funciton too costly to inline, however I do not
 // constfunc and both restrictions have no measurable benefits on clang 15 -O3, but are kept incase other compilers would see a gain
 template<GenType Gt, Color Us, bool HasEP>
-forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, const GenData& restrict gendata, uint64_t checkmask, Move* moves)
+forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, const GenData& restrict gendata, uint64_t checkmask, Move* restrict moves)
 {
 	constexpr Color Them = ~Us;
 
@@ -263,7 +263,7 @@ forceinline constfunc Move* enumerate_pawn_moves(const Position& restrict pos, c
 // however they are kept incase another compiler cannot make the same assumptions
 // __attribute__((const)) i.e. constfunc also has no measurable gain but is kept for the same reason
 template<GenType Gt, Boardstate State, bool IsCheck>
-forceinline constfunc Move* enumerate(const Position& restrict pos, const GenData& restrict gendata, uint64_t king_atk, Move* moves)
+forceinline constfunc Move* enumerate(const Position& restrict pos, const GenData& restrict gendata, uint64_t king_atk, Move* restrict moves)
 {
 	constexpr Color Us = State.turn;
 

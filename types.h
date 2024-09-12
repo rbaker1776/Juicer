@@ -104,6 +104,7 @@ enum Color: int
 	BLACK = true,
 };
 
+
 constexpr Square& operator++(Square& s) { return s = Square(int(s) + 1); }
 constexpr Square& operator--(Square& s) { return s = Square(int(s) - 1); }
 
@@ -112,8 +113,6 @@ constexpr Rank& operator--(Rank& r) { return r = Rank(int(r) - 1); }
 
 constexpr File& operator++(File& f) { return f = File(int(f) + 1); }
 constexpr File& operator--(File& f) { return f = File(int(f) - 1); }
-
-
 
 constexpr Square operator+(Square s, Direction d) { return Square(int(s) + int(d)); }
 constexpr Square operator-(Square s, Direction d) { return Square(int(s) - int(d)); }

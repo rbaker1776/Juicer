@@ -17,6 +17,7 @@ namespace CLI
 
 int main(int argc, char* argv[])
 {
+	std::cout << sizeof(key_t) << std::endl;
 	Engine juicer;
 
 	std::string command = std::string();

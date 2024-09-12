@@ -3,7 +3,7 @@ import argparse
 
 def count_remarks(remark, optlines):
 	remark = f"[-Rpass-missed={remark}]\n"
-	return sum(1 for s in optlines if s.endswith(remark))
+	return sum(1 for s in optlines if (s.endswith(remark) and "0 >= 0" not in s))
 
 def main():
 	parser = argparse.ArgumentParser()
