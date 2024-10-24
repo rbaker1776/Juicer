@@ -2,7 +2,6 @@ CXX = clang++
 STD = -std=c++20
 CFLAGS = -O3 -Wall -Wextra -pedantic
 PRODUCTION_FLAGS = -O3 -mllvm -inline-threshold=65535
-
 SRC =
 CLI_SRC = $(SRC) cli.cpp
 CLI = juicer

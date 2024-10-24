@@ -288,8 +288,8 @@ int main()
 
 	std::cout << std::endl;
 	std::cout << "Total nodes:   " << nodes << std::endl;
-	std::cout << "Finished in:   " << time << " microseconds" << std::endl;
-	std::cout << "Aggregate NPS: " << "\x1b[35m" << uint64_t(nodes * 1'000'000 / time) << "\x1b[0m" << std::endl;
+	std::cout << "Finished in:   " << (time / 1e6) << " seconds" << std::endl;
+	std::cout << "Aggregate NPS: " << "\x1b[35m" << uint64_t(nodes * 1e6 / time) << "\x1b[0m" << std::endl;
 
 	return 0;
 }
